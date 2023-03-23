@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Controllers;
+
+//os recursos do miniframework
+use MF\Controller\Action;
+use MF\Model\Container;
+
+class AppController extends Action {
+
+	public function index() {
+		session_start();
+
+		
+
+		$this->render('index');
+	}
+
+}
+
+
+?>

@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Models;
+use MF\Model\Model;
+use App\Connection;
+
+class Usuario extends Model {
+
+    private $id;
+    private $nome;
+    private $email;
+    private $senha;
+
+    public function __get($name) {
+        return $this->$name;
+    }
+    public function __set($name,$value ) {
+        $this->$name = $value;
+    }
+
+    public function cadastrarUsuarioComum() {
+        $query = "insert into usuario(nome,senha,email,tipo_perfil)
+        values (:nome,:senha,:email)";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':nome',$this->__get('nome'));
+        $smtm->bindValue(':senha',$this->__get('senha'));
+        $smtm->bindValue(':email',$this->__get('email'));
+        $smtm->execute();
+        return $this;
+    }
+    public function validateSignUp() {
+        $valide = true;
+
+        if(strlen($this->__get('nome')) < 3) {
+            return false;
+        }
+        if(strlen($this->__get('email')) < 3) {
+            return false;
+        }
+        if(strlen($this->__get('senha')) < 3) {
+            return false;
+        }
+        return $valide;
+    }
+    public function autenticar() {
+        $query = "select id, nome, email from usuario where email = :email AND senha = :senha";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':email',$this->__get('email'));
+        $smtm->bindValue(':senha',$this->__get('senha'));
+        $smtm->execute();
+
+        $usuario = $smtm->fetch(\PDO::FETCH_ASSOC);
+        if($usuario['id'] != '' && $usuario['nome'] != '') {
+            $this->__set('id', $usuario['id']);
+            $this->__set('nome', $usuario['nome']);
+        }
+        return $this;
+    }
+    public function getUser() {
+        $query = "select id, nome, email from usuario where id = :id";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':id',$this->__get('id'));
+        $smtm->execute();
+        return $smtm->fetch(\PDO::FETCH_ASSOC);
+    }
+}
+
+?>
