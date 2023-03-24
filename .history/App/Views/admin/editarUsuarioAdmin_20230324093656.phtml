@@ -1,0 +1,61 @@
+<?php
+$usuario = $this->view->getUsuario;
+
+?>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="/css/login.css">
+<script src="/js/login.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="alert alert-danger" role="alert">
+  This is a danger alert—check it out!
+</div>
+
+<section id="login">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-wrap">
+                    <h1 class="text-primary">Editar o usuario <?=$usuario['nome']?> </h1>
+                    <form role="form" action="/editar" method="post" id="login-form" autocomplete="off">
+                            
+                        <input type="hidden" name="id" value="<?=$usuario['id']?>">  
+                    <div class="form-group">
+                            <label for="nome" class="sr-only">Nome</label>
+                            <input type="text" value="<?=$usuario['nome']?>" name="nome" id="nome" class="form-control" placeholder="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Data de Nascimento</label>
+                            <input type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Telefone</label>
+                            <input maxlength="11" type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Password</label>
+                            <input type="password" name="senha" id="key" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Imagem Id</label>
+                            <input type="text" name="imagemId" id="key" class="form-control" placeholder="Imagem Id">
+                        </div>
+                        <div class="checkbox">
+                            <span class="character-checkbox" onclick="showPassword()"></span>
+                            <span class="label">Show password</span>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-light text-primary btn-lg btn-block" value="Criar">
+                    </form>
+                    <hr>
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
