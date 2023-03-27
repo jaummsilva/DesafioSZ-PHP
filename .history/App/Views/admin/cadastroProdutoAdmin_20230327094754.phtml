@@ -1,0 +1,53 @@
+<?php
+$errosProduto =  $this->view->errosProduto;
+?>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/"></script>
+<link rel="stylesheet" href="/css/login.css">
+
+<?php if(!empty($errosProduto)) { ?>
+    <?php foreach($errosProduto as $erro ) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $erro?>
+         </div>
+    <? }
+    ?>
+<? } 
+?>
+
+
+<section id="login">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-wrap">
+                    <h1 class="text-primary">Criar um produto</h1>
+                    <form role="form" action="/registrarProduto" method="post" id="login-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="nome" class="sr-only">Nome</label>
+                            <input value="" type="text" name="nome" class="form-control" placeholder="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Preço</label>
+                            <input pattern=" " id="valorTransf" name="preco" class="form-control" placeholder="Preço">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Descricao</label>
+                            <input type="text" name="descricao" class="form-control" placeholder="Descricao">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Imagem Id</label>
+                            <input type="text" name="imagemId" class="form-control" placeholder="Imagem Id">
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-success btn-lg btn-block" value="Criar">
+                    </form>
+                    <hr>
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
