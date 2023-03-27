@@ -38,10 +38,7 @@ class Produto extends Model {
         if(strlen($this->__get('nome')) < 3) {
             return false;
         }
-        if(strlen($this->__get('preco')) < 5) {
-            return false;
-        }
-        if(strlen($this->__get('descricao')) < 10) {
+        if(strlen($this->__get('descricao')) < 5) {
             return false;
         }
         return $valide;

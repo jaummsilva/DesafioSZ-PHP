@@ -24,40 +24,39 @@ $usuario = $this->view->getUsuario;
 				<a class="navbar-brand" href="/">
 					<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 				</a>
-				<div class="collapse navbar-collapse ml-2 mt-1" id="navbarNavAltMarkup">
-					<form class="mt-2" action="">
-						<span>Pesquise:</span>
-						<input class="ml-1" type="text" name="" id="">
-					</form>
-					<div class="navbar-nav ml-auto mb-2">
-						<button type="button" class="btn btn-light text-primary">
+				<div class="collapse navbar-collapse mt-2 ml-auto d-flex justify-content-end" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<form class="mt-2" action="">
+							<span>Pesquise:</span>
+							<input class="ml-1" type="text" name="" id="">
+						</form>
+					</div>
+					<div class="navbar-nav ml-auto">
+						<button id=""  type="button" class="btn btn-light text-primary">
 							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							Carrinho
 							<span class="badge badge-light">4</span>
 						</button>
-							<? if (isset($usuario['id'])) { ?>
-								<div class="dropdown show ml-2">
+						<? if (isset($usuario['id'])) { ?>
+							<div class="dropdown show ml-2">
 								<a class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="/sair">Sair</a>
-									</div>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" href="/sair">Sair</a>
 								</div>
-							<? }
-							?>
-							<? if (!isset($usuario['id'])) { ?>
-									<a class="btn btn-info" href="/login">Entrar</a>
-								<? }
-								?>
+							</div>
+						<? }
+						?>
+						<? if (!isset($usuario['id'])) { ?>
+							<a class="btn btn-info" href="/login">Entrar</a>
+						<? }
+						?>
 					</div>
 				</div>
 			</div>
 		</nav>
 	</header>
-
-
-
 	<?= $this->content() ?>
-	<footer class="fixed-bottom mb-4">
+	<footer class="mb-4">
 		<hr style="background-color: black;">
 		<div class="container">
 			<div class="row text-center">
@@ -82,5 +81,25 @@ $usuario = $this->view->getUsuario;
 		</div>
 	</footer>
 </body>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button onclick type="button" class="btn btn-primary button-remover">Remover</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </html>

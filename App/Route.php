@@ -22,6 +22,17 @@ class Route extends Bootstrap {
 			'action' => 'index'
 		);
 
+		$routes['produto'] = array(
+			'route' => '/produto/{id}',
+			'controller' => 'appController',
+			'action' => 'produto'
+		);
+		$routes['inserirProdutoCarrinho'] = array(
+			'route' => '/inserirProdutoCarrinho',
+			'controller' => 'appController',
+			'action' => 'inserirProdutoCarrinho'
+		);
+
 		// Auth Controller
 		$routes['autenticar'] = array(
 			'route' => '/autenticar',

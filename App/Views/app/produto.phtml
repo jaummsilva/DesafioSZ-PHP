@@ -1,11 +1,10 @@
-<?php 
-$produtos = $this->view->getProdutos;
+<?php
+$produto = $this->view->getProdutoId;
 ?>
 
 <script>
-    $(document).ready(function(){
-
-        function adicionar(id) {
+    
+    function adicionar(id) {
             $.ajax({
                 url: 'inserirProdutoCarrinho',
                 type: 'POST',
@@ -29,47 +28,35 @@ $('.btn-carrinho').click(function (e) {
     let id = idText[2];
     console.log(text);
 })
-
-    })
 </script>
-
 
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="/js/produto,js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 
 <br>
 <br>
 <br>
-<div class="container section-bg mt-5">
-        <div class="col-md-9">
-            <div class="row">
-            <?php foreach ($produtos as $produto) 
-     { ?>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <img src="http://placehold.it/266x266" alt="">
-                        <div class="caption">
-                            <h4 class="item-name text-left">
-                                <?= $produto['nome'] ?>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h4 class="item-name text-left">
-                                <?= $produto['descricao'] ?>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h4 class="item-price text-left mr-3">
-                            <?= $produto['preco'] ?>
-                            </h4>
-                    </div>
-                    <div class="caption d-flex ">
-                    <button id="id-button-modal-carrinho-<?=$produto['id']?>" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
-                            <div class="ml-5" style="width: 40px;">
+<div class="container-fluid m-5">
+    <div class="row">
+        <div class="col-6">
+            <img src="http://placehold.it/266x266" alt="">
+        </div>
+        <div class="col-6">
+            <div class="row d-flex flex-column">
+                <div class="">
+                    <h1><?= $produto['nome'] ?> </h1>
+                </div>
+                <div class="">
+                    <h4><?= $produto['descricao'] ?> </h4>
+                </div>
+                <div class="mt-5 d-flex flex-row">
+                    <h2><?= $produto['preco'] ?> R$ </h2>
+                    <div class="ml-5" style="width: 40px;">
                         <span class="input-group-btn">
                             <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
                                 <span class="glyphicon glyphicon-minus"></span>
@@ -81,10 +68,13 @@ $('.btn-carrinho').click(function (e) {
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
                         </span>
-                        </div>
-                        </div>
+                    </div>
                 </div>
-                <? } ?>
+                <br>
             </div>
-     </div>
+            <div>
+                <button class="btn btn-primary">Adicionar no carrinho</button>
+            </div>
+        </div>
+    </div>
 </div>
