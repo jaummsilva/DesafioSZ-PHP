@@ -1,41 +1,15 @@
 <?php
 $produto = $this->view->getProdutoId;
+$usuario = $this->view->getUsuario;
 ?>
-
-<script>
-    
-    function adicionar(id) {
-            $.ajax({
-                url: 'inserirProdutoCarrinho',
-                type: 'POST',
-                data: {
-                    idUsuario: id,
-
-                },
-                success: function(response) {
-                    window.location.href = "/listagemUsuarioAdmin"
-                    alert("Deletado com sucesso")
-                },
-                error: function(e){
-                    window.location.href = "/listagemUsuarioAdmin"
-                    alert("Ocorreu um erro")
-                }
-            })
-}
-$('.btn-carrinho').click(function (e) {
-    let text = e.target.id;
-    let idText = text.split("-");
-    let id = idText[2];
-    console.log(text);
-})
-</script>
-
-
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<!------ Include the above in your HEAD tag ---------->
+<script src="/js/produto.js"></script>
+<script>
+    $('.btn-carrinho').click(function() {
+        $('#exampleModal').modal('show');
+    })
+</script>
 
 
 <br>
@@ -58,13 +32,13 @@ $('.btn-carrinho').click(function (e) {
                     <h2><?= $produto['preco'] ?> R$ </h2>
                     <div class="ml-5" style="width: 40px;">
                         <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                            <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                         </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
+                        <input type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control input-number" value="10" min="1" max="100">
                         <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                            <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
                         </span>
@@ -73,8 +47,12 @@ $('.btn-carrinho').click(function (e) {
                 <br>
             </div>
             <div>
-                <button class="btn btn-primary">Adicionar no carrinho</button>
+                <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
             </div>
         </div>
     </div>
 </div>
+
+<?php
+include('modalCarrinho.phtml');
+?>

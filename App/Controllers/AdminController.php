@@ -148,7 +148,7 @@ class AdminController extends Action {
         $this->view->getUsuario['telefone'] =  $_POST['telefone'];
         $this->view->getUsuario['senha'] =  $_POST['senha'];
         $this->view->getUsuario['email'] =  $_POST['email'];
-        $this->view->getUsuario['imagem_Id'] =  $_POST['imagemId'];
+        $this->view->getUsuario['imagem_id'] =  $_POST['imagemId'];
     }   
 
     // Produto

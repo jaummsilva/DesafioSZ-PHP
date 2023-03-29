@@ -22,7 +22,7 @@ class Produto extends Model {
     }
 
     public function cadastrarProduto() {
-        $query = "insert into produto(nome,preco,descricao,imagem_Id)
+        $query = "insert into produto(nome,preco,descricao,imagem_id)
         values (:nome,:preco,:descricao,:imagemId)";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':nome',$this->__get('nome'));
@@ -49,6 +49,14 @@ class Produto extends Model {
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function getProdutoPesquisa() {
+        $query = "select * from produto where nome = :nome OR descricao = :descricao";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':nome',$this->__get('nome'));
+        $smtm->bindValue(':descricao',$this->__get('nome'));
+        $smtm->execute();
+        return $smtm->fetchAll(\PDO::FETCH_ASSOC);
+    }
     public function getProduto() {
         $query = "select * from produto where id = :id";
         $smtm = $this->db->prepare($query);
@@ -56,12 +64,13 @@ class Produto extends Model {
         $smtm->execute();
         return $smtm->fetch(\PDO::FETCH_ASSOC);
     }
+    
     public function editarProduto() {
         $query = "update produto set nome = :nome,
         preco = :preco,
         descricao = :descricao,
         data_alteracao = :data_alteracao,
-        imagem_Id = :imagemId
+        imagem_id = :imagemId
         where id = :id";
         
         $smtm = $this->db->prepare($query);

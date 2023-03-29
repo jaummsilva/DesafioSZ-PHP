@@ -32,6 +32,21 @@ class Route extends Bootstrap {
 			'controller' => 'appController',
 			'action' => 'inserirProdutoCarrinho'
 		);
+		$routes['removerProdutoCarrinho'] = array(
+			'route' => '/removerProdutoCarrinho',
+			'controller' => 'appController',
+			'action' => 'removerProdutoCarrinho'
+		);
+		$routes['pesquisarProdutos'] = array(
+			'route' => '/pesquisarProdutos',
+			'controller' => 'appController',
+			'action' => 'pesquisarProdutos'
+		);
+		$routes['criarPedido'] = array(
+			'route' => '/criarPedido',
+			'controller' => 'appController',
+			'action' => 'criarPedido'
+		);
 
 		// Auth Controller
 		$routes['autenticar'] = array(

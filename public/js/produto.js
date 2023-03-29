@@ -1,88 +1,98 @@
-$(document).ready(function(){
+function incrementQtd(id) {
 
-    function adicionar(id) {
-        $.ajax({
-            url: 'inserirProdutoCarrinho',
-            type: 'POST',
-            data: {
-                idUsuario: id,
-                
-            },
-            success: function(response) {
-                window.location.href = "/";
-                alert("Item adicionado com sucesso");
-            },
-            error: function(e){
-                window.location.href = "/";
-                alert("Ocorreu um erro");
-            }
-        })
+  var quantity = parseInt($(`#quantity-${id}`).val());
+  var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
+  $(`#quantity-${id}`).val(quantity + 1);
+  $(`#quantityCarrinho-${id}`).val(quantityCarrinho + 1);
 }
-   
 
-    var quantitiy=0;
-       $('.quantity-right-plus').click(function(e){
-            
-            // Stop acting like a button
-            e.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity').val());
-            
-            // If is not undefined
-                
-                $('#quantity').val(quantity + 1);
-    
-              
-                // Increment
+function decrementQtd(id) {
+  var quantity = parseInt($(`#quantity-${id}`).val());
+  var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
+  if (quantity > 0) {
+    $(`#quantity-${id}`).val(quantity - 1);
+  }
+  if(quantityCarrinho > 0 ) {
+    $(`#quantityCarrinho-${id}`).val(quantityCarrinho - 1);
+  }
+}
 
-                $.ajax({
-                    url: 'produto',
-                    type: 'GET',
-                    success: function() {
-                    },
-                    error: function(){
-                        
-                    }
-                })
-            
-        });
-    
-         $('.quantity-left-minus').click(function(e){
-            // Stop acting like a button
-            e.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity').val());
-            
-            // If is not undefined
-          
-                // Increment
-                if(quantity>0){
-                $('#quantity').val(quantity - 1);
-                }
-        });
 function adicionar(id) {
-            $.ajax({
-                url: 'inserirProdutoCarrinho',
-                type: 'POST',
-                data: {
-                    idUsuario: id,
-
-                },
-                success: function(response) {
-                    window.location.href = "/listagemUsuarioAdmin"
-                    alert("Deletado com sucesso")
-                },
-                error: function(e){
-                    window.location.href = "/listagemUsuarioAdmin"
-                    alert("Ocorreu um erro")
-                }
-            })
+  let qtdProduto = $(`#quantity-${id}`).val();
+  
+  $.ajax({
+    url: "/inserirProdutoCarrinho",
+    type: "POST",
+    data: {
+      idProduto: id,
+      qtd_Produto: qtdProduto,
+    },
+    success: function (response) {
+      alert("Item adicionado com sucesso");
+      $('#exampleModal').modal('show');
+    },
+    error: function (e) {
+      alert("Ocorreu um erro");
+    },
+  });
 }
-$('.btn-carrinho').click(function (e) {
-    let text = e.target.id;
-    let idText = text.split("-");
-    let id = idText[3];
-    console.log(id);
-})
 
-});
+function criarCarrinho(preco) {
+  $.ajax({
+    url: "/criarPedido",
+    type: "POST",
+    data: {
+      preco: preco,
+    },
+    success: function (response) {
+      $('#exampleModal').modal('show');
+    },
+    error: function (e) {
+      alert("Ocorreu um erro");
+    },
+  });
+}
+
+
+function adicionarCarrinho(id) {
+  let qtdProdutoCarrinho = $(`#quantityCarrinho-${id}`).val();
+  console.log(qtdProdutoCarrinho);
+  
+  $.ajax({
+    url: "/inserirProdutoCarrinho",
+    type: "POST",
+    data: {
+      idProduto: id,
+      qtd_produto_carrinho: qtdProdutoCarrinho
+    },
+    success: function (response) {
+      $('#exampleModal').modal('show');
+    },
+    error: function (e) {
+      alert("Ocorreu um erro");
+    },
+  });
+}
+
+function remover(id,idUsuario) {
+
+  $.ajax({
+    url: "/removerProdutoCarrinho",
+    type: "POST",
+    data: {
+      idProduto: id,
+      idUsuario: idUsuario
+    },
+    success: function (response) {
+      window.location.href = "/";
+      alert('Item removido do carrinho')
+    },
+    error: function (e) {
+      window.location.href = "/"
+      alert("Ocorreu um erro");
+    },
+  });
+  $('.input-number').attr("onchange",`remover(${id,idUsuario})`)
+}
+
+

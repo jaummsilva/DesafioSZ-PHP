@@ -24,7 +24,7 @@ class Usuario extends Model {
     }
 
     public function cadastrarUsuario() {
-        $query = "insert into usuario(nome,email,senha,data_nascimento,telefone,imagem_Id)
+        $query = "insert into usuario(nome,email,senha,data_nascimento,telefone,imagem_id)
         values (:nome,:email,:senha,:data_nascimento,:telefone,:imagemId)";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':nome',$this->__get('nome'));
@@ -91,7 +91,7 @@ class Usuario extends Model {
         telefone = :telefone,
         data_nascimento = :data_nascimento,
         data_alteracao = :data_alteracao,
-        imagem_Id = :imagemId
+        imagem_id = :imagemId
         where id = :id";
         
         $smtm = $this->db->prepare($query);

@@ -1,0 +1,143 @@
+<?php
+$carrinhoUsuario = $this->view->getCarrinho;
+$total = $this->view->getTotalCarrinho;
+
+?>
+
+<div class="modal right fade" id="exampleModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light fixed-top">
+                <button type="button" class="btn btn-danger ml-auto btn-sm" data-dismiss="modal">Close</button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="modal-body mt-5">
+                <main id="cart" style="max-width:960px">
+                    <div class="container-fluid">
+                        <div class="row align-items-start">
+                            <div class="col-12 col-sm-8 items">
+                                <? foreach ($carrinhoUsuario as $carrinho) { ?>
+                                    <div class="cartItem row align-items-start">
+                                        <div class="col-3 mb-2">
+                                            <img style="height: 50px;" src="http://placehold.it/266x266" alt="">
+                                        </div>
+                                        <div class="col-5 mb-2">
+                                            <h4 class=""><?= $carrinho['nome'] ?> </h4>
+                                            <p id="cartItem1Price">Preço: <?= $carrinho['preco'] ?> </p>
+                                        </div>
+                                        <div style="margin-top: 25px;" class="col-2">
+                                            <p class="cartItemQuantity p-1 text-center">Quantidade:</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="ml-5" style="width: 40px;">
+                                                <span class="input-group-btn">
+                                                    <button onclick="incrementQtd(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                                <input onchange="adicionarCarrinho(<?= $carrinho['produto_id'] ?>)" type="text" id="quantityCarrinho-<?= $carrinho['produto_id'] ?>" name="quantity" class="form-control input-number" value="<?= $carrinho['quantidade_produto'] ?>" min="1" max="100">
+                                                <span class="input-group-btn">
+                                                    <button onclick="decrementQtd(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <button onclick="remover(<?= $carrinho['produto_id'] ?>,<?= $carrinho['usuario_id'] ?>)" id="id-button-carrinho-<?= $usuario['id'] ?>" class="btn btn-light btn-carrinho-usuario">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                <? }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <div class="fixed-bottom bg-light ">
+                    <div class="d-flex justify-content-center flex-row">
+                    <h3 id="total">Total: R$ <?= $total['total_produto']?></h3>
+                    <button onclick="(<?= $total['total_produto']?>)" style="height: 40px;" type="button" class="btn btn-success mt-3 ml-4">Finalizar compra</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="/js/produto.js"></script>
+
+
+<style>
+    .modal.right.fade.in .modal-dialog {
+        right: 0 !important;
+        transform: translateX(-50%);
+    }
+
+    .modal.right .modal-content {
+        height: 100%;
+        overflow: auto;
+        border-radius: 0;
+    }
+
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        transform: translateX(0%);
+    }
+
+    .modal.right.fade .modal-dialog {
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+
+    .modal.right .modal-header {
+        color: #fff
+    }
+
+    .modal.right .modal-header::after {
+        content: "";
+        display: inline-block;
+    }
+
+    .modal.right .close {
+        text-shadow: none;
+        opacity: 1;
+        color: black;
+        font-size: 26px
+    }
+
+    /*  form-control  */
+
+    .form-control {
+        border-radius: 0;
+        box-shadow: none
+    }
+
+    .form-control:focus {
+        box-shadow: none
+    }
+
+
+    /*  Button  */
+</style>

@@ -1,90 +1,65 @@
-<?php 
+<?php
 $produtos = $this->view->getProdutos;
+$usuario = $this->view->getUsuario;
+include('modalCarrinho.phtml');
 ?>
 
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="/js/produto.js"></script>
+
 <script>
-    $(document).ready(function(){
-
-        function adicionar(id) {
-            $.ajax({
-                url: 'inserirProdutoCarrinho',
-                type: 'POST',
-                data: {
-                    idUsuario: id,
-
-                },
-                success: function(response) {
-                    window.location.href = "/listagemUsuarioAdmin"
-                    alert("Deletado com sucesso")
-                },
-                error: function(e){
-                    window.location.href = "/listagemUsuarioAdmin"
-                    alert("Ocorreu um erro")
-                }
-            })
-}
-$('.btn-carrinho').click(function (e) {
-    let text = e.target.id;
-    let idText = text.split("-");
-    let id = idText[2];
-    console.log(text);
-})
-
+    $('.btn-carrinho').click(function() {
+        $('#exampleModal').modal('show');
     })
 </script>
 
-
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="/js/produto,js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-
 <br>
 <br>
 <br>
-<div class="container section-bg mt-5">
-        <div class="col-md-9">
-            <div class="row">
-            <?php foreach ($produtos as $produto) 
-     { ?>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <img src="http://placehold.it/266x266" alt="">
-                        <div class="caption">
-                            <h4 class="item-name text-left">
-                                <?= $produto['nome'] ?>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h4 class="item-name text-left">
-                                <?= $produto['descricao'] ?>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h4 class="item-price text-left mr-3">
-                            <?= $produto['preco'] ?>
-                            </h4>
-                    </div>
-                    <div class="caption d-flex ">
-                    <button id="id-button-modal-carrinho-<?=$produto['id']?>" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
-                            <div class="ml-5" style="width: 40px;">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
-                        </div>
-                        </div>
+<div class="container section-bg">
+    <div class="row">
+        <?php foreach ($produtos as $produto) { ?>
+            <div class="col-sm-4 col-lg-4 col-md-6 mb-5 ">
+                <a href="/produto/<?= $produto['id'] ?>">
+                    <img src="http://placehold.it/266x266" alt="">
+                </a>
+                <div class="caption">
+                    <h4 class="item-name text-left">
+                        <?= $produto['nome'] ?>
+                    </h4>
                 </div>
+                <div class="caption">
+                    <h4 class="item-name text-left">
+                        <?= $produto['descricao'] ?>
+                    </h4>
+                </div>
+                <div class="caption">
+                    <h4 class="item-price text-left mr-3">
+                        <?= $produto['preco'] ?>
+                    </h4>
+                </div>
+                <? if (isset($usuario['id'])) { ?>
+                    <div class="caption d-flex ">
+                        <div>
+                            <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
+                        </div>
+                        <div class="ml-5" style="width: 40px;">
+                            <span class="input-group-btn">
+                                <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                            <input type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                            <span class="input-group-btn">
+                                <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 <? } ?>
             </div>
-     </div>
+        <? } ?>
+    </div>
 </div>

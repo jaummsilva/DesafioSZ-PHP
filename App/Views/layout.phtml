@@ -1,7 +1,7 @@
 <?php
 $usuario = $this->view->getUsuario;
+$contador = $this->view->getContador;
 ?>
-
 <html>
 
 <head>
@@ -11,7 +11,7 @@ $usuario = $this->view->getUsuario;
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
+	<script src="/js/produto.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -21,22 +21,30 @@ $usuario = $this->view->getUsuario;
 	<header class="fixed-top">
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/">
-					<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-				</a>
-				<div class="collapse navbar-collapse mt-2 ml-auto d-flex justify-content-end" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="navbar-brand" href="/">
+						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+					</a>
+				</div>
+				<button class="navbar-toggle bg-dark" data-toggle="collapse" data-target="#nav-principal3">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="nav-principal3">
 					<div class="navbar-nav">
-						<form class="mt-2" action="">
-							<span>Pesquise:</span>
-							<input class="ml-1" type="text" name="" id="">
-						</form>
+							<form class="mt-2" action="/pesquisarProdutos">
+								<span>Pesquise:</span>
+								<input placeholder="Pesquise pelo nome ou descrição" class="ml-1 mr-5" type="text" name="pesquisa" id="">
+							</form>
 					</div>
 					<div class="navbar-nav ml-auto">
-						<button id=""  type="button" class="btn btn-light text-primary">
+					<? if (isset($usuario['id'])) { ?>
+						<button type="button" class="btn btn-light text-primary btn-carrinho">
 							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							Carrinho
-							<span class="badge badge-light">4</span>
+							<span class="badge badge-light"><?= $contador ?></span>
 						</button>
+					<?}?>
+						
 						<? if (isset($usuario['id'])) { ?>
 							<div class="dropdown show ml-2">
 								<a class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
@@ -55,8 +63,9 @@ $usuario = $this->view->getUsuario;
 			</div>
 		</nav>
 	</header>
+	<br>
 	<?= $this->content() ?>
-	<footer class="mb-4">
+	<footer class="fixed-bottom bg-light">
 		<hr style="background-color: black;">
 		<div class="container">
 			<div class="row text-center">
@@ -81,25 +90,5 @@ $usuario = $this->view->getUsuario;
 		</div>
 	</footer>
 </body>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" id="">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button onclick type="button" class="btn btn-primary button-remover">Remover</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </html>
