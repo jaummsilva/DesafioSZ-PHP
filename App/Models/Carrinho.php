@@ -12,6 +12,8 @@ class Carrinho extends Model {
     private $usuarioId;
     private $quantidade_Produto;
     private $status;
+    private $data_criacao;
+    private $data_alteracao;
 
     public function __get($name) {
         return $this->$name;
@@ -21,7 +23,7 @@ class Carrinho extends Model {
     }
     
     public function getCarrinho() {
-        $query = "select * from carrinho where usuario_id = :usuarioId and produto_id = :produtoId ";
+        $query = "select * from carrinho where usuario_id = :usuarioId and produto_id = :produtoId and status = 'ABERTO' ";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
         $smtm->bindValue(':produtoId',$this->__get('produtoId'));
@@ -29,7 +31,7 @@ class Carrinho extends Model {
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function getCarrinhoUsuario() {
-        $query = "select c.id, c.usuario_id, c.produto_id, c.preco,c.quantidade_produto, p.nome from carrinho as c inner join produto as p on(c.produto_Id = p.id) where c.usuario_id = :usuarioId;";
+        $query = "select c.id, c.usuario_id, c.produto_id, c.preco,c.quantidade_produto, p.nome from carrinho as c inner join produto as p on(c.produto_Id = p.id) where c.usuario_id = :usuarioId and c.status = 'ABERTO';";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
         $smtm->execute();
@@ -39,6 +41,14 @@ class Carrinho extends Model {
         $query = "select sum(preco * quantidade_produto) as total_produto from carrinho where usuario_id = :usuarioId and status = 'ABERTO';";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
+        $smtm->execute();
+        return $smtm->fetch(\PDO::FETCH_ASSOC);
+    }
+    public function getPreçoTotalProduto() {
+        $query = "select sum(preco * quantidade_produto) as total_produto from carrinho where usuario_id = :usuarioId and produto_id = :produtoId and status = 'ABERTO';";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
+        $smtm->bindValue(':produtoId',$this->__get('produtoId'));
         $smtm->execute();
         return $smtm->fetch(\PDO::FETCH_ASSOC);
     }
@@ -59,6 +69,14 @@ class Carrinho extends Model {
         $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
         $smtm->bindValue(':produtoId',$this->__get('produtoId'));
         $smtm->bindValue(':quantidade_Produto',$this->__get('quantidade_Produto'));
+        $smtm->execute();
+        return $this;
+    }
+    public function updateCarrinhoFinalizado() {
+        $query = "update carrinho set status = 'FINALIZADO' where usuario_id = :usuarioId and produto_id = :produtoId ";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
+        $smtm->bindValue(':produtoId',$this->__get('produtoId'));
         $smtm->execute();
         return $this;
     }

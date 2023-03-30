@@ -29,7 +29,7 @@ function adicionar(id) {
     },
     success: function (response) {
       alert("Item adicionado com sucesso");
-      $('#exampleModal').modal('show');
+      window.location.href = '/'
     },
     error: function (e) {
       alert("Ocorreu um erro");
@@ -66,6 +66,7 @@ function adicionarCarrinho(id) {
       qtd_produto_carrinho: qtdProdutoCarrinho
     },
     success: function (response) {
+      window.location.href = '/'
       $('#exampleModal').modal('show');
     },
     error: function (e) {
@@ -84,8 +85,8 @@ function remover(id,idUsuario) {
       idUsuario: idUsuario
     },
     success: function (response) {
+      alert('Item removido do carrinho');
       window.location.href = "/";
-      alert('Item removido do carrinho')
     },
     error: function (e) {
       window.location.href = "/"

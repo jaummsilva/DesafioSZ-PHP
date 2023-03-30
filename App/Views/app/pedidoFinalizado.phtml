@@ -1,0 +1,30 @@
+<?php
+
+include('modalCarrinho.phtml');
+?>
+
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="/js/produto.js"></script>
+
+<script>
+    $('.btn-carrinho').click(function() {
+        $('#exampleModal').modal('show');
+    })
+</script>
+
+<br>
+<br>
+<br>
+<div class="container section-bg">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            <h1>
+                Pedido Finalizado com sucesso!
+            </h1>
+        </div>
+        <div class="col-6">
+            <a href="/" class="btn btn-info">Voltar para Home</a>
+        </div>
+    </div>
+</div>

@@ -9,11 +9,16 @@ use MF\Model\Container;
 
 class AuthController extends Action {
 	public function autenticar() {
+
+        // Usuario
         $usuario = Container::getModel('Usuario');
         $usuario->__set('email',$_POST['email']);
         $usuario->__set('senha',sha1($_POST['senha']));
-        
         $usuario->autenticar();
+        
+        
+        // Se usuario existir
+
         if($usuario->__get('id') != '' && $usuario->__get('nome')) {
             session_start();
 
@@ -22,6 +27,7 @@ class AuthController extends Action {
 
             header('Location: /');
         }
+        //se não existir
         else {
             header('Location: /login');
         }

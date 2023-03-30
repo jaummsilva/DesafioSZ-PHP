@@ -47,6 +47,11 @@ class Route extends Bootstrap {
 			'controller' => 'appController',
 			'action' => 'criarPedido'
 		);
+		$routes['pedidoFinalizado'] = array(
+			'route' => '/pedidoFinalizado',
+			'controller' => 'appController',
+			'action' => 'pedidoFinalizado'
+		);
 
 		// Auth Controller
 		$routes['autenticar'] = array(

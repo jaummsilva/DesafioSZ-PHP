@@ -4,6 +4,12 @@ $total = $this->view->getTotalCarrinho;
 
 ?>
 
+<script>
+    
+</script>
+
+<script src="/js/produto.js"></script>
+
 <div class="modal right fade" id="exampleModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -19,7 +25,8 @@ $total = $this->view->getTotalCarrinho;
                         <div class="row align-items-start">
                             <div class="col-12 col-sm-8 items">
                                 <? foreach ($carrinhoUsuario as $carrinho) { ?>
-                                    <div class="cartItem row align-items-start">
+                                    <? if($carrinho['status'] = 'ABERTO') { ?>
+                                        <div class="cartItem row align-items-start">
                                         <div class="col-3 mb-2">
                                             <img style="height: 50px;" src="http://placehold.it/266x266" alt="">
                                         </div>
@@ -33,7 +40,7 @@ $total = $this->view->getTotalCarrinho;
                                         <div class="col-2">
                                             <div class="ml-5" style="width: 40px;">
                                                 <span class="input-group-btn">
-                                                    <button onclick="incrementQtd(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                                                    <button id="btn-produto-<?= $carrinho['produto_id'] ?>" onclick="incrementQtd(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </button>
                                                 </span>
@@ -55,6 +62,7 @@ $total = $this->view->getTotalCarrinho;
                                         </div>
                                     </div>
                                     <hr>
+                                   <? } ?>
                                 <? }
                                 ?>
                             </div>
@@ -63,8 +71,11 @@ $total = $this->view->getTotalCarrinho;
                 </main>
                 <div class="fixed-bottom bg-light ">
                     <div class="d-flex justify-content-center flex-row">
-                    <h3 id="total">Total: R$ <?= $total['total_produto']?></h3>
-                    <button onclick="(<?= $total['total_produto']?>)" style="height: 40px;" type="button" class="btn btn-success mt-3 ml-4">Finalizar compra</button>
+                        <h3 id="total">Total: R$ <?= $total['total_produto'] ?></h3>
+                        <form action="/criarPedido" method="post">
+                            <input type="hidden" name="produtoId" value="">
+                            <button onclick="mandarRequest()" style="height: 40px;" type="submit" class="btn btn-success btn-finalizar-carrinho mt-3 ml-4">Finalizar compra</button>
+                        </form>
                     </div>
                 </div>
             </div>

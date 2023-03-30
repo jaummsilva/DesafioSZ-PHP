@@ -25,40 +25,34 @@ include('modalCarrinho.phtml');
                     <img src="http://placehold.it/266x266" alt="">
                 </a>
                 <div class="caption">
-                    <h4 class="item-name text-left">
+                    <h3 style="text-transform: capitalize;" class="item-name text-left">
                         <?= $produto['nome'] ?>
-                    </h4>
+                    </h3>
                 </div>
                 <div class="caption">
-                    <h4 class="item-name text-left">
+                    <h5 class="item-name text-left">
                         <?= $produto['descricao'] ?>
-                    </h4>
-                </div>
-                <div class="caption">
-                    <h4 class="item-price text-left mr-3">
-                        <?= $produto['preco'] ?>
-                    </h4>
+                    </h5>
                 </div>
                 <? if (isset($usuario['id'])) { ?>
-                    <div class="caption d-flex ">
-                        <div>
-                            <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
-                        </div>
-                        <div class="ml-5" style="width: 40px;">
-                            <span class="input-group-btn">
-                                <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                            </span>
-                            <input type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                            <span class="input-group-btn">
-                                <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </button>
-                            </span>
+                    <div class="caption">
+                        <div class="input-group mb-3">
+                            <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number btn-sm ml-2" data-type="plus" data-field="">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <input style="width:34px;height:25px" type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control" value="1" min="1" max="100">
+                            <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number btn-sm ml-2" data-type="minus" data-field="">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
                         </div>
                     </div>
                 <? } ?>
+                <div class="caption d-flex mr-3">
+                    <h4 style="font-size: 18pt;font-weight:600" class="item-price text-left mt-4 ">
+                        <?= $produto['preco'] ?> R$
+                    </h4>
+                    <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho ml-5">Adicionar no carrinho</button>
+                </div>
             </div>
         <? } ?>
     </div>

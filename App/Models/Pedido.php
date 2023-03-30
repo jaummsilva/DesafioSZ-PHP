@@ -10,6 +10,9 @@ class Pedido extends Model {
     private $usuarioId;
     private $precoTotal;
 
+    private $data_criacao;
+    private $data_alteracao;
+
     public function __get($name) {
         return $this->$name;
     }
@@ -18,14 +21,21 @@ class Pedido extends Model {
     }
 
     public function cadastrarPedido() {
-        $query = "insert into pedido(usuario_id,carrinho_id,preco_total)
-        values (:usuario_id,:carrinho_id,:preco_total)";
+        $query = "insert into pedido(usuario_id,preco_total)
+        values (:usuario_id,:preco_total)";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':usuario_id',$this->__get('usuarioId'));
         $smtm->bindValue(':preco_total',$this->__get('precoTotal'));
         $smtm->execute();
         return $this;
     }
+    public function getPedido() {
+        
+            $query = "select * from pedido where usuario_id = :usuarioId order by id desc";
+            $smtm = $this->db->prepare($query);
+            $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
+            $smtm->execute();
+            return $smtm->fetchAll(\PDO::FETCH_ASSOC);
+        
+    }
 }
-
-?>
