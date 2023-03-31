@@ -63,7 +63,7 @@ class AdminController extends Action {
         // View que busca o email informado da global POST no banco de dados 
         $this->view->getUsuariosEmail = $usuario->getTodosUsuariosEmail($_POST['email']);
         // Se senha for diferente de repetirSenha retorna com erro
-        if(sha1($_POST['senha']) != sha1($_POST['repetirSenha'])) {
+        if(($_POST['senha']) != ($_POST['repetirSenha'])) {
             $this->view->errosUsuario[] = "Senha e Repetir Senha devem ser iguais";
             $this->valoresErroUsuario();
             $this->renderAdmin('cadastroUsuarioAdmin');
@@ -82,9 +82,10 @@ class AdminController extends Action {
         $usuario->__set('nome',$_POST['nome']);
 		$usuario->__set('email',$_POST['email']);
 		$usuario->__set('senha',sha1($_POST['senha']));
-        $usuario->__set('data_nascimento',$_POST['data_nascimento']);
+        $usuario->__set('data_nascimento',$_POST['nascimento']);
+        $usuario->__set('data_alteracao',date('Y-m-d H:i:s'));
         $usuario->__set('telefone',$_POST['telefone']);
-        $usuario->__set('imagemId',$_POST['imagemId']);
+        $usuario->__set('usuario_img',$_POST['img']);
         // Se o cadastro for validado
         if($usuario->validarCadastro()) {
 			$usuario->cadastrarUsuario();
@@ -127,7 +128,7 @@ class AdminController extends Action {
         // View que retorna usuario por id buscado da rota
         $this->view->getUsuario = $usuario->getUsuario();
         // Se senha for diferente de repetirSenha retorna com erro no front
-        if(sha1($_POST['senha']) != sha1($_POST['repetirSenha'])) {
+        if(($_POST['senha']) != ($_POST['repetirSenha'])) {
             $this->view->errosUsuario[] = "Senha e Repetir Senha devem ser iguais";
             $this->valoresErroUsuario();
             $this->renderAdmin('editarUsuarioAdmin');
@@ -144,10 +145,10 @@ class AdminController extends Action {
         $usuario->__set('nome',$_POST['nome']);
 		$usuario->__set('email',$_POST['email']);
 		$usuario->__set('senha',sha1($_POST['senha']));
-        $usuario->__set('data_nascimento',$_POST['data_nascimento']);
+        $usuario->__set('data_nascimento',$_POST['nascimento']);
         $usuario->__set('data_alteracao',date('Y-m-d H:i:s'));
         $usuario->__set('telefone',$_POST['telefone']);
-        $usuario->__set('imagemId',$_POST['imagemId']);
+        $usuario->__set('usuario_img',$_POST['img']);
         $usuario->editarUsuario();
         header("Location: /listagemUsuarioAdmin");
     }
@@ -194,7 +195,7 @@ class AdminController extends Action {
         $this->view->errosProduto = [];
         $this->view->getProduto = [];
         // Se algum campo do formulario vir com valor vazio, retorna um erro no front
-        if($_POST['nome'] == '' || $_POST['preco'] == '' || $_POST['descricao'] == '' || $_POST['imagemId'] == '') {
+        if($_POST['nome'] == '' || $_POST['preco'] == '' || $_POST['descricao'] == '') {
             $this->view->errosProduto[] = 'Falta completar algum campo';
             $this->valoresErroProduto();
             $this->renderAdmin('editarProdutoAdmin');
@@ -208,7 +209,7 @@ class AdminController extends Action {
 		$produto->__set('preco',number_format($_POST['preco'],2, '.', ''));
 		$produto->__set('data_alteracao',date('Y-m-d H:i:s'));
         $produto->__set('descricao',$_POST['descricao']);
-        $produto->__set('imagemId',$_POST['imagemId']);
+        $produto->__set('produto_img',$_POST['img']);
         $produto->editarProduto();
         header("Location: /listagemProdutoAdmin");
     }
@@ -220,7 +221,7 @@ class AdminController extends Action {
     public function registrarProduto() {
         $this->view->errosProduto = [];
         // Se algum campo do formulario vir com valor vazio, retorna um erro no front
-        if($_POST['nome'] == '' || $_POST['preco'] == '' || $_POST['descricao'] == '' || $_POST['imagemId'] == '') {
+        if($_POST['nome'] == '' || $_POST['preco'] == '' || $_POST['descricao'] == '') {
             $this->view->errosProduto[] = 'Falta completar algum campo';
             $this->valoresErroProduto();
             $this->renderAdmin('cadastroProdutoAdmin');
@@ -232,7 +233,7 @@ class AdminController extends Action {
         $produto->__set('nome',$_POST['nome']);
 		$produto->__set('preco',number_format($_POST['preco'],2, '.', ''));
 		$produto->__set('descricao',$_POST['descricao']);
-        $produto->__set('imagemId',$_POST['imagemId']);
+        $produto->__set('produto_img',$_POST['img']);
         // Se o cadastro for validado , registra o produto
         if($produto->validarProduto()) {
             $produto->cadastrarProduto();

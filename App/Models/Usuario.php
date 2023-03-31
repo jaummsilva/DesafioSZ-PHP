@@ -14,7 +14,7 @@ class Usuario extends Model {
     private $data_alteracao;
     private $data_nascimento;
     private $telefone;
-    private $imagemId;
+    private $usuario_img;
 
     public function __get($name) {
         return $this->$name;
@@ -24,14 +24,14 @@ class Usuario extends Model {
     }
 
     public function cadastrarUsuario() {
-        $query = "insert into usuario(nome,email,senha,data_nascimento,telefone,imagem_id)
-        values (:nome,:email,:senha,:data_nascimento,:telefone,:imagemId)";
+        $query = "insert into usuario(nome,email,senha,data_nascimento,telefone,usuario_img)
+        values (:nome,:email,:senha,:data_nascimento,:telefone,:usuario_img)";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':nome',$this->__get('nome'));
         $smtm->bindValue(':email',$this->__get('email'));
         $smtm->bindValue(':senha',$this->__get('senha'));
         $smtm->bindValue(':data_nascimento',$this->__get('data_nascimento'));
-        $smtm->bindValue(':imagemId',$this->__get('imagemId'));
+        $smtm->bindValue(':usuario_img',$this->__get('usuario_img'));
         $smtm->bindValue(':telefone',$this->__get('telefone'));
         $smtm->execute();
         return $this;
@@ -91,7 +91,7 @@ class Usuario extends Model {
         telefone = :telefone,
         data_nascimento = :data_nascimento,
         data_alteracao = :data_alteracao,
-        imagem_id = :imagemId
+        usuario_img = :usuario_img
         where id = :id";
         
         $smtm = $this->db->prepare($query);
@@ -101,7 +101,7 @@ class Usuario extends Model {
         $smtm->bindValue(':senha',$this->__get('senha'));
         $smtm->bindValue(':data_nascimento',$this->__get('data_nascimento'));
         $smtm->bindValue(':data_alteracao',$this->__get('data_alteracao'));
-        $smtm->bindValue(':imagemId',$this->__get('imagemId'));
+        $smtm->bindValue(':usuario_img',$this->__get('usuario_img'));
         $smtm->bindValue(':telefone',$this->__get('telefone'));
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);

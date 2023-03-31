@@ -7,15 +7,16 @@ $produto = $this->view->getProduto;
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/login.css">
+<script src="/js/produto.js"></script>
 
-<?php if(!empty($errosProduto)) { ?>
-    <?php foreach($errosProduto as $erro ) { ?>
+<?php if (!empty($errosProduto)) { ?>
+    <?php foreach ($errosProduto as $erro) { ?>
         <div class="alert alert-danger" role="alert">
-            <?= $erro?>
-         </div>
+            <?= $erro ?>
+        </div>
     <? }
     ?>
-<? } 
+<? }
 ?>
 
 
@@ -28,21 +29,20 @@ $produto = $this->view->getProduto;
                     <form role="form" action="/registrarProduto" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="nome" class="sr-only">Nome</label>
-                            <input value="<?= isset($produto['nome']) ? $produto['nome'] : '' ?>" type="text" name="nome" class="form-control" placeholder="name">
+                            <input value="<?= isset($produto['nome']) ? $produto['nome'] : '' ?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
                         </div>
                         <div class="form-group">
                             <label for="preco" class="sr-only">Preço</label>
-                            <input value="<?= isset($produto['preco']) ? $produto['preco'] : '' ?>" name="preco" class="form-control" placeholder="Preço">
+                            <input value="<?= isset($produto['preco']) ? $produto['preco'] : '' ?>" id="preco" name="preco" class="form-control" placeholder="Preço">
                         </div>
                         <div class="form-group">
                             <label class="sr-only">Descricao</label>
-                            <input value="<?= isset($produto['descricao']) ? $produto['descricao'] : '' ?>" type="text" name="descricao" class="form-control" placeholder="Descricao">
+                            <input value="<?= isset($produto['descricao']) ? $produto['descricao'] : '' ?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
                         </div>
                         <div class="form-group">
-                            <label for="key" class="sr-only">Imagem Id</label>
-                            <input value=""  type="text" name="imagemId" class="form-control" placeholder="Imagem Id">
+                            <input type="file" name="img" id="img" class="form-control" placeholder="Imagem">
                         </div>
-                        <input type="submit" id="btn-login" class="btn btn-custom btn-success btn-lg btn-block" value="Criar">
+                        <button onclick="criarProduto()" type="button" id="btn-login" class="btn btn-custom btn-success btn-lg btn-block">Criar</button>
                     </form>
                     <hr>
                 </div>

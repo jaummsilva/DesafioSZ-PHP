@@ -8,6 +8,7 @@ $errosUsuario =  $this->view->errosUsuario;
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/login.css">
 <script src="/js/login.js"></script>
+<script src="/js/usuario.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <?php if (!empty($errosUsuario)) { ?>
@@ -27,41 +28,39 @@ $errosUsuario =  $this->view->errosUsuario;
                 <div class="form-wrap">
                     <h1 class="text-primary">Editar o usuario <?= $this->view->getUsuario['nome'] ?> </h1>
                     <form role="form" action="/editarUsuario" method="post" id="login-form" autocomplete="off">
-
-                        <input type="hidden" name="id" value="<?= $this->view->getUsuario['id'] ?>">
+                        <input type="hidden" id="id" name="id" value="<?= $this->view->getUsuario['id'] ?>">
                         <div class="form-group">
                             <label for="nome" class="sr-only">Nome</label>
-                            <input type="text" value="<?= $this->view->getUsuario['nome'] ?>" name="nome" id="nome" class="form-control" placeholder="name">
+                            <input type="text" value="<?= $this->view->getUsuario['nome'] ?>" id="nome" name="nome" id="nome" class="form-control" placeholder="name">
                         </div>
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input value="<?= $this->view->getUsuario['email'] ?>" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <input value="<?= $this->view->getUsuario['email'] ?>" type="text" id="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Data de Nascimento</label>
-                            <input value="<?= $this->view->getUsuario['data_nascimento'] ?>" type="date" name="data_nascimento"  class="form-control">
+                            <input value="<?= $this->view->getUsuario['data_nascimento'] ?>" id="nascimento" type="date" name="data_nascimento"  class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="sr-only">Telefone</label>
-                            <input value="<?= $this->view->getUsuario['telefone'] ?>" maxlength="11" type="text" name="telefone" class="form-control" placeholder="Telefone">
+                            <input value="<?= $this->view->getUsuario['telefone'] ?>" maxlength="11" id="tel"  type="text" name="telefone" class="form-control" placeholder="Telefone">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Password</label>
-                            <input type="password" name="senha" id="key" class="form-control" placeholder="Senha">
+                            <input type="password" name="senha" class="form-control" id="senha"  placeholder="Senha">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Repetir Senha</label>
-                            <input type="password" name="repetirSenha" id="key" class="form-control" placeholder="Repetir Senha">
+                            <input type="password" name="repetirSenha" id="repetirSenha" class="form-control" placeholder="Repetir Senha">
                         </div>
                         <div class="form-group">
-                            <label for="key" class="sr-only">Imagem Id</label>
-                            <input  value="<?= $this->view->getUsuario['imagem_id'] ?>" type="text" name="imagemId" id="key" class="form-control" placeholder="Imagem Id">
+                        <input type="file" name="img" id="img" class="form-control" placeholder="Imagem">
                         </div>
                         <div class="checkbox">
                             <span class="character-checkbox" onclick="showPassword()"></span>
                             <span class="label">Show password</span>
                         </div>
-                        <input type="submit" id="btn-login" class="btn btn-custom btn-success btn-lg btn-block" value="Editar">
+                        <button onclick="editarUsuario()" type="button" id="btn-editar-usuario" class="btn btn-custom btn-success btn-lg btn-block">Criar</button>
                     </form>
                     <hr>
                 </div>

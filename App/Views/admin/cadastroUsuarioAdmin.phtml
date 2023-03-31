@@ -8,6 +8,7 @@ $usuario = $this->view->getUsuario;
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/login.css">
 <script src="/js/login.js"></script>
+<script src="/js/usuario.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <?php if(!empty($errosUsuario)) { ?>
@@ -30,37 +31,36 @@ $usuario = $this->view->getUsuario;
                     <form role="form" action="/registrarUsuario" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="nome" class="sr-only">Nome</label>
-                            <input value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" type="text" name="nome" id="nome" class="form-control" placeholder="name">
+                            <input value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" id="nome" type="text" name="nome" id="nome" class="form-control" placeholder="name">
                         </div>
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <input value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" id="email" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Data de Nascimento</label>
-                            <input value="<?= isset($usuario['data_nascimento']) ? $usuario['data_nascimento'] : '' ?>" type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
+                            <input value="<?= isset($usuario['data_nascimento']) ? $usuario['data_nascimento'] : '' ?>" id="nascimento" type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Telefone</label>
-                            <input value="<?= isset($usuario['telefone']) ? $usuario['telefone'] : '' ?>"  maxlength="11" type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
+                            <input value="<?= isset($usuario['telefone']) ? $usuario['telefone'] : '' ?>"  maxlength="11" id="tel"  type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Senha</label>
-                            <input value="<?= isset($usuario['senha']) ? $usuario['senha'] : '' ?>" type="password" name="senha" id="key" class="form-control" placeholder="Senha">
+                            <input value="<?= isset($usuario['senha']) ? $usuario['senha'] : '' ?>" type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Repetir Senha</label>
-                            <input type="password" name="repetirSenha" id="key" class="form-control" placeholder="Repetir Senha">
+                            <input type="password" name="repetirSenha" class="form-control" id="repetirSenha" placeholder="Repetir Senha">
                         </div>
                         <div class="form-group">
-                            <label for="key" class="sr-only">Imagem Id</label>
-                            <input type="text" name="imagemId" id="key" class="form-control" placeholder="Imagem Id">
+                            <input type="file" name="img" id="img" class="form-control" placeholder="Imagem">
                         </div>
                         <div class="checkbox">
                             <span class="character-checkbox" onclick="showPassword()"></span>
                             <span class="label">Show password</span>
                         </div>
-                        <input type="submit" id="btn-login" class="btn btn-custom btn-success btn-lg btn-block" value="Criar">
+                        <button onclick="criarUsuario()" type="button" id="btn-cadastro-usuario" class="btn btn-custom btn-success btn-lg btn-block">Criar</button>
                     </form>
                     <hr>
                 </div>

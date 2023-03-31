@@ -97,3 +97,61 @@ function remover(id,idUsuario) {
 }
 
 
+function criarProduto() {
+  let img = $('#img').val();
+  let nome = $('#nome').val();
+  let preco = $('#preco').val();
+  let descricao = $('#descricao').val();
+
+  const fileInput = document.querySelector('#img');
+  const reader = new FileReader();
+  reader.readAsDataURL(fileInput.files[0]);
+  reader.onload = function () {
+      img = reader.result.split(',')[1];
+
+      $.ajax({
+          url: '/registrarProduto',
+          type: 'POST',
+          data: {
+              img,
+              descricao,
+              preco,
+              nome
+          },
+          success: function (response) {
+              window.location.href = "/listagemProdutoAdmin"
+          },
+      })
+  };
+}
+function editarProduto() {
+  let id = $('#id').val();
+  let img = $('#img').val();
+  let nome = $('#nome').val();
+  let preco = $('#preco').val();
+  let descricao = $('#descricao').val();
+
+  const fileInput = document.querySelector('#img');
+  const reader = new FileReader();
+  reader.readAsDataURL(fileInput.files[0]);
+  reader.onload = function () {
+      img = reader.result.split(',')[1];
+
+      $.ajax({
+          url: '/editarProduto',
+          type: 'POST',
+          data: {
+            id,
+            img,
+            descricao,
+            preco,
+            nome
+          },
+          success: function (response) {
+              window.location.href = "/listagemProdutoAdmin"
+          },
+      })
+  };
+}
+
+
