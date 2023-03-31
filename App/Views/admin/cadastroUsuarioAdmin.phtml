@@ -1,5 +1,4 @@
 <?php
-$errosUsuario =  $this->view->errosUsuario;
 $usuario = $this->view->getUsuario;
 ?>
 
@@ -10,16 +9,6 @@ $usuario = $this->view->getUsuario;
 <script src="/js/login.js"></script>
 <script src="/js/usuario.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
-<?php if(!empty($errosUsuario)) { ?>
-    <?php foreach($errosUsuario as $erro ) { ?>
-        <div class="alert alert-danger d-flex justify-content-center" role="alert">
-            <?= $erro?>
-         </div>
-    <? }
-    ?>
-<? } 
-?>
 
 
 <section id="login">

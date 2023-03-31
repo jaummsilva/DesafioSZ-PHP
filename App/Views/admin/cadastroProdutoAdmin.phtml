@@ -1,5 +1,4 @@
 <?php
-$errosProduto =  $this->view->errosProduto;
 $produto = $this->view->getProduto;
 ?>
 
@@ -8,16 +7,6 @@ $produto = $this->view->getProduto;
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/login.css">
 <script src="/js/produto.js"></script>
-
-<?php if (!empty($errosProduto)) { ?>
-    <?php foreach ($errosProduto as $erro) { ?>
-        <div class="alert alert-danger" role="alert">
-            <?= $erro ?>
-        </div>
-    <? }
-    ?>
-<? }
-?>
 
 
 <section id="login">

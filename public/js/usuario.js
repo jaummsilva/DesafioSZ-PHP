@@ -7,6 +7,14 @@ function criarUsuario() {
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
 
+    if(senha != repetirSenha) {
+        alert('Senhas devem ser iguais')
+        return;
+    }
+    if(nome == '' || telefone == '' || nascimento == '' || senha == '' || repetirSenha == '' || email == '' || img == '') {
+        alert('Falta completar alguma campo');
+        return;
+    }
     const fileInput = document.querySelector('#img');
     const reader = new FileReader();
     reader.readAsDataURL(fileInput.files[0]);
@@ -26,7 +34,19 @@ function criarUsuario() {
                 nome,
             },
             success: function (response) {
-                window.location.href = "/listagemUsuarioAdmin"
+                if(response.mensagem) {
+                    let div = document.createElement('div');
+                    div.className = 'alert alert-danger d-flex justify-content-center'
+                    let p = document.createElement('p');
+                    p.innerText = response.mensagem;
+                    div.appendChild(p);
+                    var divLogin = document.getElementById("login");
+                    document.body.insertBefore(div, divLogin);
+                }
+                else {
+                    alert('Criado com sucesso');
+                    window.location.href = '/listagemUsuarioAdmin'
+                }
             },
         })
     };
@@ -40,6 +60,15 @@ function editarUsuario() {
     let senha = $('#senha').val();
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
+    
+    if(senha != repetirSenha) {
+        alert('Senhas devem ser iguais')
+        return;
+    }
+    if(nome == '' || telefone == '' || nascimento == '' || senha == '' || repetirSenha == '' || email == '' || img == '') {
+        alert('Falta completar alguma campo');
+        return;
+    }
 
     const fileInput = document.querySelector('#img');
     const reader = new FileReader();
@@ -61,7 +90,19 @@ function editarUsuario() {
                 id
             },
             success: function (response) {
-                window.location.href = "/listagemUsuarioAdmin"
+                if(response.mensagem) {
+                    let div = document.createElement('div');
+                    div.className = 'alert alert-danger d-flex justify-content-center'
+                    let p = document.createElement('p');
+                    p.innerText = response.mensagem;
+                    div.appendChild(p);
+                    var divLogin = document.getElementById("login");
+                    document.body.insertBefore(div, divLogin);
+                }
+                else {
+                    alert('Criado com sucesso');
+                    window.location.href = '/listagemUsuarioAdmin'
+                }
             },
         })
     };

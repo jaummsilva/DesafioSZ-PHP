@@ -53,19 +53,19 @@ class AppController extends Action
 	public function produto($id)
 	{
 		session_start();
-		
+
 		// Models
 		$carrinho = Container::getModel('Carrinho');
 		$produto = Container::getModel('Produto');
 		$usuario = Container::getModel('Usuario');
-		
+
 		// Setters
 		$usuario->__set('id', $_SESSION['id']);
 		$produto->__set('id', $id);
 		$carrinho->__set('usuarioId', $_SESSION['id']);
 		$this->view->getTotalCarrinho = $carrinho->getPreçoTotalCarrinho();
 		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
-		
+
 		//Contador
 		if (empty($this->view->getCarrinho)) {
 			$this->view->getCarrinho = [];
@@ -87,7 +87,7 @@ class AppController extends Action
 		$usuario = Container::getModel('Usuario');
 		$produtoId = Container::getModel('Produto');
 		$carrinhoId = Container::getModel('Carrinho');
-		
+
 		$usuario->__set('id', $_SESSION['id']);
 		$usuario->getUsuario();
 
@@ -116,6 +116,29 @@ class AppController extends Action
 			$carrinhoId->updateCarrinho();
 		}
 	}
+	public function  alterarQuantidadeCarrinho()
+	{
+		session_start();
+
+		// Models
+		$usuario = Container::getModel('Usuario');
+		$produtoId = Container::getModel('Produto');
+		$carrinhoId = Container::getModel('Carrinho');
+
+		$usuario->__set('id', $_SESSION['id']);
+		$usuario->getUsuario();
+
+		$produtoId = Container::getModel('Produto');
+		$produtoId->__set('id', $_REQUEST['idProduto']);
+		$produto =  $produtoId->getProduto();
+
+		$carrinhoId = Container::getModel('Carrinho');
+		$carrinhoId->__set('produtoId', $produto['id']);
+		$carrinhoId->__set('usuarioId', $_SESSION['id']);
+		$carrinhoId->getCarrinho();
+		$carrinhoId->__set('quantidade_Produto', $_REQUEST['quantityCarrinho']);
+		$carrinhoId->updateQuantidadeCarrinho();
+	}
 	public function removerProdutoCarrinho()
 	{
 		// Deletação do produto no carrinho
@@ -131,11 +154,11 @@ class AppController extends Action
 		// Models
 		$carrinho = Container::getModel('Carrinho');
 		$usuario = Container::getModel('Usuario');
-		
+
 		// Setters
 		$usuario->__set('id', $_SESSION['id']);
 		$carrinho->__set('usuarioId', $_SESSION['id']);
-		
+
 		// Views
 		$this->view->getUsuario = $usuario->getUsuario();
 		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
@@ -191,14 +214,14 @@ class AppController extends Action
 		// Array com o id de todos os produtos do carrinho
 		$arrayProduto = $this->view->getCarrinho;
 		// Criação de itens do pedido
-		foreach ($arrayProduto as $produto ) {
+		foreach ($arrayProduto as $produto) {
 			$itenspedido = Container::getModel('ItensPedido');
 			$itenspedido->__set('pedidoId', $pedidoId[0]['id']);
 			$itenspedido->__set('produtoId', $produto['produto_id']);
 			$itenspedido->__set('quantidade_produto', $produto['quantidade_produto']);
 			$itenspedido->__set('preco_por_produto', $produto['preco'] * $produto['quantidade_produto']);
 			$itenspedido->cadastrarItensPedido();
-			$carrinho->__set('produtoId',$produto['produto_id']);
+			$carrinho->__set('produtoId', $produto['produto_id']);
 			$carrinho->updateCarrinhoFinalizado();
 		}
 		$this->render('pedidoFinalizado');

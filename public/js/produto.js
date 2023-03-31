@@ -16,58 +16,67 @@ function decrementQtd(id) {
     $(`#quantityCarrinho-${id}`).val(quantityCarrinho - 1);
   }
 }
+function incrementQtdCarrinho(id) {
+  var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
+  $(`#quantityCarrinho-${id}`).val(quantityCarrinho + 1);
+  quantityCarrinho = quantityCarrinho + 1;
+
+  $.ajax({
+    url: "/alterarQuantidadeCarrinho",
+    type: "POST",
+    data: {
+      idProduto: id,
+      quantityCarrinho: quantityCarrinho,
+    },
+    success: function (response) {
+      alert("Ok");
+    },
+    error: function (e) {
+      alert("Carrinho alterado");
+      $('')
+    },
+  });
+
+
+}
+
+function decrementQtdCarrinho(id) {
+  var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
+  if(quantityCarrinho > 0 ) {
+    $(`#quantityCarrinho-${id}`).val(quantityCarrinho - 1);
+  }
+  quantityCarrinho = quantityCarrinho + -1;
+  
+  $.ajax({
+    url: "/alterarQuantidadeCarrinho",
+    type: "POST",
+    data: {
+      idProduto: id,
+      quantityCarrinho: quantityCarrinho,
+    },
+    success: function (response) {
+      window.location.href = "/"
+      alert("Carrinho alterado");
+    },
+    error: function (e) {
+      alert("Ocorreu um erro");
+    },
+  });
+}
 
 function adicionar(id) {
   let qtdProduto = $(`#quantity-${id}`).val();
   
   $.ajax({
-    url: "/inserirProdutoCarrinho",
+    url: "/alterarQuantidadeCarrinho",
     type: "POST",
     data: {
       idProduto: id,
       qtd_Produto: qtdProduto,
     },
     success: function (response) {
-      alert("Item adicionado com sucesso");
-      window.location.href = '/'
-    },
-    error: function (e) {
-      alert("Ocorreu um erro");
-    },
-  });
-}
-
-function criarCarrinho(preco) {
-  $.ajax({
-    url: "/criarPedido",
-    type: "POST",
-    data: {
-      preco: preco,
-    },
-    success: function (response) {
-      $('#exampleModal').modal('show');
-    },
-    error: function (e) {
-      alert("Ocorreu um erro");
-    },
-  });
-}
-
-
-function adicionarCarrinho(id) {
-  let qtdProdutoCarrinho = $(`#quantityCarrinho-${id}`).val();
-  console.log(qtdProdutoCarrinho);
-  
-  $.ajax({
-    url: "/inserirProdutoCarrinho",
-    type: "POST",
-    data: {
-      idProduto: id,
-      qtd_produto_carrinho: qtdProdutoCarrinho
-    },
-    success: function (response) {
-      window.location.href = '/'
-      $('#exampleModal').modal('show');
+      window.location.href = "/"
+      alert("Carrinho alterado");
     },
     error: function (e) {
       alert("Ocorreu um erro");
@@ -76,7 +85,6 @@ function adicionarCarrinho(id) {
 }
 
 function remover(id,idUsuario) {
-
   $.ajax({
     url: "/removerProdutoCarrinho",
     type: "POST",
@@ -103,6 +111,11 @@ function criarProduto() {
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
 
+  if(nome == '' || preco == '' || descricao == '' || img == '') {
+    alert('Falta completar alguma campo');
+    return;
+  }
+
   const fileInput = document.querySelector('#img');
   const reader = new FileReader();
   reader.readAsDataURL(fileInput.files[0]);
@@ -119,7 +132,8 @@ function criarProduto() {
               nome
           },
           success: function (response) {
-              window.location.href = "/listagemProdutoAdmin"
+            
+            alert(response);
           },
       })
   };
@@ -130,6 +144,11 @@ function editarProduto() {
   let nome = $('#nome').val();
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
+
+  if(nome == '' || preco == '' || descricao == '' || img == '') {
+    alert('Falta completar alguma campo');
+    return;
+  }
 
   const fileInput = document.querySelector('#img');
   const reader = new FileReader();

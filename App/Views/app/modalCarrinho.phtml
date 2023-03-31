@@ -4,10 +4,6 @@ $total = $this->view->getTotalCarrinho;
 
 ?>
 
-<script>
-    
-</script>
-
 <script src="/js/produto.js"></script>
 
 <div class="modal right fade" id="exampleModal" role="dialog">
@@ -43,13 +39,13 @@ $total = $this->view->getTotalCarrinho;
                                         <div class="col-3">
                                             <div class="ml-5" style="width: 40px;">
                                                 <span class="input-group-btn">
-                                                    <button id="btn-produto-<?= $carrinho['produto_id'] ?>" onclick="incrementQtd(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                                                    <button onclick="incrementQtdCarrinho(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </button>
                                                 </span>
-                                                <input onchange="adicionarCarrinho(<?= $carrinho['produto_id'] ?>)" type="text" id="quantityCarrinho-<?= $carrinho['produto_id'] ?>" name="quantity" class="form-control input-number" value="<?= $carrinho['quantidade_produto'] ?>" min="1" max="100">
+                                                <input type="text" id="quantityCarrinho-<?= $carrinho['produto_id'] ?>" name="quantity" class="form-control input-number" value="<?= $carrinho['quantidade_produto'] ?>" min="1" max="100">
                                                 <span class="input-group-btn">
-                                                    <button onclick="decrementQtd(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                                    <button  onclick="decrementQtdCarrinho(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
                                                         <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
                                                 </span>

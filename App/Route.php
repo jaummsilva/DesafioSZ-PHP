@@ -27,6 +27,11 @@ class Route extends Bootstrap {
 			'controller' => 'appController',
 			'action' => 'produto'
 		);
+		$routes['alterarQuantidadeCarrinho'] = array(
+			'route' => '/alterarQuantidadeCarrinho',
+			'controller' => 'appController',
+			'action' => 'alterarQuantidadeCarrinho'
+		);
 		$routes['inserirProdutoCarrinho'] = array(
 			'route' => '/inserirProdutoCarrinho',
 			'controller' => 'appController',

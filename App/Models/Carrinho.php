@@ -72,6 +72,15 @@ class Carrinho extends Model {
         $smtm->execute();
         return $this;
     }
+    public function updateQuantidadeCarrinho() {
+        $query = "update carrinho set quantidade_produto = :quantidade_Produto where usuario_id = :usuarioId and produto_id = :produtoId ";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
+        $smtm->bindValue(':produtoId',$this->__get('produtoId'));
+        $smtm->bindValue(':quantidade_Produto',$this->__get('quantidade_Produto'));
+        $smtm->execute();
+        return $this;
+    }
     public function updateCarrinhoFinalizado() {
         $query = "update carrinho set status = 'FINALIZADO' where usuario_id = :usuarioId and produto_id = :produtoId ";
         $smtm = $this->db->prepare($query);
