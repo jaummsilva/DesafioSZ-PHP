@@ -18,6 +18,9 @@
 --
 -- Table structure for table `carrinho`
 --
+create database e-commerce;
+
+use e-commerce;
 
 DROP TABLE IF EXISTS `carrinho`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
