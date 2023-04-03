@@ -211,6 +211,7 @@ class AppController extends Action
 		$pedido->cadastrarPedido();
 		// Id do pedido
 		$pedidoId = $pedido->getPedido();
+		$this->view->getPedidoId = $pedidoId[0]['id'];
 		// Array com o id de todos os produtos do carrinho
 		$arrayProduto = $this->view->getCarrinho;
 		// Criação de itens do pedido
