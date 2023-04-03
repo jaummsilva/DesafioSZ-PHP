@@ -20,7 +20,7 @@ $usuario = $this->view->getUsuario;
     <div class="col-md-9">
         <div class="row">
             <?php foreach ($produtos as $produto) { ?>
-                <? if (!empty($produto)) { ?>
+                <?php if (!empty($produto)) { ?>
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <a href="/produto/<?= $produto['id'] ?>">
                             <img src="http://placehold.it/266x266" alt="">
@@ -40,7 +40,7 @@ $usuario = $this->view->getUsuario;
                                 <?= $produto['preco'] ?>
                             </h4>
                         </div>
-                        <? if (isset($usuario['id'])) { ?>
+                        <?php if (isset($usuario['id'])) { ?>
                             <div class="caption d-flex ">
                                 <div>
                                     <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
@@ -60,17 +60,17 @@ $usuario = $this->view->getUsuario;
                                 </div>
                             </div>
                     </div>
-                <? } ?>
-            <? }
+                <?php } ?>
+            <?php }
             ?>
-            <? if(empty($produto)) 
+            <?php if(empty($produto)) 
             {?>
                 <div>
                     Não encontramos o item
                 </div>
-           <?} 
+           <?php } 
            ?>
-        <? } 
+        <?php } 
         ?>
         </div>
     </div>

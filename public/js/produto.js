@@ -68,7 +68,7 @@ function adicionar(id) {
   let qtdProduto = $(`#quantity-${id}`).val();
   
   $.ajax({
-    url: "/alterarQuantidadeCarrinho",
+    url: "/inserirProdutoCarrinho",
     type: "POST",
     data: {
       idProduto: id,

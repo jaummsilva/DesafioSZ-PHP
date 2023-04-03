@@ -37,26 +37,26 @@ $contador = $this->view->getContador;
 							</form>
 					</div>
 					<div class="navbar-nav ml-auto">
-					<? if (isset($usuario['id'])) { ?>
+					<?php if (isset($usuario['id'])) { ?>
 						<button type="button" class="btn btn-light text-primary btn-carrinho">
 							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							Carrinho
 							<span class="badge badge-light"><?= $contador ?></span>
 						</button>
-					<?}?>
+					<?php }?>
 						
-						<? if (isset($usuario['id'])) { ?>
+						<?php if (isset($usuario['id'])) { ?>
 							<div class="dropdown show ml-2">
 								<a class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<a class="dropdown-item" href="/sair">Sair</a>
 								</div>
 							</div>
-						<? }
+						<?php }
 						?>
-						<? if (!isset($usuario['id'])) { ?>
+						<?php if (!isset($usuario['id'])) { ?>
 							<a class="btn btn-info" href="/login">Entrar</a>
-						<? }
+						<?php }
 						?>
 					</div>
 				</div>

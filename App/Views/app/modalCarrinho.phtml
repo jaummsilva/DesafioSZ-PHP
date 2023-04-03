@@ -20,8 +20,8 @@ $total = $this->view->getTotalCarrinho;
                     <div class="container-fluid">
                         <div class="row align-items-start">
                             <div class="col-12 col-sm-8 items">
-                                <? foreach ($carrinhoUsuario as $carrinho) { ?>
-                                    <? if($carrinho['status'] = 'ABERTO') { ?>
+                                <?php foreach ($carrinhoUsuario as $carrinho) { ?>
+                                    <?php if($carrinho['status'] = 'ABERTO') { ?>
                                         <div class="cartItem row align-items-start">
                                         <div class="col-3 mt-4">
                                         <img class="img-fluid" src="data:image/png;base64,<?=$carrinho['produto_img']?>">
@@ -53,8 +53,8 @@ $total = $this->view->getTotalCarrinho;
                                         </div>
                                     </div>
                                     <hr>
-                                   <? } ?>
-                                <? }
+                                   <?php } ?>
+                                <?php }
                                 ?>
                             </div>
                         </div>
