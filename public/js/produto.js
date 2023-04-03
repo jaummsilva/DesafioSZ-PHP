@@ -29,7 +29,8 @@ function incrementQtdCarrinho(id) {
       quantityCarrinho: quantityCarrinho,
     },
     success: function (response) {
-      alert("Ok");
+      window.location.href = "/"
+      alert("Carrinho alterado");
     },
     error: function (e) {
       alert("Carrinho alterado");
