@@ -13,6 +13,9 @@ class Produto extends Model {
     private $data_criacao;
     private $data_alteracao;
     private $produto_img;
+    private $produto_img_2;
+    private $produto_img_3;
+    private $produto_img_4;
 
     public function __get($name) {
         return $this->$name;
@@ -22,13 +25,16 @@ class Produto extends Model {
     }
 
     public function cadastrarProduto() {
-        $query = "insert into produto(nome,preco,descricao,produto_img)
-        values (:nome,:preco,:descricao,:produto_img)";
+        $query = "insert into produto(nome,preco,descricao,produto_img,produto_img_2,produto_img_3,produto_img_4)
+        values (:nome,:preco,:descricao,:produto_img,:produto_img_2,:produto_img_3,:produto_img_4)";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':nome',$this->__get('nome'));
         $smtm->bindValue(':preco',$this->__get('preco'));
         $smtm->bindValue(':descricao',$this->__get('descricao'));
         $smtm->bindValue(':produto_img',$this->__get('produto_img'));
+        $smtm->bindValue(':produto_img_2',$this->__get('produto_img_2'));
+        $smtm->bindValue(':produto_img_3',$this->__get('produto_img_3'));
+        $smtm->bindValue(':produto_img_4',$this->__get('produto_img_4'));
         $smtm->execute();
         return $this;
     }
@@ -70,7 +76,10 @@ class Produto extends Model {
         preco = :preco,
         descricao = :descricao,
         data_alteracao = :data_alteracao,
-        produto_img = :produto_img
+        produto_img = :produto_img,
+        produto_img_2 = :produto_img_2,
+        produto_img_3 = :produto_img_3,
+        produto_img_4 = :produto_img_4
         where id = :id";
         
         $smtm = $this->db->prepare($query);
@@ -80,6 +89,9 @@ class Produto extends Model {
         $smtm->bindValue(':descricao',$this->__get('descricao'));
         $smtm->bindValue(':data_alteracao',$this->__get('data_alteracao'));
         $smtm->bindValue(':produto_img',$this->__get('produto_img'));
+        $smtm->bindValue(':produto_img_2',$this->__get('produto_img_2'));
+        $smtm->bindValue(':produto_img_3',$this->__get('produto_img_3'));
+        $smtm->bindValue(':produto_img_4',$this->__get('produto_img_4'));
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }

@@ -164,6 +164,9 @@ class AdminController extends Action {
 		$produto->__set('data_alteracao',date('Y-m-d H:i:s'));
         $produto->__set('descricao',$_POST['descricao']);
         $produto->__set('produto_img',$_POST['img']);
+        $produto->__set('produto_img_2',$_POST['img2']);
+        $produto->__set('produto_img_3',$_POST['img3']);
+        $produto->__set('produto_img_4',$_POST['img4']);
         $produto->editarProduto();
         header("Location: /listagemProdutoAdmin");
     }
@@ -179,6 +182,9 @@ class AdminController extends Action {
 		$produto->__set('preco',number_format($_POST['preco'],2, '.', ''));
 		$produto->__set('descricao',$_POST['descricao']);
         $produto->__set('produto_img',$_POST['img']);
+        $produto->__set('produto_img_2',$_POST['img2']);
+        $produto->__set('produto_img_3',$_POST['img3']);
+        $produto->__set('produto_img_4',$_POST['img4']);
         // Se o cadastro for validado , registra o produto
         if($produto->validarProduto()) {
             $produto->cadastrarProduto();
