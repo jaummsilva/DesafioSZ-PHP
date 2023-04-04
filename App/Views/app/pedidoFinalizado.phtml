@@ -1,6 +1,5 @@
 <?php
 $pedido = $this->view->getPedidoId;
-include('modalCarrinho.phtml');
 ?>
 
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -17,14 +16,14 @@ include('modalCarrinho.phtml');
 <br>
 <br>
 <div class="container section-bg">
-    <div class="row d-flex justify-content-center">
-        <div class="col-6">
-            <h1>
-                Pedido <?= $pedido ?> Finalizado com sucesso!
-            </h1>
-        </div>
-        <div class="col-6">
-            <a href="/" class="btn btn-info">Voltar para Home</a>
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center align-items-center">
+                <h1>
+                    Pedido <?= $pedido ?> Finalizado com sucesso!
+                </h1>
+                <a style="height: 40%;" href="/" class="btn btn-info btn-sm ml-5 mt-3">Voltar para Home</a>
+            </div>
         </div>
     </div>
 </div>

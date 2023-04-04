@@ -236,6 +236,6 @@ class AppController extends Action
 			$carrinho->__set('data_alteracao',date('Y-m-d H:i:s'));
 			$carrinho->updateCarrinhoFinalizado();
 		}
-		$this->render('pedidoFinalizado');
+		$this->renderPedidoFinalizado('pedidoFinalizado');
 	}
 }

@@ -50,9 +50,6 @@ class Produto extends Model {
         if(strlen($this->__get('descricao')) < 5) {
             return false;
         }
-        if(empty($this->__get('produto_img'))) {
-            return false;
-        }
         return $valide;
     }
     public function getTodosProdutos() {
@@ -78,14 +75,16 @@ class Produto extends Model {
     }
     
     public function editarProduto() {
+        $img = "";
+        if($this->__get('produto_img') != "") {
+            $img = "produto_img = :produto_img,";
+        }
+  
         $query = "update produto set nome = :nome,
         preco = :preco,
         descricao = :descricao,
-        data_alteracao = :data_alteracao,
-        produto_img = :produto_img,
-        produto_img_2 = :produto_img_2,
-        produto_img_3 = :produto_img_3,
-        produto_img_4 = :produto_img_4
+        $img
+        data_alteracao = :data_alteracao
         where id = :id";
         
         $smtm = $this->db->prepare($query);
@@ -94,10 +93,9 @@ class Produto extends Model {
         $smtm->bindValue(':preco',$this->__get('preco'));
         $smtm->bindValue(':descricao',$this->__get('descricao'));
         $smtm->bindValue(':data_alteracao',$this->__get('data_alteracao'));
-        $smtm->bindValue(':produto_img',$this->__get('produto_img'));
-        $smtm->bindValue(':produto_img_2',$this->__get('produto_img_2'));
-        $smtm->bindValue(':produto_img_3',$this->__get('produto_img_3'));
-        $smtm->bindValue(':produto_img_4',$this->__get('produto_img_4'));
+        if($img != "") {
+            $smtm->bindValue(':produto_img', $this->__get('produto_img'));
+        }
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }

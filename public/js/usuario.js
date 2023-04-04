@@ -100,7 +100,7 @@ function editarUsuario() {
                     document.body.insertBefore(div, divLogin);
                 }
                 else {
-                    alert('Criado com sucesso');
+                    alert('Editado com sucesso');
                     window.location.href = '/listagemUsuarioAdmin'
                 }
             },

@@ -115,35 +115,54 @@ function criarProduto() {
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
 
-  if (nome == '' || preco == '' || descricao == '' || img == '') {
-    alert('Falta completar alguma campo');
+  if (!img.endsWith(".png") == true) {
+    alert('Envie uma imagem png ou jpg');
+    return;
+  }
+  if (nome == '') {
+    alert('Digite o nome');
+    return;
+  }
+  if (preco == '') {
+    alert('Digite o preço');
+    return;
+  }
+  if (descricao == '') {
+    alert('Digite a descrição');
+    return;
+  }
+  if (img == '') {
+    alert('Envie uma imagem');
     return;
   }
 
   // img2
   const fileInput2 = document.querySelector('#img2');
   const reader2 = new FileReader();
-  if(fileInput2.files[0] instanceof Blob) {
+  if (fileInput2.files[0] instanceof Blob) {
     reader2.readAsDataURL(fileInput2.files[0]);
     reader2.onload = function () {
-    img2 = reader2.result.split(',')[1];
-  }}
+      img2 = reader2.result.split(',')[1];
+    }
+  }
   // img3
   const fileInput3 = document.querySelector('#img3');
   const reader3 = new FileReader();
-  if(fileInput3.files[0] instanceof Blob) {
+  if (fileInput3.files[0] instanceof Blob) {
     reader3.readAsDataURL(fileInput3.files[0]);
     reader3.onload = function () {
-    img3 = reader3.result.split(',')[1];
-  }}
+      img3 = reader3.result.split(',')[1];
+    }
+  }
   // img4
   const fileInput4 = document.querySelector('#img4');
   const reader4 = new FileReader();
-  if(fileInput4.files[0] instanceof Blob) {
+  if (fileInput4.files[0] instanceof Blob) {
     reader4.readAsDataURL(fileInput4.files[0]);
     reader4.onload = function () {
-    img4 = reader4.result.split(',')[1];
-  }}
+      img4 = reader4.result.split(',')[1];
+    }
+  }
 
   // img principal
   const fileInput = document.querySelector('#img');
@@ -170,7 +189,21 @@ function criarProduto() {
     })
   };
 }
-function editarProduto() {
+
+
+$(document).ready(function () {
+  $('#imgAlterado').click(function (e) {
+    e.preventDefault();
+    $('#img').click();
+  })
+  $('#img').change(function () {
+    let nameImg = $('#img')[0].files[0].name;
+    $('#inputImgAlterado').val(nameImg)
+  })
+})
+
+
+async function editarProduto() {
   let id = $('#id').val();
   let img = $('#img').val();
   let img2 = $('#img2').val();
@@ -180,41 +213,61 @@ function editarProduto() {
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
 
-  if (nome == '' || preco == '' || descricao == '' || img == '') {
-    alert('Falta completar alguma campo');
+  if (nome == '') {
+    alert('Digite o nome');
+    return;
+  }
+  if (preco == '') {
+    alert('Digite o preço');
+    return;
+  }
+  if (descricao == '') {
+    alert('Digite a descrição');
     return;
   }
 
   // img2
   const fileInput2 = document.querySelector('#img2');
   const reader2 = new FileReader();
-  if(fileInput2.files[0] instanceof Blob) {
+  if (fileInput2.files[0] instanceof Blob) {
     reader2.readAsDataURL(fileInput2.files[0]);
     reader2.onload = function () {
-    img2 = reader2.result.split(',')[1];
-  }}
+      img2 = reader2.result.split(',')[1];
+    }
+  }
   // img3
   const fileInput3 = document.querySelector('#img3');
   const reader3 = new FileReader();
-  if(fileInput3.files[0] instanceof Blob) {
+  if (fileInput3.files[0] instanceof Blob) {
     reader3.readAsDataURL(fileInput3.files[0]);
     reader3.onload = function () {
-    img3 = reader3.result.split(',')[1];
-  }}
+      img3 = reader3.result.split(',')[1];
+    }
+  }
   // img4
   const fileInput4 = document.querySelector('#img4');
   const reader4 = new FileReader();
-  if(fileInput4.files[0] instanceof Blob) {
+  if (fileInput4.files[0] instanceof Blob) {
     reader4.readAsDataURL(fileInput4.files[0]);
     reader4.onload = function () {
-    img4 = reader4.result.split(',')[1];
-  }}
+      img4 = reader4.result.split(',')[1];
+    }
+  }
   // img principal
   const fileInput = document.querySelector('#img');
   const reader = new FileReader();
-  reader.readAsDataURL(fileInput.files[0]);
-  reader.onload = function () {
-    img = reader.result.split(',')[1];
+  if (fileInput.files[0] instanceof Blob) {
+    reader.readAsDataURL(fileInput.files[0]);
+    await (
+      new Promise(
+        (resolve, reject) => {
+          reader.onload = function () {
+            img = reader.result.split(',')[1];
+            resolve();
+          }
+        }
+      ));
+  }
     $.ajax({
       url: '/editarProduto',
       type: 'POST',
@@ -233,6 +286,4 @@ function editarProduto() {
         window.location.href = "/listagemProdutoAdmin"
       },
     })
-  };
-}
-
+  }

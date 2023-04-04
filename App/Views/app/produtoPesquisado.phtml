@@ -23,7 +23,7 @@ $usuario = $this->view->getUsuario;
                 <?php if (!empty($produto)) { ?>
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <a href="/produto/<?= $produto['id'] ?>">
-                            <img src="http://placehold.it/266x266" alt="">
+                        <img class="d-block img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>" alt="First slide">
                         </a>
                         <div class="caption">
                             <h4 class="item-name text-left">

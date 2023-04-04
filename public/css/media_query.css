@@ -1,0 +1,11 @@
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #barraPesquisar {
+    font-size: 40pt;
+  }
+  .responsiveContent {
+    font-size: 6vw;
+  }
+  #pesquisar {
+    width: 400px;
+  }
+}

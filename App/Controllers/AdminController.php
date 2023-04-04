@@ -109,12 +109,6 @@ class AdminController extends Action {
         $usuario = Container::getModel('Usuario');
         // Views
         $this->view->getUsuario = [];
-        $this->view->getUsuariosEmail = $usuario->getTodosUsuariosEmail($_POST['email']);
-        if(!empty($this->view->getUsuariosEmail[0])) {
-            header('Content-Type: application/json; charset=utf-8'); 
-            echo json_encode(['mensagem' => 'Email ja existe, tente novamente com outro']);
-            return;
-        }
         // Setters
         $usuario->__set('id',$_POST['id']);
         // View que retorna usuario por id buscado da rota
@@ -169,7 +163,9 @@ class AdminController extends Action {
 		$produto->__set('preco',number_format($_POST['preco'],2, '.', ''));
 		$produto->__set('data_alteracao',date('Y-m-d H:i:s'));
         $produto->__set('descricao',$_POST['descricao']);
-        $produto->__set('produto_img',$_POST['img']);
+        if(!empty($_POST['img'])) {
+            $produto->__set('produto_img',$_POST['img']);
+        }
         $produto->__set('produto_img_2',$_POST['img2']);
         $produto->__set('produto_img_3',$_POST['img3']);
         $produto->__set('produto_img_4',$_POST['img4']);
@@ -200,9 +196,6 @@ class AdminController extends Action {
         if($produto->validarProduto()) {
             $produto->cadastrarProduto();
             header('Location: /listagemProdutoAdmin');
-        }
-        else {
-            return;
         }
     }
     public function deletarProduto() {

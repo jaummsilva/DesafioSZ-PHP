@@ -37,6 +37,15 @@ abstract class Action {
 			$this->content();
 		}
 	}
+	protected function renderPedidoFinalizado($view, $layout = 'layoutPedidoFinalizado') {
+		$this->view->page = $view;
+
+		if(file_exists("../App/Views/".$layout.".phtml")) {
+			require_once "../App/Views/".$layout.".phtml";
+		} else {
+			$this->content();
+		}
+	}
 
 	protected function content() {
 		$classAtual = get_class($this);

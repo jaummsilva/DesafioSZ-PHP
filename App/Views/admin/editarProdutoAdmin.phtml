@@ -6,45 +6,45 @@
 <script src="/js/produto.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<section id="login">
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-wrap">
-                    <h1 class="text-primary">Editar o produto <?= $this->view->getProduto['nome'] ?> ? </h1>
-                    <form role="form" action="/editarProduto" method="post" id="login-form" autocomplete="off">
-                    <input type="hidden" id="id" name="id" value="<?= $this->view->getProduto['id'] ?>">    
-                    <div class="form-group">
-                            <label for="nome" class="sr-only">Nome</label>
-                            <input value="<?= $this->view->getProduto['nome']?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Preço</label>
-                            <input value="<?= $this->view->getProduto['preco']?>"  id="preco" name="preco" class="form-control" placeholder="Preço">
-                        </div>
-                        <div class="form-group">
-                            <label for="key" class="sr-only">Descricao</label>
-                            <input value="<?= $this->view->getProduto['descricao']?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
-                        </div>
-                        <div> <h4>Imagem Principal:</h4></div>
-                        <div class="form-group">
-                            <input  type="file" name="img" id="img" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div> <h4>Imagens Opcionais:</h4></div>
-                        <div class="form-group">
-                            <input  type="file" name="img2" id="img2" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div class="form-group">
-                            <input  type="file" name="img3" id="img3" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div class="form-group">
-                            <input  type="file" name="img4" id="img4" class="form-control" placeholder="Imagem">
-                        </div>
-                        <button onclick="editarProduto()" type="button" id="btn-login" class="btn btn-custom btn-success btn-lg btn-block">Criar</button>
-                    </form>
-                    <hr>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-wrap">
+                <h1 class="text-primary text-center">Editar o produto <?= $this->view->getProduto['nome'] ?> ? </h1>
+                <br>
+                <div class="form-group col-xs-6">
+                    <label for="nome" class="sr-only">Nome</label>
+                    <input value="<?= $this->view->getProduto['id'] ?>" id="id" type="hidden" name="id">
+                    <input value="<?= $this->view->getProduto['nome'] ?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
                 </div>
-            </div> <!-- /.col-xs-12 -->
-        </div> <!-- /.row -->
-    </div> <!-- /.container -->
-</section>
+                <div class="form-group col-xs-6">
+                    <label for="preco" class="sr-only">Preço</label>
+                    <input value="<?= $this->view->getProduto['preco'] ?>" id="preco" name="preco" class="form-control" placeholder="Preço">
+                </div>
+                <div class="form-group col-xs-6">
+                    <label class="sr-only">Descricao</label>
+                    <input value="<?= $this->view->getProduto['descricao'] ?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
+                </div>
+                <div class="form-group col-xs-6">
+                <input style="display: none;"  id="img" type="file" name="img">
+                <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
+                <input type="text" class="form-control" placeholder="Imagem" id="inputImgAlterado">
+                </div>
+                <div class="form-group col-xs-3">
+                    <h4>Imagem Opcionais:</h4>
+                </div>
+                <div class="form-group col-xs-3">
+                    <input multiple="multiple" type="file" name="img2" id="img2" class="form-control" placeholder="Imagem">
+                </div>
+                <div class="form-group col-xs-3">
+                    <input multiple="multiple" type="file" name="img3" id="img3" class="form-control" placeholder="Imagem">
+                </div>
+                <div class="form-group col-xs-3">
+                    <input multiple="multiple" type="file" name="img4" id="img4" class="form-control" placeholder="Imagem">
+                </div>
+                <button onclick="editarProduto()" type="button" id="btn-login" class="btn btn-custom btn-info btn-lg btn-block">Editar</button>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>

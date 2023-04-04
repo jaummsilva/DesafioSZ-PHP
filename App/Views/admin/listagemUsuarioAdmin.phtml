@@ -63,17 +63,6 @@ function getDataTable(id) {
 }
 </script>
 
-<?php if(!empty($sucessosUsuario)) { ?>
-    <?php foreach($sucessosUsuario as $sucesso ) { ?>
-        <div class="alert alert-danger d-flex justify-content-center" role="alert">
-            <?= $sucesso?>
-         </div>
-    <?php }
-    ?>
-<? } 
-?>
-
-
 <table class="table mt-4" id="listagem-usuarios">
   <thead class="thead-dark">
     <tr>
@@ -89,8 +78,8 @@ function getDataTable(id) {
             <tr>
                 <td scope="row"><?= $usuario['email']?></td>
                 <td><?= $usuario['nome']?></td></td>
-                <td><?= $usuario['data_criacao']?></td>
-                <td><?= $usuario['data_alteracao']?></td>
+                <td><?= date('d/m/Y H:i:s',strtotime($usuario['data_criacao']))?></td>
+                <td><?= date('d/m/Y H:i:s',strtotime($usuario['data_alteracao']))?></td>
                 <td>
                     <a href="/editarUsuarioAdmin/<?=$usuario['id']?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
                     <button id="id-button-modal-<?= $usuario['nome']?>-<?=$usuario['id']?>"  style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
@@ -106,7 +95,6 @@ function getDataTable(id) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -114,8 +102,8 @@ function getDataTable(id) {
       <div class="modal-body" id="">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button onclick type="button" class="btn btn-primary button-remover">Remover</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+        <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
       </div>
     </div>
   </div>

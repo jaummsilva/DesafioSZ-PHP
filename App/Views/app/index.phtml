@@ -20,19 +20,21 @@ include('modalCarrinho.phtml');
 <div class="container section-bg">
     <div class="row">
         <?php foreach ($produtos as $produto) { ?>
-            <div class="col-sm-4 col-lg-4 col-md-6 mb-5 ">
-                <a href="/produto/<?= $produto['id'] ?>">
-                    <img class="img-fluid" src="data:image/png;base64,<?=$produto['produto_img']?>">
-                </a>
+            <div class="col-sm-4 col-lg-4 col-md-4 mb-5">
                 <div class="caption">
-                    <h3 style="text-transform: capitalize;" class="item-name text-left">
-                        <?= $produto['nome'] ?>
-                    </h3>
+                    <a href="/produto/<?= $produto['id'] ?>">
+                        <img style="height: 30%;" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>">
+                    </a>
                 </div>
                 <div class="caption">
-                    <h5 class="item-name text-left">
+                    <h2 style="text-transform: capitalize" class="item-name text-left responsive-font-example">
+                        <?= $produto['nome'] ?>
+                    </h2>
+                </div>
+                <div class="caption">
+                    <h4 class="item-name text-left responsive-font-example ">
                         <?= $produto['descricao'] ?>
-                    </h5>
+                    </h4>
                 </div>
                 <?php if (isset($usuario['id'])) { ?>
                     <div class="caption">
@@ -40,19 +42,19 @@ include('modalCarrinho.phtml');
                             <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number btn-sm ml-2" data-type="plus" data-field="">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
-                            <input style="width:34px;height:25px" type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control" value="1" min="1" max="100">
+                            <input style="width:34px;height:25px" type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control font-weight-bold" value="1" min="1" max="100">
                             <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number btn-sm ml-2" data-type="minus" data-field="">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                         </div>
                     </div>
                 <?php } ?>
-                <div class="caption d-flex mr-3">
-                    <h4 style="font-size: 18pt;font-weight:600" class="item-price text-left mt-4 ">
-                        <?= $produto['preco'] ?> R$
+                <div class="caption d-flex justify-content-start mr-3">
+                    <h4 class="item-price text-left mt-4 responsive-font-example font-weight-bold">
+                        R$ <?= (number_format($produto['preco'],2, ',', '')) ?>
                     </h4>
                     <?php if (isset($usuario['id'])) { ?>
-                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho ml-5">Adicionar no carrinho</button>
+                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary responsive-content btn-carrinho btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>
                     <?php } ?>
                 </div>
             </div>
