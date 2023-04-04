@@ -21,6 +21,21 @@ class Carrinho extends Model {
     public function __set($name,$value ) {
         $this->$name = $value;
     }
+
+    public function validarCarrinho() {
+        $valide = true;
+
+        if(strlen($this->__get('usuarioId')) < 1) {
+            return false;
+        }
+        if(strlen($this->__get('produtoId')) < 1) {
+            return false;
+        }
+        if(strlen($this->__get('quantidade_Produto')) < 1) {
+            return false;
+        }
+        return $valide;
+    }
     
     public function getCarrinho() {
         $query = "select * from carrinho where usuario_id = :usuarioId and produto_id = :produtoId and status = 'ABERTO' ";

@@ -127,8 +127,14 @@ class AdminController extends Action {
         $usuario->__set('data_alteracao',date('Y-m-d H:i:s'));
         $usuario->__set('telefone',$_POST['telefone']);
         $usuario->__set('usuario_img',$_POST['img']);
-        $usuario->editarUsuario();
-        header("Location: /listagemUsuarioAdmin");
+        // Se a edição for validada
+        if($usuario->validarCadastro()) {
+            $usuario->editarUsuario();
+            header("Location: /listagemUsuarioAdmin");
+        }
+        else {
+            return;
+        }
     }
     public function deletarUsuario() {
         // Deletação de usuario
@@ -167,8 +173,13 @@ class AdminController extends Action {
         $produto->__set('produto_img_2',$_POST['img2']);
         $produto->__set('produto_img_3',$_POST['img3']);
         $produto->__set('produto_img_4',$_POST['img4']);
-        $produto->editarProduto();
-        header("Location: /listagemProdutoAdmin");
+        if($produto->validarProduto()) {
+            $produto->editarProduto();
+            header("Location: /listagemProdutoAdmin");
+        }
+        else {
+            return;
+        }
     }
     public function cadastroProdutoAdmin() {
         $this->view->getProduto = [];
@@ -191,7 +202,7 @@ class AdminController extends Action {
             header('Location: /listagemProdutoAdmin');
         }
         else {
-            header('Location: /homeAdmin');
+            return;
         }
     }
     public function deletarProduto() {

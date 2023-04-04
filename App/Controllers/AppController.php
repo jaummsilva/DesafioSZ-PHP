@@ -108,7 +108,9 @@ class AppController extends Action
 			$carrinho->__set('quantidade_Produto', $_REQUEST['qtd_Produto']);
 			$carrinho->__set('produtoId', $produto['id']);
 			$carrinho->__set('usuarioId', $_SESSION['id']);
-			$carrinho->inserirCarrinho();
+			if($carrinho->validarCarrinho()) {
+				$carrinho->inserirCarrinho();
+			}
 		}
 		// se carrinho existir , update nele 
 		else {
@@ -137,7 +139,9 @@ class AppController extends Action
 		$carrinhoId->__set('usuarioId', $_SESSION['id']);
 		$carrinhoId->getCarrinho();
 		$carrinhoId->__set('quantidade_Produto', $_REQUEST['quantityCarrinho']);
-		$carrinhoId->updateQuantidadeCarrinho();
+		if($carrinhoId->validarCarrinho()) {
+			$carrinhoId->updateQuantidadeCarrinho();
+		}
 	}
 	public function removerProdutoCarrinho()
 	{
@@ -208,7 +212,9 @@ class AppController extends Action
 		$pedido = Container::getModel('Pedido');
 		$pedido->__set('usuarioId', $_SESSION['id']);
 		$pedido->__set('precoTotal', $precoTotal['total_produto']);
-		$pedido->cadastrarPedido();
+		if($pedido->validarPedido()) {
+			$pedido->cadastrarPedido();
+		}
 		// Id do pedido
 		$pedidoId = $pedido->getPedido();
 		$this->view->getPedidoId = $pedidoId[0]['id'];
@@ -221,7 +227,9 @@ class AppController extends Action
 			$itenspedido->__set('produtoId', $produto['produto_id']);
 			$itenspedido->__set('quantidade_produto', $produto['quantidade_produto']);
 			$itenspedido->__set('preco_por_produto', $produto['preco'] * $produto['quantidade_produto']);
-			$itenspedido->cadastrarItensPedido();
+			if($itenspedido->validarItensPedido()) {
+				$itenspedido->cadastrarItensPedido();
+			}
 			$carrinho->__set('produtoId', $produto['produto_id']);
 			$carrinho->updateCarrinhoFinalizado();
 		}

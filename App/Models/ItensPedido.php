@@ -21,6 +21,23 @@ class ItensPedido extends Model {
         $this->$name = $value;
     }
 
+    public function validarItensPedido() {
+        $valide = true;
+
+        if(strlen($this->__get('produtoId')) < 1) {
+            return false;
+        }
+        if(strlen($this->__get('quantidade_produto')) < 1) {
+            return false;
+        }
+        if(strlen($this->__get('preco_por_produto')) < 1) {
+            return false;
+        }
+        if(strlen($this->__get('pedidoId')) < 1) {
+            return false;
+        }
+        return $valide;
+    }
     public function cadastrarItensPedido() {
         $query = "insert into itenspedido(produto_id,pedido_id,quantidade_produto,preco_total_produto)
         values (:produto_id,:pedido_id,:quantidade_produto,:preco_por_produto)";

@@ -20,6 +20,18 @@ class Pedido extends Model {
         $this->$name = $value;
     }
 
+    public function validarPedido() {
+        $valide = true;
+
+        if(strlen($this->__get('usuarioId')) < 1) {
+            return false;
+        }
+        if(strlen($this->__get('precoTotal')) < 1) {
+            return false;
+        }
+        return $valide;
+    }
+
     public function cadastrarPedido() {
         $query = "insert into pedido(usuario_id,preco_total)
         values (:usuario_id,:preco_total)";
