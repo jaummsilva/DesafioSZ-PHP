@@ -20,3 +20,7 @@
 <h5>- Abra seu workbench</h5>
 <h5>- Execute primeiramente a linha de criação do banco de dados: CREATE DATABASE</h5>
 <h5>- Execute o restante do texto na query</h5>
+
+<h3 align="center" >- Login</h3>
+<h5>- Login: admin@admin.com</h5>
+<h5>- Senha: admin</h5>
