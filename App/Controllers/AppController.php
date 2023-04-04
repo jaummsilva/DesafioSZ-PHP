@@ -115,6 +115,7 @@ class AppController extends Action
 		// se carrinho existir , update nele 
 		else {
 			$carrinhoId->__set('quantidade_Produto', $_REQUEST['qtd_Produto']);
+			$carrinhoId->__set('data_alteracao',date('Y-m-d H:i:s'));
 			$carrinhoId->updateCarrinho();
 		}
 	}
@@ -139,6 +140,7 @@ class AppController extends Action
 		$carrinhoId->__set('usuarioId', $_SESSION['id']);
 		$carrinhoId->getCarrinho();
 		$carrinhoId->__set('quantidade_Produto', $_REQUEST['quantityCarrinho']);
+		$carrinhoId->__set('data_alteracao',date('Y-m-d H:i:s'));
 		if($carrinhoId->validarCarrinho()) {
 			$carrinhoId->updateQuantidadeCarrinho();
 		}
@@ -231,6 +233,7 @@ class AppController extends Action
 				$itenspedido->cadastrarItensPedido();
 			}
 			$carrinho->__set('produtoId', $produto['produto_id']);
+			$carrinho->__set('data_alteracao',date('Y-m-d H:i:s'));
 			$carrinho->updateCarrinhoFinalizado();
 		}
 		$this->render('pedidoFinalizado');

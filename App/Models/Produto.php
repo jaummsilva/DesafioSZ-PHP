@@ -44,7 +44,13 @@ class Produto extends Model {
         if(strlen($this->__get('nome')) < 3) {
             return false;
         }
+        if(strlen($this->__get('preco')) < 1) {
+            return false;
+        }
         if(strlen($this->__get('descricao')) < 5) {
+            return false;
+        }
+        if(empty($this->__get('produto_img'))) {
             return false;
         }
         return $valide;
