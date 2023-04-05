@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Models;
+
 use MF\Model\Model;
 use App\Connection;
 
 class Pedido extends Model {
-
     private $id;
     private $usuarioId;
     private $precoTotal;

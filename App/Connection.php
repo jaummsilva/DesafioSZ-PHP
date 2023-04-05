@@ -16,9 +16,8 @@ class Connection {
 			return $conn;
 
 		} catch (\PDOException $e) {
-			//.. tratar de alguma forma ..//
+			echo 'Erro de conexão: ' .$e;
 		}
 	}
 }
-
 ?>

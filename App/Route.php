@@ -1,9 +1,7 @@
 <?php
 
 namespace App;
-
 use MF\Init\Bootstrap;
-
 class Route extends Bootstrap {
 
 	protected function initRoutes() {
@@ -152,7 +150,5 @@ class Route extends Bootstrap {
 		);
 		$this->setRoutes($routes);
 	}
-
 }
-
 ?>

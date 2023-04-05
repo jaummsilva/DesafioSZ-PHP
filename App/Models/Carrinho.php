@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Models;
+
 use MF\Model\Model;
 use App\Connection;
 
 class Carrinho extends Model {
-
     private $id;
     private $preco;
     private $produtoId;

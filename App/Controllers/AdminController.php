@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Controllers;
 
-//os recursos do miniframework
 use MF\Controller\Action;
 use MF\Model\Container;
 
 class AdminController extends Action {
-
-
     // Autenticação
 	public function loginAdmin() {
 		$this->renderDeslogado('loginAdmin');

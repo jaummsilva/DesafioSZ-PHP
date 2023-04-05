@@ -1,69 +1,67 @@
 <script>
-    $(document).ready(function () {
+  $(document).ready(function() {
     getDataTable('#listagem-produtos');
-})
+  })
 
-function remover(id) {
-            $.ajax({
-                url: 'deletarProduto',
-                type: 'POST',
-                data: {
-                    idProduto: id
-                },
-                success: function(response) {
-                    window.location.href = "/listagemProdutoAdmin"
-                    alert("Deletado com sucesso")
-                },
-                error: function(e){
-                    window.location.href = "/listagemProdutoAdmin"
-                    alert("Ocorreu um erro")
-                }
-            })
-}
-
-
-function getDataTable(id) {
-    $(id).DataTable({
-        "ordering": true,
-        "paging": true,
-        "searching": true,
-        "oLanguage": {
-            "sEmptyTable": "Nenhum registro encontrado na tabela",
-            "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
-            "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "Mostrar _MENU_ registros por pagina",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Proximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Ultimo"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
-            }
-        }
-    });
-    $('.modal-button').click(function (e) {
-        let text = e.target.id;
-        let idText = text.split("-");
-        let nome = idText[3];
-        let id = idText[4];
-        
-        $('.button-remover').attr("onclick",`remover(${id})`)
-        $('.modal-body').html("Deseja remover o produto " +  nome + "?");
-        $('#exampleModal').modal('show');
+  function remover(id) {
+    $.ajax({
+      url: 'deletarProduto',
+      type: 'POST',
+      data: {
+        idProduto: id
+      },
+      success: function(response) {
+        window.location.href = "/listagemProdutoAdmin"
+        alert("Deletado com sucesso")
+      },
+      error: function(e) {
+        window.location.href = "/listagemProdutoAdmin"
+        alert("Ocorreu um erro")
+      }
     })
-}
-</script>
+  }
 
+  function getDataTable(id) {
+    $(id).DataTable({
+      "ordering": true,
+      "paging": true,
+      "searching": true,
+      "oLanguage": {
+        "sEmptyTable": "Nenhum registro encontrado na tabela",
+        "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
+        "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
+        "sInfoPostFix": "",
+        "sInfoThousands": ".",
+        "sLengthMenu": "Mostrar _MENU_ registros por pagina",
+        "sLoadingRecords": "Carregando...",
+        "sProcessing": "Processando...",
+        "sZeroRecords": "Nenhum registro encontrado",
+        "sSearch": "Pesquisar",
+        "oPaginate": {
+          "sNext": "Proximo",
+          "sPrevious": "Anterior",
+          "sFirst": "Primeiro",
+          "sLast": "Ultimo"
+        },
+        "oAria": {
+          "sSortAscending": ": Ordenar colunas de forma ascendente",
+          "sSortDescending": ": Ordenar colunas de forma descendente"
+        }
+      }
+    });
+    $('.modal-button').click(function(e) {
+      let text = e.target.id;
+      let idText = text.split("-");
+      let nome = idText[3];
+      let id = idText[4];
+
+      $('.button-remover').attr("onclick", `remover(${id})`)
+      $('.modal-body').html("Deseja remover o produto " + nome + "?");
+      $('#exampleModal').modal('show');
+    })
+  }
+</script>
 
 <table class="table" id="listagem-produtos">
   <thead class="thead-dark">
@@ -76,19 +74,20 @@ function getDataTable(id) {
     </tr>
   </thead>
   <tbody>
-        <?php foreach($this->view->getProdutos as $produto)  {?>
-            <tr>
-                <td scope="row"><?= $produto['nome']?></td>
-                <td><?= (number_format($produto['preco'],2, ',', '')) ?></td></td>
-                <td><?= date('d/m/Y H:i:s',strtotime($produto['data_criacao']))?></td>
-                <td><?= date('d/m/Y H:i:s',strtotime($produto['data_alteracao']))?></td>
-                <td>
-                    <a href="/editarProdutoAdmin/<?=$produto['id']?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
-                    <button id="id-button-modal-<?= $produto['nome']?>-<?=$produto['id']?>"  style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
-                </td>
-            <?php } 
-            ?>
-            </tr>
+    <?php foreach ($this->view->getProdutos as $produto) { ?>
+      <tr>
+        <td scope="row"><?= $produto['nome'] ?></td>
+        <td><?= (number_format($produto['preco'], 2, ',', '')) ?></td>
+        </td>
+        <td><?= date('d/m/Y H:i:s', strtotime($produto['data_criacao'])) ?></td>
+        <td><?= date('d/m/Y H:i:s', strtotime($produto['data_alteracao'])) ?></td>
+        <td>
+          <a href="/editarProdutoAdmin/<?= $produto['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
+          <button id="id-button-modal-<?= $produto['nome'] ?>-<?= $produto['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
+        </td>
+      <?php }
+      ?>
+      </tr>
   </tbody>
 </table>
 
@@ -110,5 +109,4 @@ function getDataTable(id) {
     </div>
   </div>
 </div>
-
 </body>

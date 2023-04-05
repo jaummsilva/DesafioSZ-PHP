@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Models;
+
 use MF\Model\Model;
 use App\Connection;
 
 class ItensPedido extends Model {
-
     private $id;
     private $produtoId;
     private $pedidoId;
