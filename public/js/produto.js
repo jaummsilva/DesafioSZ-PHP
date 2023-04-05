@@ -1,5 +1,42 @@
-function incrementQtd(id) {
+$(document).ready(function () {
+  $('.btn-carrinho').click(function () {
+    $('#exampleModal').modal('show');
+  })
+  $('#imgAlterado').click(function (e) {
+    e.preventDefault();
+    $('#img').click();
+  })
+  $('#img').change(function () {
+    let nameImg = $('#img')[0].files[0].name;
+    $('#inputImgAlterado').val(nameImg)
+  })
+  $('#imgAlterado2').click(function (e) {
+    e.preventDefault();
+    $('#img2').click();
+  })
+  $('#img2').change(function () {
+    let nameImg = $('#img2')[0].files[0].name;
+    $('#inputImgAlterado2').val(nameImg)
+  })
+  $('#imgAlterado3').click(function (e) {
+    e.preventDefault();
+    $('#img3').click();
+  })
+  $('#img3').change(function () {
+    let nameImg = $('#img3')[0].files[0].name;
+    $('#inputImgAlterado3').val(nameImg)
+  })
+  $('#imgAlterado4').click(function (e) {
+    e.preventDefault();
+    $('#img4').click();
+  })
+  $('#img4').change(function () {
+    let nameImg = $('#img4')[0].files[0].name;
+    $('#inputImgAlterado4').val(nameImg)
+  })
+})
 
+function incrementQtd(id) {
   var quantity = parseInt($(`#quantity-${id}`).val());
   var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
   $(`#quantity-${id}`).val(quantity + 1);
@@ -16,6 +53,7 @@ function decrementQtd(id) {
     $(`#quantityCarrinho-${id}`).val(quantityCarrinho - 1);
   }
 }
+
 function incrementQtdCarrinho(id) {
   var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
   $(`#quantityCarrinho-${id}`).val(quantityCarrinho + 1);
@@ -37,8 +75,6 @@ function incrementQtdCarrinho(id) {
       $('')
     },
   });
-
-
 }
 
 function decrementQtdCarrinho(id) {
@@ -76,8 +112,8 @@ function adicionar(id) {
       qtd_Produto: qtdProduto,
     },
     success: function (response) {
-      window.location.href = "/"
       alert("Carrinho alterado");
+      window.location.href = "/";
     },
     error: function (e) {
       alert("Ocorreu um erro");
@@ -105,40 +141,6 @@ function remover(id, idUsuario) {
   $('.input-number').attr("onchange", `remover(${id, idUsuario})`)
 }
 
-$(document).ready(function () {
-  $('#imgAlterado').click(function (e) {
-    e.preventDefault();
-    $('#img').click();
-  })
-  $('#img').change(function () {
-    let nameImg = $('#img')[0].files[0].name;
-    $('#inputImgAlterado').val(nameImg)
-  })
-  $('#imgAlterado2').click(function (e) {
-    e.preventDefault();
-    $('#img2').click();
-  })
-  $('#img2').change(function () {
-    let nameImg = $('#img2')[0].files[0].name;
-    $('#inputImgAlterado2').val(nameImg)
-  })
-  $('#imgAlterado3').click(function (e) {
-    e.preventDefault();
-    $('#img3').click();
-  })
-  $('#img3').change(function () {
-    let nameImg = $('#img3')[0].files[0].name;
-    $('#inputImgAlterado3').val(nameImg)
-  })
-  $('#imgAlterado4').click(function (e) {
-    e.preventDefault();
-    $('#img4').click();
-  })
-  $('#img4').change(function () {
-    let nameImg = $('#img4')[0].files[0].name;
-    $('#inputImgAlterado4').val(nameImg)
-  })
-})
 async function criarProduto() {
   let img = $('#img').val();
   let imgNome = $('#inputImgAlterado').val()
@@ -151,8 +153,8 @@ async function criarProduto() {
   let nome = $('#nome').val();
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
-  
-  if((!img.endsWith('.png') == true && !img.endsWith('.jpg') == true) || img == '') {
+
+  if ((!img.endsWith('.png') == true && !img.endsWith('.jpg') == true) || img == '') {
     alert('Somente imagens em png e jpg aceitas');
     return;
   }
@@ -229,32 +231,28 @@ async function criarProduto() {
         }
       ));
   }
-    $.ajax({
-      url: '/registrarProduto',
-      type: 'POST',
-      data: {
-        img,
-        imgNome,
-        descricao,
-        preco,
-        nome,
-        img2,
-        imgNome2,
-        img3,
-        imgNome3,
-        img4,
-        imgNome4
-      },
-      success: function (response) {
-        alert("Produto criado com sucesso");
-        window.location.href = "/listagemProdutoAdmin"
-      },
-    })
+  $.ajax({
+    url: '/registrarProduto',
+    type: 'POST',
+    data: {
+      img,
+      imgNome,
+      descricao,
+      preco,
+      nome,
+      img2,
+      imgNome2,
+      img3,
+      imgNome3,
+      img4,
+      imgNome4
+    },
+    success: function (response) {
+      alert("Produto criado com sucesso");
+      window.location.href = "/listagemProdutoAdmin"
+    },
+  })
 }
-
-
-
-
 
 async function editarProduto() {
   let id = $('#id').val();
@@ -270,7 +268,7 @@ async function editarProduto() {
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
 
-  if((!img.endsWith('.png') == true && !img.endsWith('.jpg') == true)  && img.endsWith('') == true ) {
+  if (!img.endsWith('.png') == true && !img.endsWith('') == true) {
     alert('Somente imagens em png aceitas');
     return;
   }
@@ -348,26 +346,26 @@ async function editarProduto() {
         }
       ));
   }
-    $.ajax({
-      url: '/editarProduto',
-      type: 'POST',
-      data: {
-        id,
-        img,
-        imgNome,
-        descricao,
-        preco,
-        nome,
-        img2,
-        imgNome2,
-        img3,
-        imgNome3,
-        img4,
-        imgNome4
-      },
-      success: function (response) {
-        alert("Produto editado com sucesso");
-        window.location.href = "/listagemProdutoAdmin"
-      },
-    })
-  }
+  $.ajax({
+    url: '/editarProduto',
+    type: 'POST',
+    data: {
+      id,
+      img,
+      imgNome,
+      descricao,
+      preco,
+      nome,
+      img2,
+      imgNome2,
+      img3,
+      imgNome3,
+      img4,
+      imgNome4
+    },
+    success: function (response) {
+      alert("Produto editado com sucesso");
+      window.location.href = "/listagemProdutoAdmin"
+    },
+  })
+}

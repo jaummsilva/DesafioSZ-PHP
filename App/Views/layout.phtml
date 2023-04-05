@@ -18,24 +18,24 @@ $contador = $this->view->getContador;
 </head>
 
 <body>
-	<header class="fixed-top">
+	<header class="fixed-top header-container">
 		<nav class="navbar navbar-expand-lg bg-light">
-			<div class="container-fluid">
+			<div class="container-fluid ">
 				<div class="navbar-nav d-flex justify-content-start mr-auto">
-					<a class="navbar-brand" href="/">
-						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+					<a  class="navbar-brand" href="/">
+						<i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i>
 					</a>
 				</div>
 					<div id="barraPesquisar" class="navbar-nav mr-auto d-flex flex-nowrap" >
 							<form class="mt-2 d-flex flex-nowrap" action="/pesquisarProdutos">
 								<span style="font-size:1.75rem">Pesquise:</span>
-								<input class="ml-3" placeholder="Pesquise pelo nome ou descrição" type="text" name="pesquisa" id="pesquisar">
+								<input style="font-size: 13pt;" class="ml-3" placeholder="Pesquise pelo nome ou descrição" type="text" name="pesquisa" id="pesquisar">
 							</form>
 					</div>
 					<div class="navbar-nav d-flex flex-row ">
 					<?php if (isset($usuario['id'])) { ?>
-						<button type="button" class="btn btn-light text-primary btn-carrinho">
-							<i style="font-size:2rem"  class="fa fa-shopping-cart" aria-hidden="true"></i>
+						<button style="font-size:2rem" type="button" class="btn btn-light text-primary btn-carrinho">
+							<i   class="fa fa-shopping-cart" aria-hidden="true"></i>
 							Carrinho
 							<span  class="badge badge-light"><?= $contador ?></span>
 						</button>
@@ -43,7 +43,7 @@ $contador = $this->view->getContador;
 						
 						<?php if (isset($usuario['id'])) { ?>
 							<div class="dropdown show ml-2">
-								<a style="font-size:1.75rem" class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
+								<a style="font-size:2rem" class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									<a style="font-size:1.75rem"  class="dropdown-item" href="/sair">Sair</a>
 								</div>
@@ -60,7 +60,9 @@ $contador = $this->view->getContador;
 	</header>
 	<br>
 	<?= $this->content() ?>
-	<footer class="bg-light fixed-bottom">
+	<br>
+	<br>
+	<footer class="bg-light fixed-bottom mt-5">
 		<hr style="background-color: black;">
 		<div class="container">
 			<div class="row text-center">

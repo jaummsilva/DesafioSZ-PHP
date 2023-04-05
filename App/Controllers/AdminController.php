@@ -120,6 +120,7 @@ class AdminController extends Action {
         $usuario->__set('data_nascimento',$_POST['nascimento']);
         $usuario->__set('data_alteracao',date('Y-m-d H:i:s'));
         $usuario->__set('telefone',$_POST['telefone']);
+        // se a imagem for alterada
         if(!empty($_POST['img'])) {
             $usuario->__set('usuario_img',$_POST['img']);
             $usuario->__set('usuario_img_nome',$_POST['imgNome']);
@@ -166,22 +167,27 @@ class AdminController extends Action {
 		$produto->__set('preco',number_format($_POST['preco'],2, '.', ''));
 		$produto->__set('data_alteracao',date('Y-m-d H:i:s'));
         $produto->__set('descricao',$_POST['descricao']);
+        // se a imagem for alterada
         if(!empty($_POST['img'])) {
             $produto->__set('produto_img',$_POST['img']);
             $produto->__set('produto_img_nome',$_POST['imgNome']);
         }
+        // se a imagem 2 for alterada 
         if(!empty($_POST['img2'])) {
             $produto->__set('produto_img_2',$_POST['img_2']);
             $produto->__set('produto_img_2_nome',$_POST['imgNome2']);
         }
+        // se a imagem 3 for alterada 
         if(!empty($_POST['img3'])) {
             $produto->__set('produto_img_3',$_POST['img3']);
             $produto->__set('produto_img_3_nome',$_POST['imgNome3']);
         }
+        // se a imagem 4 for alterada 
         if(!empty($_POST['img4'])) {
             $produto->__set('produto_img_4',$_POST['img4']);
             $produto->__set('produto_img_4_nome',$_POST['imgNome4']);
         }
+        // se o produto for validado
         if($produto->validarProduto()) {
             $produto->editarProduto();
             header("Location: /listagemProdutoAdmin");

@@ -7,23 +7,18 @@ include('modalCarrinho.phtml');
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/produto.js"></script>
-
-<script>
-    $('.btn-carrinho').click(function() {
-        $('#exampleModal').modal('show');
-    })
-</script>
+<link rel="stylesheet" href="/css/login.css">
 
 <br>
 <br>
 <br>
-<div class="container section-bg">
+<div class="container section-bg produto-container mt-5">
     <div class="row">
         <?php foreach ($produtos as $produto) { ?>
-            <div class="col-sm-4 col-lg-4 col-md-4 mb-5">
+            <div class="col-sm-4 col-lg-4 col-md-4 p-5">
                 <div class="caption">
                     <a href="/produto/<?= $produto['id'] ?>">
-                        <img style="height: 30%;" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>">
+                        <img style="height: 40%;" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>">
                     </a>
                 </div>
                 <div class="caption">
@@ -50,7 +45,7 @@ include('modalCarrinho.phtml');
                     </div>
                 <?php } ?>
                 <div class="caption d-flex justify-content-start mr-3">
-                    <h4 class="item-price text-left mt-4 responsive-font-example font-weight-bold">
+                    <h4 style="font-family: Stencil Std, fantasy;font-size:17pt" class="item-price text-left mt-4 responsive-font-example font-weight-bold">
                         R$ <?= (number_format($produto['preco'],2, ',', '')) ?>
                     </h4>
                     <?php if (isset($usuario['id'])) { ?>
