@@ -36,8 +36,10 @@
                     <label for="key" class="sr-only">Repetir Senha</label>
                     <input type="password" name="repetirSenha" class="form-control" id="repetirSenha" placeholder="Repetir Senha">
                 </div>
-                <div class="form-group col-xs-4 ml-auto">
-                    <input type="file" name="img" id="img" class="form-control" placeholder="Imagem">
+                <div class="form-group col-xs-4 d-flex flex-row">
+                    <input style="display: none;" id="img" type="file" name="img">
+                    <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
                 </div>
                 <hr>
                 <div class="form-group col-xs-12 text-center">

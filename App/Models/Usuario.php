@@ -15,6 +15,7 @@ class Usuario extends Model {
     private $data_nascimento;
     private $telefone;
     private $usuario_img;
+    private $usuario_img_nome;
 
     public function __get($name) {
         return $this->$name;
@@ -24,14 +25,15 @@ class Usuario extends Model {
     }
 
     public function cadastrarUsuario() {
-        $query = "insert into usuario(nome,email,senha,data_nascimento,telefone,usuario_img)
-        values (:nome,:email,:senha,:data_nascimento,:telefone,:usuario_img)";
+        $query = "insert into usuario(nome,email,senha,data_nascimento,telefone,usuario_img,usuario_img_nome)
+        values (:nome,:email,:senha,:data_nascimento,:telefone,:usuario_img,:usuario_img_nome)";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':nome',$this->__get('nome'));
         $smtm->bindValue(':email',$this->__get('email'));
         $smtm->bindValue(':senha',$this->__get('senha'));
         $smtm->bindValue(':data_nascimento',$this->__get('data_nascimento'));
         $smtm->bindValue(':usuario_img',$this->__get('usuario_img'));
+        $smtm->bindValue(':usuario_img_nome',$this->__get('usuario_img_nome'));
         $smtm->bindValue(':telefone',$this->__get('telefone'));
         $smtm->execute();
         return $this;
@@ -85,7 +87,15 @@ class Usuario extends Model {
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function editarUsuario() {
+        $img = "";
+        $imgNome = "";
+        if($this->__get('usuario_img') != "") {
+            $img = "usuario_img = :usuario_img,";
+            $imgNome = "usuario_img_nome = :usuario_img_nome,";
+        }
         $query = "update usuario set nome = :nome,
+        $img
+        $imgNome
         email = :email,
         senha = :senha,
         telefone = :telefone,
@@ -97,11 +107,14 @@ class Usuario extends Model {
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':id',$this->__get('id'));
         $smtm->bindValue(':nome',$this->__get('nome'));
+        if($img != "" && $imgNome != '') {
+            $smtm->bindValue(':usuario_img', $this->__get('usuario_img'));
+            $smtm->bindValue(':usuario_img_nome', $this->__get('usuario_img_nome'));
+        }
         $smtm->bindValue(':email',$this->__get('email'));
         $smtm->bindValue(':senha',$this->__get('senha'));
         $smtm->bindValue(':data_nascimento',$this->__get('data_nascimento'));
         $smtm->bindValue(':data_alteracao',$this->__get('data_alteracao'));
-        $smtm->bindValue(':usuario_img',$this->__get('usuario_img'));
         $smtm->bindValue(':telefone',$this->__get('telefone'));
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);

@@ -9,44 +9,52 @@ $produto = $this->view->getProduto;
 <script src="/js/produto.js"></script>
 
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-wrap">
-                    <h1 class="text-primary text-center">Criar um produto</h1>
-                    <br>
-                        <div class="form-group col-xs-6">
-                            <label for="nome" class="sr-only">Nome</label>
-                            <input value="<?= isset($produto['nome']) ? $produto['nome'] : '' ?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <label for="preco" class="sr-only">Preço</label>
-                            <input value="<?= isset($produto['preco']) ? $produto['preco'] : '' ?>" id="preco" name="preco" class="form-control" placeholder="Preço">
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <label class="sr-only">Descricao</label>
-                            <input value="<?= isset($produto['descricao']) ? $produto['descricao'] : '' ?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <input multiple="multiple" type="file" name="img" id="img" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div class="form-group col-xs-3">
-                           <h4>Imagem Opcionais:</h4>
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <input multiple="multiple" type="file" name="img2" id="img2" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <input multiple="multiple" type="file" name="img3" id="img3" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <input multiple="multiple" type="file" name="img4" id="img4" class="form-control" placeholder="Imagem">
-                        </div>
-                        <div class="form-group col-xs-12 text-center">
-                        <button onclick="criarProduto()" type="button" id="btn-login" class="btn btn-custom btn-info btn-lg btn-block">Criar</button>
-                        </div>
-                    <hr>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-wrap">
+                <h1 class="text-primary text-center">Criar um produto</h1>
+                <br>
+                <div class="form-group col-xs-6">
+                    <label for="nome" class="sr-only">Nome</label>
+                    <input value="<?= isset($produto['nome']) ? $produto['nome'] : '' ?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
                 </div>
+                <div class="form-group col-xs-6">
+                    <label for="preco" class="sr-only">Preço</label>
+                    <input value="<?= isset($produto['preco']) ? $produto['preco'] : '' ?>" id="preco" name="preco" class="form-control" placeholder="Preço">
+                </div>
+                <div class="form-group col-xs-6">
+                    <label class="sr-only">Descricao</label>
+                    <input value="<?= isset($produto['descricao']) ? $produto['descricao'] : '' ?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
+                </div>
+                <div class="form-group col-xs-6 d-flex flex-row">
+                    <input style="display: none;" id="img" type="file" name="img">
+                    <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
+                </div>
+                <div class="form-group col-xs-12 text-center">
+                    <h4>Imagem Opcionais:</h4>
+                </div>
+                <div class="form-group col-xs-4 d-flex flex-row">
+                    <input style="display: none;" id="img2" type="file" name="img2">
+                    <button id="imgAlterado2" class="btn btn-primary"> Escolher Arquivo</button>
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado2">
+                </div>
+                <div class="form-group col-xs-4 d-flex flex-row">
+                    <input style="display: none;" id="img3" type="file" name="img3">
+                    <button id="imgAlterado3" class="btn btn-primary"> Escolher Arquivo</button>
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado3">
+                </div>
+                <div class="form-group col-xs-4 d-flex flex-row">
+                    <input style="display: none;" id="img4" type="file" name="img4">
+                    <button id="imgAlterado4" class="btn btn-primary"> Escolher Arquivo</button>
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado4">
+                </div>
+                <div class="form-group col-xs-12 text-center">
+                    <button onclick="criarProduto()" type="button" id="btn-login" class="btn btn-custom btn-info btn-lg btn-block">Criar</button>
+                </div>
+                <hr>
             </div>
         </div>
-    </div> 
+    </div>
+</div>

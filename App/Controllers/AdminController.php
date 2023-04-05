@@ -73,9 +73,9 @@ class AdminController extends Action {
 		$usuario->__set('email',$_POST['email']);
 		$usuario->__set('senha',sha1($_POST['senha']));
         $usuario->__set('data_nascimento',$_POST['nascimento']);
-        $usuario->__set('data_alteracao',date('Y-m-d H:i:s'));
         $usuario->__set('telefone',$_POST['telefone']);
         $usuario->__set('usuario_img',$_POST['img']);
+        $usuario->__set('usuario_img_nome',$_POST['imgNome']);
         // Se o cadastro for validado
         if($usuario->validarCadastro()) {
 			$usuario->cadastrarUsuario();
@@ -120,7 +120,10 @@ class AdminController extends Action {
         $usuario->__set('data_nascimento',$_POST['nascimento']);
         $usuario->__set('data_alteracao',date('Y-m-d H:i:s'));
         $usuario->__set('telefone',$_POST['telefone']);
-        $usuario->__set('usuario_img',$_POST['img']);
+        if(!empty($_POST['img'])) {
+            $usuario->__set('usuario_img',$_POST['img']);
+            $usuario->__set('usuario_img_nome',$_POST['imgNome']);
+        }
         // Se a edição for validada
         if($usuario->validarCadastro()) {
             $usuario->editarUsuario();
@@ -165,10 +168,20 @@ class AdminController extends Action {
         $produto->__set('descricao',$_POST['descricao']);
         if(!empty($_POST['img'])) {
             $produto->__set('produto_img',$_POST['img']);
+            $produto->__set('produto_img_nome',$_POST['imgNome']);
         }
-        $produto->__set('produto_img_2',$_POST['img2']);
-        $produto->__set('produto_img_3',$_POST['img3']);
-        $produto->__set('produto_img_4',$_POST['img4']);
+        if(!empty($_POST['img2'])) {
+            $produto->__set('produto_img_2',$_POST['img_2']);
+            $produto->__set('produto_img_2_nome',$_POST['imgNome2']);
+        }
+        if(!empty($_POST['img3'])) {
+            $produto->__set('produto_img_3',$_POST['img3']);
+            $produto->__set('produto_img_3_nome',$_POST['imgNome3']);
+        }
+        if(!empty($_POST['img4'])) {
+            $produto->__set('produto_img_4',$_POST['img4']);
+            $produto->__set('produto_img_4_nome',$_POST['imgNome4']);
+        }
         if($produto->validarProduto()) {
             $produto->editarProduto();
             header("Location: /listagemProdutoAdmin");
@@ -189,9 +202,19 @@ class AdminController extends Action {
 		$produto->__set('preco',number_format($_POST['preco'],2, '.', ''));
 		$produto->__set('descricao',$_POST['descricao']);
         $produto->__set('produto_img',$_POST['img']);
-        $produto->__set('produto_img_2',$_POST['img2']);
-        $produto->__set('produto_img_3',$_POST['img3']);
-        $produto->__set('produto_img_4',$_POST['img4']);
+        $produto->__set('produto_img_nome',$_POST['imgNome']);
+        if(!empty($_POST['img2'])) {
+            $produto->__set('produto_img_2',$_POST['img2']);
+            $produto->__set('produto_img_2_nome',$_POST['imgNome2']);
+        }
+        if(!empty($_POST['img3'])) {
+            $produto->__set('produto_img_3',$_POST['img3']);
+            $produto->__set('produto_img_3_nome',$_POST['imgNome3']);
+        }
+        if(!empty($_POST['img4'])) {
+            $produto->__set('produto_img_4',$_POST['img4']);
+            $produto->__set('produto_img_4_nome',$_POST['imgNome4']);
+        }
         // Se o cadastro for validado , registra o produto
         if($produto->validarProduto()) {
             $produto->cadastrarProduto();
