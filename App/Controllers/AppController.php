@@ -183,6 +183,7 @@ class AppController extends Action
 			if ($pesquisar != '') {
 				$produto = Container::getModel('Produto');
 				$produto->__set('nome', $pesquisar);
+				$produto->__set('descricao', $pesquisar);
 				$produtos = $produto->getProdutoPesquisa();
 			}
 			$this->view->produtos = $produtos;

@@ -8,7 +8,6 @@ include('modalCarrinho.phtml');
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/produto.js"></script>
 <link rel="stylesheet" href="/css/login.css">
-
 <br>
 <br>
 <br>
@@ -46,7 +45,7 @@ include('modalCarrinho.phtml');
                 <?php } ?>
                 <div class="caption d-flex justify-content-start mr-3">
                     <h4 style="font-family: Stencil Std, fantasy;font-size:17pt" class="item-price text-left mt-4 responsive-font-example font-weight-bold">
-                        R$ <?= (number_format($produto['preco'],2, ',', '')) ?>
+                        R$ <?= (number_format($produto['preco'], 2, ',', '')) ?>
                     </h4>
                     <?php if (isset($usuario['id'])) { ?>
                         <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary responsive-content btn-carrinho btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>

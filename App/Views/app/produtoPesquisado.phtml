@@ -5,6 +5,8 @@ $usuario = $this->view->getUsuario;
 
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="/js/produto.js"></script>
 <link rel="stylesheet" href="/css/login.css">
 <script>
@@ -17,64 +19,56 @@ $usuario = $this->view->getUsuario;
 <br>
 <br>
 <div class="container section-bg mt-5 produto-container">
-    <div class="col-md-9">
-        <div class="row">
-            <?php foreach ($produtos as $produto) { ?>
-                <?php if (!empty($produto)) { ?>
-                    <div class="col-sm-4 col-lg-4 col-md-4 p-5">
-                        <a href="/produto/<?= $produto['id'] ?>">
-                        <img class="d-block img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>" alt="First slide">
-                        </a>
-                        <div class="caption">
-                            <h4 class="item-name text-left">
-                                <?= $produto['nome'] ?>
-                            </h4>
+    <div class="row">
+    <?php foreach ($produtos as $produto) { ?>
+            <div class="col-sm-4 col-lg-4 col-md-4 p-5">
+                <div class="caption">
+                    <a href="/produto/<?= $produto['id'] ?>">
+                        <img style="height: 40%;" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>">
+                    </a>
+                </div>
+                <div class="caption">
+                    <h2 style="text-transform: capitalize" class="item-name text-left responsive-font-example">
+                        <?= $produto['nome'] ?>
+                    </h2>
+                </div>
+                <div class="caption">
+                    <h4 class="item-name text-left responsive-font-example ">
+                        <?= $produto['descricao'] ?>
+                    </h4>
+                </div>
+                <?php if (isset($usuario['id'])) { ?>
+                    <div class="caption">
+                        <div class="input-group mb-3">
+                            <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number btn-sm ml-2" data-type="plus" data-field="">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <input style="width:34px;height:25px" type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control font-weight-bold" value="1" min="1" max="100">
+                            <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number btn-sm ml-2" data-type="minus" data-field="">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
                         </div>
-                        <div class="caption">
-                            <h4 class="item-name text-left">
-                                <?= $produto['descricao'] ?>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h4 class="item-price text-left mr-3">
-                                <?= $produto['preco'] ?>
-                            </h4>
-                        </div>
-                        <?php if (isset($usuario['id'])) { ?>
-                            <div class="caption d-flex ">
-                                <div>
-                                    <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary btn-sm btn-carrinho">Adicionar no carrinho</button>
-                                </div>
-                                <div class="ml-5" style="width: 40px;">
-                                    <span class="input-group-btn">
-                                        <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                    </span>
-                                    <input type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                                    <span class="input-group-btn">
-                                        <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                            <span class="glyphicon glyphicon-minus"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
                     </div>
                 <?php } ?>
-            <?php }
-            ?>
-            <?php if(!empty($produto['id'])) {
-                ?>
-                <div>
-                    Não encontramos o item
+                <div class="caption d-flex justify-content-start mr-3">
+                    <h4 style="font-family: Stencil Std, fantasy;font-size:17pt" class="item-price text-left mt-4 responsive-font-example font-weight-bold">
+                        R$ <?= (number_format($produto['preco'], 2, ',', '')) ?>
+                    </h4>
+                    <?php if (isset($usuario['id'])) { ?>
+                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary responsive-content btn-carrinho btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>
+                    <?php } ?>
                 </div>
-           <?php } 
-           ?>
-        <?php } 
-        ?>
-        </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
+<?php if (empty($produtos)) {
+?>
+    <div class="container d-flex justify-content-center align-items-center">
+        <h1>Não encontramos o item pesquisado!</h1>
+    </div>
+<?php }
+?>
 
 <?php
 include('modalCarrinho.phtml');

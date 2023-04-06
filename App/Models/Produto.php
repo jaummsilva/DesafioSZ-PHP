@@ -124,8 +124,8 @@ class Produto extends Model {
     public function getProdutoPesquisa() {
         $query = "select * from produto where nome like :nome or descricao like :descricao";
         $smtm = $this->db->prepare($query);
-        $smtm->bindValue(':nome',$this->__get('nome'));
-        $smtm->bindValue(':descricao',$this->__get('nome'));
+        $smtm->bindValue(':nome','%'.$this->__get('nome').'%');
+        $smtm->bindValue(':descricao','%'.$this->__get('descricao').'%');
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }
