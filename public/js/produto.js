@@ -268,7 +268,7 @@ async function editarProduto() {
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
 
-  if (!img.endsWith('.png') && img != '') {
+  if (!img.endsWith('.png') && img != '' && !img.endsWith('.jpg')) {
     alert('Somente imagens em png aceitas');
     return;
   }

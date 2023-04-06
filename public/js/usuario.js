@@ -40,8 +40,8 @@ async function criarUsuario() {
         alert('Digite o seu email');
         return;
     }
-    if (!img.endsWith('.png') == true || img == '') {
-        alert('Somente imagens em png aceitas');
+    if (!img.endsWith('.png') || img == '' || img.endsWith('.jpg')) {
+        alert('Somente imagens em png e jpg aceitas');
         return;
     }
     // img principal
@@ -101,8 +101,8 @@ async function editarUsuario() {
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
 
-    if (!img.endsWith('.png') && img != '') {
-        alert('Somente imagens em png aceitas');
+    if (!img.endsWith('.png') && img != '' && !img.endsWith('.jpg')) {
+        alert('Somente imagens em png e jpg aceitas');
         return;
     }
     if (senha != repetirSenha) {
