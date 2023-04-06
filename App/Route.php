@@ -12,7 +12,16 @@ class Route extends Bootstrap {
 			'controller' => 'loginController',
 			'action' => 'index'
 		);
-
+		$routes['autenticar'] = array(
+			'route' => '/autenticar',
+			'controller' => 'loginController',
+			'action' => 'autenticar'
+		);
+		$routes['sair'] = array(
+			'route' => '/sair',
+			'controller' => 'loginController',
+			'action' => 'sair'
+		);
 		// App Controller
 		$routes['home'] = array(
 			'route' => '/',
@@ -55,19 +64,6 @@ class Route extends Bootstrap {
 			'controller' => 'appController',
 			'action' => 'pedidoFinalizado'
 		);
-
-		// Auth Controller
-		$routes['autenticar'] = array(
-			'route' => '/autenticar',
-			'controller' => 'AuthController',
-			'action' => 'autenticar'
-		);
-		$routes['sair'] = array(
-			'route' => '/sair',
-			'controller' => 'AuthController',
-			'action' => 'sair'
-		);
-
 		// Admin Controller
 		$routes['homeAdmin'] = array(
 			'route' => '/homeAdmin',

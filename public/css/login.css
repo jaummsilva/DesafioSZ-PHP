@@ -103,9 +103,11 @@
 
     #listagem-usuarios_wrapper {
         margin: 25px;
+        margin-bottom: 20px;
     }
     #listagem-produtos_wrapper {
         margin: 25px;
+        margin-bottom: 20px;
     }
     .table .thead-dark th {
         color: #fff;

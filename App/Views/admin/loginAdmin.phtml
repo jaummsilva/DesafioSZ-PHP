@@ -1,8 +1,24 @@
+<?php
+$errosLogin =  $this->view->errosLogin;
+?>
+
+
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/login.css">
 <script src="/js/login.js"></script>
+
+
+<?php if(!empty($errosLogin)) { ?>
+    <?php foreach($errosLogin as $erro ) { ?>
+        <div style="font-size: 15pt;" class="alert alert-danger text-center m-5" role="alert">
+            <?= $erro?>
+         </div>
+    <?php }
+    ?>
+<?php } 
+?>
 
 <section id="login" class="mt-5">
     <div class="container">

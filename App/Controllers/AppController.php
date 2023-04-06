@@ -175,7 +175,6 @@ class AppController extends Action
 		$contador = count($this->view->getCarrinho);
 		$this->view->getContador = $contador;
 
-		if ($_SESSION['id'] != '' && $_SESSION['id'] != '') {
 			$pesquisar = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '';
 
 			$produtos = array();
@@ -189,7 +188,7 @@ class AppController extends Action
 			$this->view->produtos = $produtos;
 			$this->render('produtoPesquisado');
 		}
-	}
+
 	public function criarPedido()
 	{
 		session_start();

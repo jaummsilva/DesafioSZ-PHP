@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group col-xs-4">
                     <label for="key" class="sr-only">Senha</label>
-                    <input value="<?= isset($usuario['senha']) ? $usuario['senha'] : '' ?>" type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
+                    <input  type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
                 </div>
                 <div class="form-group col-xs-4">
                     <label for="key" class="sr-only">Repetir Senha</label>
@@ -43,7 +43,8 @@
                 </div>
                 <hr>
                 <div class="form-group col-xs-12 text-center">
-                    <button onclick="editarUsuario()" type="button" id="btn-editar-usuario" class="btn btn-custom btn-info btn-lg btn-block">Editar</button>
+                    <button onclick="editarUsuario()" type="button" id="btn-editar-usuario" class="btn btn-custom btn-success btn-lg">Editar</button>
+                    <a class="btn btn-custom btn-primary btn-lg" href="/listagemUsuarioAdmin">Voltar</a>
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ use MF\Model\Container;
 class AdminController extends Action {
     // Autenticação
 	public function loginAdmin() {
+        $this->view->errosLogin = [];
 		$this->renderDeslogado('loginAdmin');
 	}
     public function homeAdmin() {
@@ -18,6 +19,8 @@ class AdminController extends Action {
         $this->renderAdmin('homeAdmin');
     }
     public function autenticarAdmin() {
+        $this->view->errosLogin = [];
+
         // Usuario
         $usuario = Container::getModel('Usuario');
         $usuario->__set('email',$_POST['email']);
@@ -33,7 +36,8 @@ class AdminController extends Action {
             header('Location: /homeAdmin');
         }
         else {
-            header('Location: /login');
+            $this->view->errosLogin[] = "Email ou senha incorretos";
+				$this->renderDeslogado('loginAdmin');
         }
     }
 
