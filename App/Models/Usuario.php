@@ -99,9 +99,8 @@ class Usuario extends Model {
         senha = :senha,
         telefone = :telefone,
         data_nascimento = :data_nascimento,
-        data_alteracao = :data_alteracao,
-        usuario_img = :usuario_img
-        where id = :id";
+        data_alteracao = :data_alteracao
+        where id = :id;";
         
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':id',$this->__get('id'));

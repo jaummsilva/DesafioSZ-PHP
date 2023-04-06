@@ -56,7 +56,7 @@ $usuario = $this->view->getUsuario;
                     <h4><?= $produto['descricao'] ?> </h4>
                 </div>
                 <div class="mt-5 d-flex flex-row">
-                    <h2><?= $produto['preco'] ?> R$ </h2>
+                    <h2>R$ <?= (number_format($produto['preco'], 2, ',', '')) ?></h2>
                     <div class="ml-5" style="width: 40px;">
                         <span class="input-group-btn">
                             <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">

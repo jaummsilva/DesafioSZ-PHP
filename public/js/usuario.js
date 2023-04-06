@@ -101,11 +101,14 @@ async function editarUsuario() {
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
 
+    if (!img.endsWith('.png') && img != '') {
+        alert('Somente imagens em png aceitas');
+        return;
+    }
     if (senha != repetirSenha) {
         alert('Senhas devem ser iguais')
         return;
     }
-
     if (nome == '') {
         alert('Digite o nome');
         return;
@@ -122,11 +125,6 @@ async function editarUsuario() {
         alert('Digite o seu email');
         return;
     }
-    if (!img.endsWith('.png') == true || img == '') {
-        alert('Somente imagens em png aceitas');
-        return;
-    }
-
     // img principal
     const fileInput = document.querySelector('#img');
     const reader = new FileReader();

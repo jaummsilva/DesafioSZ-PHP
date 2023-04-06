@@ -2,7 +2,6 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/login.css">
-<script src="/js/login.js"></script>
 <script src="/js/usuario.js"></script>
 
 <div class="container mt-4 usuario-container">
@@ -39,7 +38,7 @@
                 <div class="form-group col-xs-4 d-flex flex-row">
                     <input style="display: none;" id="img" type="file" name="img">
                     <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
-                    <input value="<?= $this->view->getUsuario['usuario_img_nome'] ?>" type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
                 </div>
                 <hr>
                 <div class="form-group col-xs-12 text-center">
