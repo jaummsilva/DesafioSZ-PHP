@@ -48,7 +48,7 @@ include('modalCarrinho.phtml');
                         R$ <?= (number_format($produto['preco'], 2, ',', '')) ?>
                     </h4>
                     <?php if (isset($usuario['id'])) { ?>
-                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary responsive-content btn-carrinho btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>
+                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary responsive-content btn-carrinho-home btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>
                     <?php } ?>
                 </div>
             </div>
