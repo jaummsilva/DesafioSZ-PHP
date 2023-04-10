@@ -2,6 +2,9 @@ $(document).ready(function () {
   $('.btn-carrinho').click(function () {
     $('#exampleModal').modal('show');
   })
+  $('.btn-favorito').click(function () {
+    $('#exampleModal3').modal('show');
+  })
   $('#imgAlterado').click(function (e) {
     e.preventDefault();
     $('#img').click();
@@ -100,7 +103,6 @@ function decrementQtdCarrinho(id) {
     },
   });
 }
-
 function adicionar(id) {
   let qtdProduto = $(`#quantity-${id}`).val();
 

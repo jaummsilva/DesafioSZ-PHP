@@ -1,13 +1,16 @@
 <?php
 $produtos = $this->view->getProdutos;
 $usuario = $this->view->getUsuario;
+$favorito = $this->view->getFavorito;
 include('modalCarrinho.phtml');
+include('modalFavorito.phtml');
 ?>
 
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/produto.js"></script>
 <link rel="stylesheet" href="/css/login.css">
+
 <br>
 <br>
 <br>
@@ -15,6 +18,33 @@ include('modalCarrinho.phtml');
     <div class="row">
         <?php foreach ($produtos as $produto) { ?>
             <div class="col-sm-4 col-lg-4 col-md-4 p-5">
+                <div class="caption  mb-3 d-flex justify-content-end mr-5">
+                <?php
+                    $produtoId = $produto['id'];
+                    $isInAllArrays = false;
+                    foreach ($this->view->getFavorito as $array) {
+                        if (in_array($produtoId, $array)) {
+                            $isInAllArrays = true;
+                            break;
+                        }
+                    }
+                    if ($isInAllArrays) { ?>
+                        <form action="/removerFavorito" method="post">
+                            <input type="hidden" value="<?= $produtoId ?>" name="produtoId">
+                            <button type="submit" class="btn btn-light">
+                            <i class="fa fa-solid fa-heart fa-2x" style="color: #df2020;"></i>
+                            </button>
+                        </form>
+                    <?php } else { 
+                        ?>
+                        <form action="/adicionarFavorito" method="post">
+                            <input type="hidden" value="<?= $produto['id'] ?>" name="produtoId">
+                            <button type="submit" class="btn">
+                            <i class="fa fa-regular fa-heart fa-2x" style="color: black;"></i>
+                            </button>
+                        </form>
+                   <?php }?>
+                </div>
                 <div class="caption">
                     <a href="/produto/<?= $produto['id'] ?>">
                         <img style="height: 40%;" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>">

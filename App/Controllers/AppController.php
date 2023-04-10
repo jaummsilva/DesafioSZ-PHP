@@ -19,16 +19,19 @@ class AppController extends Action
 		$produto = Container::getModel('Produto');
 		$carrinho = Container::getModel('Carrinho');
 		$usuario = Container::getModel('Usuario');
+		$favorito = Container::getModel('Favorito');
 
 		// Setters
 		$carrinho->__set('usuarioId', $_SESSION['id']);
 		$usuario->__set('id', $_SESSION['id']);
+		$favorito->__set('usuarioId', $_SESSION['id']);
 
 		//Views
 		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
 		$this->view->getTotalCarrinho = $carrinho->getPreçoTotalCarrinho();
 		$this->view->getUsuario = $usuario->getUsuario();
 		$this->view->getProdutos = $produto->getTodosProdutos();
+		$this->view->getFavorito = $favorito->getFavoritoUsuario();
 
 		// Condiçoes
 		if (empty($this->view->getCarrinho)) {
@@ -40,11 +43,13 @@ class AppController extends Action
 		if (empty($this->view->getUsuario)) {
 			$this->view->getUsuario = [];
 		}
+		if (empty($this->view->getFavorito)) {
+			$this->view->getFavorito = [];
+		}
 
 		// Contador
 		$contador = count($this->view->getCarrinho);
 		$this->view->getContador = $contador;
-
 
 		$this->render('index');
 	}
@@ -56,13 +61,16 @@ class AppController extends Action
 		$carrinho = Container::getModel('Carrinho');
 		$produto = Container::getModel('Produto');
 		$usuario = Container::getModel('Usuario');
+		$favorito = Container::getModel('Favorito');
 
 		// Setters
 		$usuario->__set('id', $_SESSION['id']);
 		$produto->__set('id', $id);
 		$carrinho->__set('usuarioId', $_SESSION['id']);
+		$favorito->__set('usuarioId', $_SESSION['id']);
 		$this->view->getTotalCarrinho = $carrinho->getPreçoTotalCarrinho();
 		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
+		$this->view->getFavorito = $favorito->getFavoritoUsuario();
 
 		//Contador
 		if (empty($this->view->getCarrinho)) {
@@ -235,5 +243,23 @@ class AppController extends Action
 			$carrinho->updateCarrinhoFinalizado();
 		}
 		$this->renderPedidoFinalizado('pedidoFinalizado');
+	}
+
+	// Favorito 
+	public function adicionarFavorito() {
+		session_start();
+		$favorito = Container::getModel('Favorito');
+		$favorito->__set('usuarioId', $_SESSION['id']);
+		$favorito->__set('produtoId', $_POST['produtoId']);
+		$favorito->inserirFavorito();
+		header('Location: /');
+	}
+	public function removerFavorito() {
+		session_start();
+		$favorito = Container::getModel('Favorito');
+		$favorito->__set('usuarioId', $_SESSION['id']);
+		$favorito->__set('produtoId', $_POST['produtoId']);
+		$favorito->deleteFavorito();
+		header('Location: /');
 	}
 }

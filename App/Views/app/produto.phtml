@@ -29,7 +29,7 @@ $usuario = $this->view->getUsuario;
                 <?php } ?>
                 <?php if (!empty($produto['produto_img_3'])) { ?>
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="data:image/png;base64,<?= $produto['produto_img_3'] ?>" >
+                        <img class="d-block img-fluid" src="data:image/png;base64,<?= $produto['produto_img_3'] ?>">
                     </div>
                 <?php } ?>
                 <?php if (!empty($produto['produto_img_4'])) { ?>
@@ -49,8 +49,33 @@ $usuario = $this->view->getUsuario;
         </div>
         <div class="col-6">
             <div class="row d-flex flex-column">
-                <div class="">
+                <div class="d-flex">
                     <h1><?= $produto['nome'] ?> </h1>
+                    <?php
+                    $produtoId = $produto['id'];
+                    $isInAllArrays = false;
+                    foreach ($this->view->getFavorito as $array) {
+                        if (in_array($produtoId, $array)) {
+                            $isInAllArrays = true;
+                            break;
+                        }
+                    }
+                    if ($isInAllArrays) { ?>
+                        <form action="/removerFavorito" method="post">
+                            <input type="hidden" value="<?= $produtoId ?>" name="produtoId">
+                            <button type="submit" class="btn btn-light">
+                            <i class="fa fa-solid fa-heart fa-2x" style="color: #df2020;"></i>
+                            </button>
+                        </form>
+                    <?php } else { 
+                        ?>
+                        <form action="/adicionarFavorito" method="post">
+                            <input type="hidden" value="<?= $produto['id'] ?>" name="produtoId">
+                            <button type="submit" class="btn btn-light">
+                                <i class=" fa fa-regular fa-heart fa-2x"></i>
+                            </button>
+                        </form>
+                   <?php }?>
                 </div>
                 <div class="">
                     <h4><?= $produto['descricao'] ?> </h4>
@@ -82,4 +107,5 @@ $usuario = $this->view->getUsuario;
 
 <?php
 include('modalCarrinho.phtml');
+include('modalFavorito.phtml');
 ?>

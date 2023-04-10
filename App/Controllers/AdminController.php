@@ -234,6 +234,25 @@ class AdminController extends Action {
         $produto->deletarProduto();
         header("Location: /listagemProdutoAdmin");
     }
+    // Pedido
+    public function listagemPedidoAdmin() {
+        $pedido = Container::getModel("Pedido");
+        $this->view->getPedidos = $pedido->getPedidos();
+        $this->renderAdmin('listagemPedidoAdmin');
+    }
+    public function listagemPedidoProdutoAdmin() {
+        $pedido = Container::getModel("Pedido");
+        $pedido->__set('id',$_REQUEST['pedidoId']);
+        $this->view->getPedidoProduto = $pedido->getPedidoId();
+        $this->renderAdmin('listagemPedidoProdutoAdmin');
+    }
+    // Favorito
+    public function listagemFavoritoAdmin() {
+        $favorito = Container::getModel("Favorito");
+        $this->view->getFavoritos = $favorito->getFavoritos();
+        $this->view->getMaisFavoritos = $favorito->getMaisFavoritos();
+        $this->renderAdmin('listagemFavoritoAdmin');
+    }
 }
 
 

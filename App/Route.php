@@ -28,7 +28,6 @@ class Route extends Bootstrap {
 			'controller' => 'appController',
 			'action' => 'index'
 		);
-
 		$routes['produto'] = array(
 			'route' => '/produto/{id}',
 			'controller' => 'appController',
@@ -63,6 +62,16 @@ class Route extends Bootstrap {
 			'route' => '/pedidoFinalizado',
 			'controller' => 'appController',
 			'action' => 'pedidoFinalizado'
+		);
+		$routes['adicionarFavorito'] = array(
+			'route' => '/adicionarFavorito',
+			'controller' => 'appController',
+			'action' => 'adicionarFavorito'
+		);
+		$routes['removerFavorito'] = array(
+			'route' => '/removerFavorito',
+			'controller' => 'appController',
+			'action' => 'removerFavorito'
 		);
 		// Admin Controller
 		$routes['homeAdmin'] = array(
@@ -143,6 +152,21 @@ class Route extends Bootstrap {
 			'route' => '/listagemProdutoAdmin',
 			'controller' => 'AdminController',
 			'action' => 'listagemProdutoAdmin'
+		);
+		$routes['listagemPedidoAdmin'] = array(
+			'route' => '/listagemPedidoAdmin',
+			'controller' => 'AdminController',
+			'action' => 'listagemPedidoAdmin'
+		);
+		$routes['listagemPedidoProdutoAdmin'] = array(
+			'route' => '/listagemPedidoProdutoAdmin',
+			'controller' => 'AdminController',
+			'action' => 'listagemPedidoProdutoAdmin'
+		);
+		$routes['listagemFavoritoAdmin'] = array(
+			'route' => '/listagemFavoritoAdmin',
+			'controller' => 'AdminController',
+			'action' => 'listagemFavoritoAdmin'
 		);
 		$this->setRoutes($routes);
 	}
