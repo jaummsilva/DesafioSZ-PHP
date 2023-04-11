@@ -1,0 +1,49 @@
+<?php
+$produtos = $this->view->getProdutos;
+
+?>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="/css/login.css">
+<script src="/js/login.js"></script>
+<script src="/js/produto.js"></script>
+
+<div class="container mt-4 produto-container">
+    <div class="row">
+        <div class="col-xs-12 mb-1">
+            <div class="form-wrap">
+                <h1 class="text-primary text-center">Editar o produto Recomendado <?= $this->view->getProdutoRecomendado['nome_imagem'] ?> ? </h1>
+                <br>
+                <div class="form-group col-xs-6">
+                    <label for="preco">Produto</label>
+                    <select id="produto_id_editar" name="produto_id_editar" class="form-control" id="exampleFormControlSelect1">
+                        <option value="">Selecione</option>
+                        <?php foreach ($produtos as $produto) { ?>
+                            <option value="<?=$produto['id']?>"><?=$produto['nome']?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                <label for="preco" >Numero Sequencia</label>
+                    <select id="numero_sequencia" name="numero_sequencia" class="form-control" id="exampleFormControlSelect1">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-6 mt-4 d-flex flex-row">
+                <input value="<?= $this->view->getProdutoRecomendado['id'] ?>" id="idRecomendado" type="hidden" name="id">
+                    <input style="display: none;" id="imgRecomendado2" type="file" name="imgRecomendado2">
+                    <label for="preco" >Imagem</label>
+                    <button id="imgAlteradoRecomendado2" class="btn btn-primary ml-2"> Escolher Arquivo</button>
+                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlteradoRecomendado2">
+                </div>
+                <div class="form-group col-xs-12  text-center mt-2">
+                    <button onclick="editarProdutoRecomendado()" type="button" id="btn-login" class="btn btn-custom btn-success btn-lg">Editar</button>
+                    <a class="btn btn-custom btn-primary btn-lg" href="/listagemProdutoAdmin">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

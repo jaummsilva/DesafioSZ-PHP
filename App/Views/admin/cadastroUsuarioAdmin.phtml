@@ -17,32 +17,33 @@ $usuario = $this->view->getUsuario;
                 <br>
                 <form role="form" action="/registrarUsuario" method="POST" id="login-form" autocomplete="off">
                     <div class="form-group col-xs-6">
-                        <label for="nome" class="sr-only">Nome</label>
+                        <label for="nome">Nome</label>
                         <input value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" id="nome" type="text" name="nome" id="nome" class="form-control " placeholder="name">
                     </div>
                     <div class="form-group col-xs-6">
-                        <label for="email" class="sr-only">Email</label>
+                        <label for="email">Email</label>
                         <input value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" id="email" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
                     </div>
                     <div class="form-group col-xs-6">
-                        <label for="key" class="sr-only">Data de Nascimento</label>
+                        <label for="key">Data de Nascimento</label>
                         <input value="<?= isset($usuario['data_nascimento']) ? $usuario['data_nascimento'] : '' ?>" id="nascimento" type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
                     </div>
                     <div class="form-group col-xs-6">
-                        <label for="key" class="sr-only">Telefone</label>
+                        <label for="key">Telefone</label>
                         <input value="<?= isset($usuario['telefone']) ? $usuario['telefone'] : '' ?>" maxlength="11" id="tel" type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
                     </div>
                     <div class="form-group col-xs-4">
-                        <label for="key" class="sr-only">Senha</label>
+                        <label for="key">Senha</label>
                         <input value="<?= isset($usuario['senha']) ? $usuario['senha'] : '' ?>" type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
                     </div>
                     <div class="form-group col-xs-4">
-                        <label for="key" class="sr-only">Repetir Senha</label>
+                        <label for="key">Repetir Senha</label>
                         <input type="password" name="repetirSenha" class="form-control" id="repetirSenha" placeholder="Repetir Senha">
                     </div>
                     <div class="form-group col-xs-4 d-flex flex-row">
                         <input style="display: none;" id="img" type="file" name="img">
-                        <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
+                        <label for="key">Imagem</label>
+                        <button id="imgAlterado" class="btn btn-primary ml-1"> Escolher Arquivo</button>
                         <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
                     </div>
                     <hr>

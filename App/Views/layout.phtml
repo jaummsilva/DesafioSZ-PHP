@@ -31,11 +31,13 @@ $contador = $this->view->getContador;
 						<input style="font-size: 13pt;" class="ml-3" placeholder="Pesquise pelo nome ou descrição" type="text" name="pesquisa" id="pesquisar">
 					</form>
 				</div>
+				<?php if (isset($usuario['id'])) { ?>
 				<div class="navbar-nav mr-2">
 					<button class="btn btn-light btn-favorito">
 						<i class=" fa fa-solid fa-heart fa-2x"></i>
 					</button>
 				</div>
+				<?php } ?>
 				<div class="navbar-nav d-flex flex-row ">
 					<?php if (isset($usuario['id'])) { ?>
 						<button style="font-size:2rem" type="button" class="btn btn-light text-primary btn-carrinho">

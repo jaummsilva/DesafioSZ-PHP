@@ -1,21 +1,22 @@
 <script>
   $(document).ready(function() {
-    getDataTable('#listagem-usuarios');
+    getDataTable('#listagem-produtos-recomendados');
   })
 
-  function remover(id) {
+  function removerProdutoRecomendado(id, nome) {
     $.ajax({
-      url: 'deletarUsuario',
+      url: 'deletarProdutoRecomendado',
       type: 'POST',
       data: {
-        idUsuario: id
+        idProdutoRecomendado: id,
+        nomeProdutoRecomendado: nome
       },
       success: function(response) {
-        window.location.href = "/listagemUsuarioAdmin"
+        window.location.href = "/listagemProdutoRecomendadoAdmin"
         alert("Deletado com sucesso")
       },
       error: function(e) {
-        window.location.href = "/listagemUsuarioAdmin"
+        window.location.href = "/listagemProdutoRecomendadoAdmin"
         alert("Ocorreu um erro")
       }
     })
@@ -56,13 +57,12 @@
       let nome = idText[3];
       let id = idText[4];
 
-      $('.button-remover').attr("onclick", `remover(${id})`)
-      $('.modal-body').html("Deseja remover o usuario " + nome);
-      $('#exampleModal').modal('show');
+      $('.button-remover').attr("onclick", `removerProdutoRecomendado(${id},"${nome}")`)
+      $('.modal-body').html("Deseja remover o produto " + nome + "?");
+      $('#exampleModal5').modal('show');
     })
   }
 </script>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,40 +74,41 @@
 </head>
 
 <body>
-<div class="dropdown d-flex justify-content-end mr-5">
+  <div class="dropdown d-flex justify-content-end mr-5">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Exportar
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <form method="post" action="/exportarCsvUsuario" class="text-center">
+      <form method="post" action="/exportarCsvProdutoRecomendado" class="text-center">
         <button type="submit" class="btn btn-info btn-block">CSV</button>
       </form>
-      <form method="post" action="/exportarXlsUsuario"  class="text-center">
+      <form method="post" action="/exportarXlsProdutoRecomendado" class="text-center">
         <button type="submit" class="btn btn-info btn-block">XLS</button>
       </form>
     </div>
   </div>
-  <table class="table mt-3" id="listagem-usuarios">
+  <table class="table mb-5" id="listagem-produtos-recomendados">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Email</th>
-        <th scope="col">Nome</th>
+        <th scope="col">Nome Imagem</th>
+        <th scope="col">Caminho Arquivo</th>
+        <th scope="col">Numero de Sequencia</th>
         <th scope="col">Data de Criação</th>
         <th scope="col">Data de Alteração</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($this->view->getUsuarios as $usuario) { ?>
+      <?php foreach ($this->view->getProdutosRecomendados as $produto) { ?>
         <tr>
-          <td scope="row"><?= $usuario['email'] ?></td>
-          <td><?= $usuario['nome'] ?></td>
-          </td>
-          <td><?= date('d/m/Y H:i:s', strtotime($usuario['data_criacao'])) ?></td>
-          <td><?= date('d/m/Y H:i:s', strtotime($usuario['data_alteracao'])) ?></td>
+          <td scope="row"><?= $produto['nome_imagem'] ?></td>
+          <td><?= $produto['arquivo']  ?></td>
+          <td><?= $produto['numero_sequencia']  ?></td>
+          <td><?= date('d/m/Y H:i:s', strtotime($produto['data_criacao'])) ?></td>
+          <td><?= date('d/m/Y H:i:s', strtotime($produto['data_alteracao'])) ?></td>
           <td>
-            <a href="/editarUsuarioAdmin/<?= $usuario['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
-            <button id="id-button-modal-<?= $usuario['nome'] ?>-<?= $usuario['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
+            <a href="/editarProdutoRecomendadoAdmin/<?= $produto['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
+            <button id="id-button-modal-<?= $produto['nome_imagem'] ?>-<?= $produto['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
           </td>
         <?php }
         ?>
@@ -115,7 +116,8 @@
     </tbody>
   </table>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

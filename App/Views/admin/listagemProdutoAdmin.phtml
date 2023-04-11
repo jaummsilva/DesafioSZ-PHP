@@ -73,6 +73,19 @@
 </head>
 
 <body>
+  <div class="dropdown d-flex justify-content-end mr-5">
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Exportar
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <form method="post" action="/exportarCsvProduto" class="text-center">
+        <button type="submit" class="btn btn-info btn-block">CSV</button>
+      </form>
+      <form method="post" action="/exportarXlsProduto"  class="text-center">
+        <button type="submit" class="btn btn-info btn-block">XLS</button>
+      </form>
+    </div>
+  </div>
   <table class="table mb-5" id="listagem-produtos">
     <thead class="thead-dark">
       <tr>

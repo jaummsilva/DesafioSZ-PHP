@@ -15,19 +15,20 @@ $produto = $this->view->getProduto;
                 <h1 class="text-primary text-center">Criar um produto</h1>
                 <br>
                 <div class="form-group col-xs-6">
-                    <label for="nome" class="sr-only">Nome</label>
+                    <label for="nome">Nome</label>
                     <input value="<?= isset($produto['nome']) ? $produto['nome'] : '' ?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
                 </div>
                 <div class="form-group col-xs-6">
-                    <label for="preco" class="sr-only">Preço</label>
+                    <label for="preco">Preço</label>
                     <input value="<?= isset($produto['preco']) ? $produto['preco'] : '' ?>" id="preco" name="preco" class="form-control" placeholder="Preço">
                 </div>
                 <div class="form-group col-xs-6">
-                    <label class="sr-only">Descricao</label>
+                    <label>Descricao:</label>
                     <input value="<?= isset($produto['descricao']) ? $produto['descricao'] : '' ?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
                 </div>
                 <div class="form-group col-xs-6 d-flex flex-row">
                     <input style="display: none;" id="img" type="file" name="img">
+                    <label>Imagem Principal:</label>
                     <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
                     <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
                 </div>
@@ -36,17 +37,20 @@ $produto = $this->view->getProduto;
                 </div>
                 <div class="form-group col-xs-4 d-flex flex-row">
                     <input style="display: none;" id="img2" type="file" name="img2">
-                    <button id="imgAlterado2" class="btn btn-primary"> Escolher Arquivo</button>
+                    <label>Imagem 2:</label>
+                    <button id="imgAlterado2" class="btn btn-primary ml-1"> Escolher Arquivo</button>
                     <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado2">
                 </div>
                 <div class="form-group col-xs-4 d-flex flex-row">
                     <input style="display: none;" id="img3" type="file" name="img3">
-                    <button id="imgAlterado3" class="btn btn-primary"> Escolher Arquivo</button>
+                    <label>Imagem 3:</label>
+                    <button id="imgAlterado3" class="btn btn-primary ml-1"> Escolher Arquivo</button>
                     <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado3">
                 </div>
                 <div class="form-group col-xs-4 d-flex flex-row">
                     <input style="display: none;" id="img4" type="file" name="img4">
-                    <button id="imgAlterado4" class="btn btn-primary"> Escolher Arquivo</button>
+                    <label>Imagem 4:</label>
+                    <button id="imgAlterado4" class="btn btn-primary ml-1"> Escolher Arquivo</button>
                     <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado4">
                 </div>
                 <div class="form-group col-xs-12  text-center mt-2">

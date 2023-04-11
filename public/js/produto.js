@@ -5,6 +5,22 @@ $(document).ready(function () {
   $('.btn-favorito').click(function () {
     $('#exampleModal3').modal('show');
   })
+  $('#imgAlteradoRecomendado2').click(function (e) {
+    e.preventDefault();
+    $('#imgRecomendado2').click();
+  })
+  $('#imgRecomendado2').change(function () {
+    let nameImg = $('#imgRecomendado2')[0].files[0].name;
+    $('#inputImgAlteradoRecomendado2').val(nameImg)
+  })
+  $('#imgAlteradoRecomendado').click(function (e) {
+    e.preventDefault();
+    $('#imgRecomendado').click();
+  })
+  $('#imgRecomendado').change(function () {
+    let nameImg = $('#imgRecomendado')[0].files[0].name;
+    $('#inputImgAlteradoRecomendado').val(nameImg)
+  })
   $('#imgAlterado').click(function (e) {
     e.preventDefault();
     $('#img').click();
@@ -141,6 +157,53 @@ function remover(id, idUsuario) {
     },
   });
   $('.input-number').attr("onchange", `remover(${id, idUsuario})`)
+}
+
+function criarProdutoRecomendado() {
+
+  let formData = new FormData();  
+  let img = $('#imgRecomendado')[0].files[0];
+  formData.append('img', img);
+  let numero_sequencia = $('#numero_sequencia').val();
+  let idProduto = $('#produto_id').val();
+  formData.append('numero_sequencia', numero_sequencia);
+  formData.append('idProduto', idProduto);
+  $.ajax({
+    url: '/registrarProdutoRecomendado',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      alert("Produto recomendado criado com sucesso");
+      window.location.href = "/listagemProdutoRecomendadoAdmin"
+    },
+  })
+}
+
+function editarProdutoRecomendado() {
+  let id = $('#idRecomendado').val();
+  let formData = new FormData();  
+  let img = $('#imgRecomendado2')[0].files[0];
+  let numero_sequencia = $('#numero_sequencia').val();
+  let idProduto = $('#produto_id_editar').val();
+  
+  formData.append('img', img);
+  formData.append('numero_sequencia', numero_sequencia);
+  formData.append('id', id);
+  formData.append('idProduto', idProduto);
+  
+  $.ajax({
+    url: '/editarProdutoRecomendado',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      alert("Produto recomendado editado com sucesso");
+      window.location.href = "/listagemProdutoRecomendadoAdmin"
+    },
+  })
 }
 
 async function criarProduto() {

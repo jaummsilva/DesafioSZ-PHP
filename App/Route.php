@@ -121,7 +121,16 @@ class Route extends Bootstrap {
 			'controller' => 'AdminController',
 			'action' => 'deletarUsuario'
 		);
-		
+		$routes['exportarXlsUsuario'] = array(
+			'route' => '/exportarXlsUsuario',
+			'controller' => 'AdminController',
+			'action' => 'exportarXlsUsuario'
+		);
+		$routes['exportarCsvUsuario'] = array(
+			'route' => '/exportarCsvUsuario',
+			'controller' => 'AdminController',
+			'action' => 'exportarCsvUsuario'
+		);
 		// Admin Controller - Produto
 		$routes['editarProdutoAdmin'] = array(
 			'route' => '/editarProdutoAdmin/{id}',
@@ -153,6 +162,58 @@ class Route extends Bootstrap {
 			'controller' => 'AdminController',
 			'action' => 'listagemProdutoAdmin'
 		);
+		$routes['exportarCsvProduto'] = array(
+			'route' => '/exportarCsvProduto',
+			'controller' => 'AdminController',
+			'action' => 'exportarCsvProduto'
+		);
+		$routes['exportarXlsProduto'] = array(
+			'route' => '/exportarXlsProduto',
+			'controller' => 'AdminController',
+			'action' => 'exportarXlsProduto'
+		);
+		// Admin Controller - Produto Recomendado
+		$routes['editarProdutoRecomendadoAdmin'] = array(
+			'route' => '/editarProdutoRecomendadoAdmin/{id}',
+			'controller' => 'AdminController',
+			'action' => 'editarProdutoRecomendadoAdmin'
+		);
+		$routes['editarProdutoRecomendado'] = array(
+			'route' => '/editarProdutoRecomendado',
+			'controller' => 'AdminController',
+			'action' => 'editarProdutoRecomendado'
+		);
+		$routes['deletarProdutoRecomendado'] = array(
+			'route' => '/deletarProdutoRecomendado',
+			'controller' => 'AdminController',
+			'action' => 'deletarProdutoRecomendado'
+		);
+		$routes['cadastroProdutoRecomendadoAdmin'] = array(
+			'route' => '/cadastroProdutoRecomendadoAdmin',
+			'controller' => 'AdminController',
+			'action' => 'cadastroProdutoRecomendadoAdmin'
+		);
+		$routes['registrarProdutoRecomendado'] = array(
+			'route' => '/registrarProdutoRecomendado',
+			'controller' => 'AdminController',
+			'action' => 'registrarProdutoRecomendado'
+		);
+		$routes['listagemProdutoRecomendadoAdmin'] = array(
+			'route' => '/listagemProdutoRecomendadoAdmin',
+			'controller' => 'AdminController',
+			'action' => 'listagemProdutoRecomendadoAdmin'
+		);
+		$routes['exportarCsvProdutoRecomendado'] = array(
+			'route' => '/exportarCsvProdutoRecomendado',
+			'controller' => 'AdminController',
+			'action' => 'exportarCsvProdutoRecomendado'
+		);
+		$routes['exportarXlsProdutoRecomendado'] = array(
+			'route' => '/exportarXlsProdutoRecomendado',
+			'controller' => 'AdminController',
+			'action' => 'exportarXlsProdutoRecomendado'
+		);
+		// Admin Controller - Pedido
 		$routes['listagemPedidoAdmin'] = array(
 			'route' => '/listagemPedidoAdmin',
 			'controller' => 'AdminController',
@@ -163,10 +224,31 @@ class Route extends Bootstrap {
 			'controller' => 'AdminController',
 			'action' => 'listagemPedidoProdutoAdmin'
 		);
+		$routes['exportarXlsPedido'] = array(
+			'route' => '/exportarXlsPedido',
+			'controller' => 'AdminController',
+			'action' => 'exportarXlsPedido'
+		);
+		$routes['exportarCsvPedido'] = array(
+			'route' => '/exportarCsvPedido',
+			'controller' => 'AdminController',
+			'action' => 'exportarCsvPedido'
+		);
+		// Admin Controller - Favorito
 		$routes['listagemFavoritoAdmin'] = array(
 			'route' => '/listagemFavoritoAdmin',
 			'controller' => 'AdminController',
 			'action' => 'listagemFavoritoAdmin'
+		);
+		$routes['exportarCsvFavorito'] = array(
+			'route' => '/exportarCsvFavorito',
+			'controller' => 'AdminController',
+			'action' => 'exportarCsvFavorito'
+		);
+		$routes['exportarXlsFavorito'] = array(
+			'route' => '/exportarXlsFavorito',
+			'controller' => 'AdminController',
+			'action' => 'exportarXlsFavorito'
 		);
 		$this->setRoutes($routes);
 	}

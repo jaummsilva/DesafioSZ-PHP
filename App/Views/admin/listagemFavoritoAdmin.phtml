@@ -45,6 +45,7 @@
 </head>
 
 <body>
+  
   <div class="container">
     <h2 style="font-family: Stencil Std, fantasy;" class="text-center mt-5">Mais Favoritados</h2>
     <div class="row">
@@ -68,6 +69,20 @@
           </div>
         <?php } ?>
       </div>
+    </div>
+  </div>
+  <br>
+  <div class="dropdown d-flex justify-content-end mr-5">
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Exportar
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <form method="post" action="/exportarCsvFavorito" class="text-center">
+        <button type="submit" class="btn btn-info btn-block">CSV</button>
+      </form>
+      <form method="post" action="/exportarXlsFavorito" class="text-center">
+        <button type="submit" class="btn btn-info btn-block">XLS</button>
+      </form>
     </div>
   </div>
   <table class="table mb-5" id="listagem-favoritos">

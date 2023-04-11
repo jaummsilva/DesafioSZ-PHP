@@ -20,6 +20,7 @@ class AppController extends Action
 		$carrinho = Container::getModel('Carrinho');
 		$usuario = Container::getModel('Usuario');
 		$favorito = Container::getModel('Favorito');
+		$produto_recomendado = Container::getModel('ProdutoRecomendado');
 
 		// Setters
 		$carrinho->__set('usuarioId', $_SESSION['id']);
@@ -32,6 +33,7 @@ class AppController extends Action
 		$this->view->getUsuario = $usuario->getUsuario();
 		$this->view->getProdutos = $produto->getTodosProdutos();
 		$this->view->getFavorito = $favorito->getFavoritoUsuario();
+		$this->view->getProdutosRecomendados = $produto_recomendado->getTodosProdutosRecomendados();
 
 		// Condiçoes
 		if (empty($this->view->getCarrinho)) {
