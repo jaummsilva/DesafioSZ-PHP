@@ -1,6 +1,10 @@
 <script>
   $(document).ready(function() {
     getDataTable('#listagem-usuarios');
+    
+    $('.btn-importacao-usuario').click(function(){
+      $('#modal-importacao-usuario').modal('show');
+    })
   })
 
   function remover(id) {
@@ -74,6 +78,10 @@
 </head>
 
 <body>
+<div class="d-flex justify-content-end">
+<button class="btn btn-info mr-2 btn-importacao-usuario" type="button" aria-haspopup="true" aria-expanded="false">
+      Importar
+    </button>
 <div class="dropdown d-flex justify-content-end mr-5">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Exportar
@@ -87,6 +95,7 @@
       </form>
     </div>
   </div>
+</div>
   <table class="table mt-3" id="listagem-usuarios">
     <thead class="thead-dark">
       <tr>
@@ -128,6 +137,26 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
           <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-importacao-usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center" id="">
+          <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
+        <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacao">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button onclick type="button" class="btn btn-success button-inportar">Importar</button>
         </div>
       </div>
     </div>

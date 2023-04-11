@@ -1,6 +1,10 @@
 <script>
   $(document).ready(function() {
     getDataTable('#listagem-produtos');
+    
+    $('.btn-importacao-produto').click(function(){
+      $('#modal-importacao-produto').modal('show');
+    })
   })
 
   function remover(id) {
@@ -73,17 +77,22 @@
 </head>
 
 <body>
-  <div class="dropdown d-flex justify-content-end mr-5">
-    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Exportar
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-info mr-2 btn-importacao-produto" type="button" aria-haspopup="true" aria-expanded="false">
+      Importar
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <form method="post" action="/exportarCsvProduto" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">CSV</button>
-      </form>
-      <form method="post" action="/exportarXlsProduto"  class="text-center">
-        <button type="submit" class="btn btn-info btn-block">XLS</button>
-      </form>
+    <div class="dropdown d-flex justify-content-end mr-5">
+      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Exportar
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <form method="post" action="/exportarCsvProduto" class="text-center">
+          <button type="submit" class="btn btn-info btn-block">CSV</button>
+        </form>
+        <form method="post" action="/exportarXlsProduto" class="text-center">
+          <button type="submit" class="btn btn-info btn-block">XLS</button>
+        </form>
+      </div>
     </div>
   </div>
   <table class="table mb-5" id="listagem-produtos">
@@ -128,6 +137,26 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
           <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-importacao-produto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center" id="">
+          <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
+        <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacao">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button onclick type="button" class="btn btn-success button-inportar">Importar</button>
         </div>
       </div>
     </div>

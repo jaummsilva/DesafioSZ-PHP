@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
   $('.btn-carrinho').click(function () {
     $('#exampleModal').modal('show');
   })
@@ -161,7 +162,7 @@ function remover(id, idUsuario) {
 
 function criarProdutoRecomendado() {
 
-  let formData = new FormData();  
+  let formData = new FormData();
   let img = $('#imgRecomendado')[0].files[0];
   formData.append('img', img);
   let numero_sequencia = $('#numero_sequencia').val();
@@ -183,16 +184,16 @@ function criarProdutoRecomendado() {
 
 function editarProdutoRecomendado() {
   let id = $('#idRecomendado').val();
-  let formData = new FormData();  
+  let formData = new FormData();
   let img = $('#imgRecomendado2')[0].files[0];
   let numero_sequencia = $('#numero_sequencia').val();
   let idProduto = $('#produto_id_editar').val();
-  
+
   formData.append('img', img);
   formData.append('numero_sequencia', numero_sequencia);
   formData.append('id', id);
   formData.append('idProduto', idProduto);
-  
+
   $.ajax({
     url: '/editarProdutoRecomendado',
     type: 'POST',
