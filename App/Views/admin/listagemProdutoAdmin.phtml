@@ -1,11 +1,28 @@
 <script>
   $(document).ready(function() {
     getDataTable('#listagem-produtos');
-    
-    $('.btn-importacao-produto').click(function(){
+
+    $('.btn-importacao-produto').click(function() {
       $('#modal-importacao-produto').modal('show');
     })
   })
+
+  function importarProduto() {
+    let formData = new FormData();
+    let arquivo = $('#inputImportacaoProduto')[0].files[0];
+    formData.append('arquivoProdutoImportacao', arquivo);
+    $.ajax({
+      url: '/importarProduto',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        alert("Produto recomendado criado com sucesso");
+        window.location.href = "/listagemProdutoAdmin"
+      },
+    })
+  }
 
   function remover(id) {
     $.ajax({
@@ -152,11 +169,11 @@
         </div>
         <div class="modal-body text-center" id="">
           <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
-        <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacao">
+          <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputImportacaoProduto">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-          <button onclick type="button" class="btn btn-success button-inportar">Importar</button>
+          <button onclick="importarProduto()" type="button" class="btn btn-success">Importar</button>
         </div>
       </div>
     </div>

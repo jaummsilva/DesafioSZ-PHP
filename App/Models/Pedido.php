@@ -57,7 +57,7 @@ class Pedido extends Model
     public function getPedidos()
     {
         $query = "
-        select SUM(ip.quantidade_produto) as quantidade_produtos, u.email,p.id,p.preco_total  from itensPedido ip
+        select p.id, u.email, SUM(ip.quantidade_produto) as quantidade_produtos,p.preco_total  from itensPedido ip
         left join pedido as p on ip.pedido_id = p.id 
         left join usuario as u on p.usuario_id = u.id 
         group by p.id;";
@@ -73,7 +73,23 @@ class Pedido extends Model
         left join produto as pt on ip.produto_id = pt.id
         where p.id = :id;";
         $smtm = $this->db->prepare($query);
-        $smtm->bindValue(':id',$this->__get('id'));
+        $smtm->bindValue(':id', $this->__get('id'));
+        $smtm->execute();
+        return $smtm->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function getPedidoSlack()
+    {
+        $query = "
+        SELECT u.nome as usuario_nome, u.email, p.id AS pedido_id, ip.quantidade_produto, ip.preco_total_produto, pt.nome, 
+(SELECT SUM(ip2.preco_total_produto) FROM itensPedido ip2 WHERE ip2.pedido_id = p.id) AS valor_total_pedido
+FROM itensPedido ip
+LEFT JOIN pedido AS p ON ip.pedido_id = p.id 
+LEFT JOIN usuario AS u ON p.usuario_id = u.id
+LEFT JOIN produto AS pt ON ip.produto_id = pt.id 
+WHERE ip.pedido_id = :id;";
+
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':id', $this->__get('id'));
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }

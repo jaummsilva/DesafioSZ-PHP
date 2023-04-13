@@ -4,6 +4,7 @@ $contador = $this->view->getContador;
 ?>
 
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<title>Miniframework</title>
@@ -20,31 +21,31 @@ $contador = $this->view->getContador;
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
 				<div class="navbar-nav d-flex justify-content-start mr-auto">
-					<a class="navbar-brand" href="/">
-						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-					</a>
+					<div class="navbar-nav d-flex justify-content-start mr-auto text-center">
+						<img style="height:60px;width:60px" src="/img/download.png" alt="">
+					</div>
 				</div>
-				<div class="navbar-nav mr-auto d-flex flex-nowrap" >
-							<form class="mt-2 d-flex flex-nowrap" action="/pesquisarProdutos">
-								<span>Pesquise:</span>
-								<input style="font-size:13pt" placeholder="Pesquise pelo nome ou descrição" style="width: 100%;" type="text" name="pesquisa" id="">
-							</form>
-					</div>
-					<div class="navbar-nav">
-						<?php if (isset($usuario['id'])) { ?>
-							<div class="dropdown show ml-2">
-								<a class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<a class="dropdown-item" href="/sair">Sair</a>
-								</div>
+				<div class="navbar-nav mr-auto d-flex flex-nowrap">
+					<form class="mt-2 d-flex flex-nowrap" action="/pesquisarProdutos">
+						<span>Pesquise:</span>
+						<input style="font-size:13pt" placeholder="Pesquise pelo nome ou descrição" style="width: 100%;" type="text" name="pesquisa" id="">
+					</form>
+				</div>
+				<div class="navbar-nav">
+					<?php if (isset($usuario['id'])) { ?>
+						<div class="dropdown show ml-2">
+							<a class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="/sair">Sair</a>
 							</div>
-						<?php }
-						?>
-						<?php if (!isset($usuario['id'])) { ?>
-							<a class="btn btn-info" href="/login">Entrar</a>
-						<?php }
-						?>
-					</div>
+						</div>
+					<?php }
+					?>
+					<?php if (!isset($usuario['id'])) { ?>
+						<a class="btn btn-info" href="/login">Entrar</a>
+					<?php }
+					?>
+				</div>
 			</div>
 		</nav>
 	</header>
@@ -75,4 +76,5 @@ $contador = $this->view->getContador;
 		</div>
 	</footer>
 </body>
+
 </html>

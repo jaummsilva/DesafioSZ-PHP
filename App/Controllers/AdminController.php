@@ -238,7 +238,7 @@ class AdminController extends Action
         $this->view->getProduto = $produto->getProduto();
         $this->renderAdmin('editarProdutoAdmin');
     }
-    
+
     public function editarProduto()
     {
         // Produto
@@ -375,7 +375,10 @@ class AdminController extends Action
         if ($fp === false) {
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
-        $header = array('ID', 'Nome', 'Descrição', 'Preço', 'Data_criacao', 'Data_alteracao', 'Produto_img', 'Produto_img_nome');
+        $header = array(
+            'id', 'nome', 'preco', 'descricao', 'data_criacao', 'data_alteracao', 'produto_img', 'produto_img_2', 'produto_img_3', 'produto_img_4',
+            'produto_img_nome', 'produto_img_2_nome', 'produto_img_3_nome', 'produto_img_4_nome'
+        );
         fputcsv($fp, $header);
         foreach ($produtos as $fields) {
             fputcsv($fp, $fields);
@@ -387,6 +390,11 @@ class AdminController extends Action
         readfile($filename);
         unlink($filename);
         fclose($fp);
+    }
+    public function importarProduto()
+    {
+        $produto = Container::getModel('Produto');
+        $produto->importarProduto();
     }
     // Produto Recomendado
     public function listagemProdutoRecomendadoAdmin()
@@ -504,7 +512,7 @@ class AdminController extends Action
     public function exportarCsvProdutoRecomendado()
     {
         session_start();
-        
+
         $produto_recomendado = Container::getModel('ProdutoRecomendado');
         $produtos = $this->view->getProdutosRecomendados = $produto_recomendado->getTodosProdutosRecomendados();
         if ($produtos === false) {
@@ -515,20 +523,28 @@ class AdminController extends Action
         if ($fp === false) {
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
-        $header = array('ID', 'Nome', 'Descrição', 'Preço', 'Data_criacao', 'Data_alteracao', 'Produto_img', 'Produto_img_nome');
+        $header = array('ID', 'Data Criação', 'Data Alteração', 'Imagem', 'Nome do Produto');
         fputcsv($fp, $header);
+
         foreach ($produtos as $fields) {
-            fputcsv($fp, $fields);
+            $formatted_row = array();
+            foreach ($fields as $value) {
+                // Formatar o valor de uma maneira agradável de ler
+                $formatted_value = str_replace(array("\r\n", "\n", "\r"), '', $value); // Remover quebras de linha
+                $formatted_value = str_replace(array("\t"), ' ', $formatted_value); // Substituir tabulações por espaços
+                $formatted_row[] = $formatted_value; // Adicionar o valor formatado à linha formatada
+            }
+            fputcsv($fp, $formatted_row); // Escrever a linha formatada no arquivo CSV
         }
 
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         header('Pragma: no-cache');
         readfile($filename);
-        unlink($filename);
         fclose($fp);
     }
-    
+
+
     // Pedido
     public function listagemPedidoAdmin()
     {
@@ -541,7 +557,7 @@ class AdminController extends Action
         $pedido = Container::getModel("Pedido");
         $pedido->__set('id', $_REQUEST['pedidoId']);
         $this->view->getPedidoProduto = $pedido->getPedidoId();
-        $this->renderAdmin('listagemPedidoProdutoAdmin');
+        $this->renderDeslogado('listagemPedidoProdutoAdmin');
     }
     public function exportarXlsPedido()
     {
@@ -596,6 +612,8 @@ class AdminController extends Action
         if ($fp === false) {
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
+        $header = array('Id Pedido','Usuario Email','Quantidade Produtos','Preco Total');
+        fputcsv($fp, $header);
 
         foreach ($pedidos as $fields) {
             fputcsv($fp, $fields);

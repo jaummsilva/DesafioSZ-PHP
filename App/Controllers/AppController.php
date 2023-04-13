@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use MF\Controller\Action;
@@ -116,14 +117,14 @@ class AppController extends Action
 			$carrinho->__set('quantidade_Produto', $_REQUEST['qtd_Produto']);
 			$carrinho->__set('produtoId', $produto['id']);
 			$carrinho->__set('usuarioId', $_SESSION['id']);
-			if($carrinho->validarCarrinho()) {
+			if ($carrinho->validarCarrinho()) {
 				$carrinho->inserirCarrinho();
 			}
 		}
 		// se carrinho existir , update nele 
 		else {
 			$carrinhoId->__set('quantidade_Produto', $_REQUEST['qtd_Produto']);
-			$carrinhoId->__set('data_alteracao',date('Y-m-d H:i:s'));
+			$carrinhoId->__set('data_alteracao', date('Y-m-d H:i:s'));
 			$carrinhoId->updateCarrinho();
 		}
 	}
@@ -148,8 +149,8 @@ class AppController extends Action
 		$carrinhoId->__set('usuarioId', $_SESSION['id']);
 		$carrinhoId->getCarrinho();
 		$carrinhoId->__set('quantidade_Produto', $_REQUEST['quantityCarrinho']);
-		$carrinhoId->__set('data_alteracao',date('Y-m-d H:i:s'));
-		if($carrinhoId->validarCarrinho()) {
+		$carrinhoId->__set('data_alteracao', date('Y-m-d H:i:s'));
+		if ($carrinhoId->validarCarrinho()) {
 			$carrinhoId->updateQuantidadeCarrinho();
 		}
 	}
@@ -185,20 +186,62 @@ class AppController extends Action
 		$contador = count($this->view->getCarrinho);
 		$this->view->getContador = $contador;
 
-			$pesquisar = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '';
+		$pesquisar = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '';
 
-			$produtos = array();
+		$produtos = array();
 
-			if ($pesquisar != '') {
-				$produto = Container::getModel('Produto');
-				$produto->__set('nome', $pesquisar);
-				$produto->__set('descricao', $pesquisar);
-				$produtos = $produto->getProdutoPesquisa();
-			}
-			$this->view->produtos = $produtos;
-			$this->render('produtoPesquisado');
+		if ($pesquisar != '') {
+			$produto = Container::getModel('Produto');
+			$produto->__set('nome', $pesquisar);
+			$produto->__set('descricao', $pesquisar);
+			$produtos = $produto->getProdutoPesquisa();
 		}
+		$this->view->produtos = $produtos;
+		$this->render('produtoPesquisado');
+	}
 
+	function enviarPedidoSlack($slack_url, $pedidoSlack) {
+    // Cria a tabela no formato Markdown
+    $table = "*Detalhes do Pedido #" . $pedidoSlack[0]['pedido_id'] . "*\n\n";
+    $table .= ":money_with_wings: *Valor total do pedido:* R$" . $pedidoSlack[0]['valor_total_pedido'] . "\n\n";
+    $table .= "| *Produto* | *Quantidade* | *Preço* |\n";
+    $table .= "| :-- | --: | --: |\n";
+    foreach ($pedidoSlack as $linha) {
+        $table .= "| " . $linha['nome'] . " | " . $linha['quantidade_produto'] . " | R$" . $linha['preco_total_produto'] . " |\n";
+    }
+    // Cria a mensagem com a tabela
+    $message = "Olá! :wave:\n\n";
+    $message .= "Aqui estão os detalhes do seu pedido:\n\n";
+    $message .= $table;
+    $message .= "\nSe tiver alguma dúvida, fique à vontade para entrar em contato conosco. :blush:";
+
+    $data = array(
+        "text" => $message
+    );
+    $payload = json_encode($data);
+    $ch = curl_init($slack_url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt(
+        $ch,
+        CURLOPT_HTTPHEADER,
+        array(
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($payload)
+        )
+    );
+    // Armazene a resposta da requisição em uma variável
+    $result = curl_exec($ch);
+    // Verifique se houve algum erro na requisição
+    if (curl_errno($ch)) {
+        echo 'Erro na requisição cURL: ' . curl_error($ch);
+    }
+    // Feche a conexão cURL
+    curl_close($ch);
+    // Retorne a resposta da requisição
+    return $result;
+}
 	public function criarPedido()
 	{
 		session_start();
@@ -222,7 +265,7 @@ class AppController extends Action
 		$pedido = Container::getModel('Pedido');
 		$pedido->__set('usuarioId', $_SESSION['id']);
 		$pedido->__set('precoTotal', $precoTotal['total_produto']);
-		if($pedido->validarPedido()) {
+		if ($pedido->validarPedido()) {
 			$pedido->cadastrarPedido();
 		}
 		// Id do pedido
@@ -237,18 +280,26 @@ class AppController extends Action
 			$itenspedido->__set('produtoId', $produto['produto_id']);
 			$itenspedido->__set('quantidade_produto', $produto['quantidade_produto']);
 			$itenspedido->__set('preco_por_produto', $produto['preco'] * $produto['quantidade_produto']);
-			if($itenspedido->validarItensPedido()) {
+			if ($itenspedido->validarItensPedido()) {
 				$itenspedido->cadastrarItensPedido();
 			}
 			$carrinho->__set('produtoId', $produto['produto_id']);
-			$carrinho->__set('data_alteracao',date('Y-m-d H:i:s'));
+			$carrinho->__set('data_alteracao', date('Y-m-d H:i:s'));
 			$carrinho->updateCarrinhoFinalizado();
 		}
+		/////////////////////// SLACK ////////////////////////
+		
+		$pedido->__set('id', $pedidoId[0]['id']);
+		$pedidoSlack = $pedido->getPedidoSlack();
+		$slack_url = "https://hooks.slack.com/services/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";
+		$this->enviarPedidoSlack($slack_url,$pedidoSlack);
+		///////////////////////////
 		$this->renderPedidoFinalizado('pedidoFinalizado');
 	}
 
 	// Favorito 
-	public function adicionarFavorito() {
+	public function adicionarFavorito()
+	{
 		session_start();
 		$favorito = Container::getModel('Favorito');
 		$favorito->__set('usuarioId', $_SESSION['id']);
@@ -256,7 +307,8 @@ class AppController extends Action
 		$favorito->inserirFavorito();
 		header('Location: /');
 	}
-	public function removerFavorito() {
+	public function removerFavorito()
+	{
 		session_start();
 		$favorito = Container::getModel('Favorito');
 		$favorito->__set('usuarioId', $_SESSION['id']);

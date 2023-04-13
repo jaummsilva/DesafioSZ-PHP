@@ -6,39 +6,42 @@ $produtosRecomendados = $this->view->getProdutosRecomendados;
 include('modalCarrinho.phtml');
 include('modalFavorito.phtml');
 ?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64LCZHGWG4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
 
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-64LCZHGWG4');
+</script>
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/produto.js"></script>
 <link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/carousel.css">
 
 <br>
-<br>
-<br>
-<div class="container mb-5 text-center  justify-content-center">
+<div class="d-flex text-center justify-content-center">
+    <h1 style="font-family:ippo, fantasy">Produtos Recomendados</h1>
+</div>
+<div class="container mb-5 text-center">
     <div class="row text-center">
-        <div id="carouselExampleControls" class="carousel slide col-12 text-center" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active text-center">
-                    <h1 style="font-family: Stencil Std, fantasy">Produtos Recomendados</h1>
+        <div class="carousel-wrapper">
+            <div class="carousel-container">
+                <div class="carousel">
+                    <?php foreach ($this->view->getProdutosRecomendados as $produtoRecomendado) { ?>
+                        <div class="image-one">
+                            <a href="/produto/<?= $produtoRecomendado['produto_id'] ?>">
+                                <img height="200px" class="text-center" src="/img/<?= $produtoRecomendado['nome_imagem'] ?>">
+                            </a>
+                            <h3><?= $produtoRecomendado['produto_nome'] ?></h3>
+                        </div>
+                    <?php } ?>
                 </div>
-                <?php foreach ($this->view->getProdutosRecomendados as $produtoRecomendado) { ?>
-                    <div class="carousel-item text-center">
-                        <a href="/produto/<?= $produtoRecomendado['produto_id'] ?>">
-                            <img height="200px" class="text-center" src="/img/<?= $produtoRecomendado['nome_imagem'] ?>">
-                        </a>
-                    </div>
-                <?php } ?>
             </div>
-
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
     </div>
 </div>
@@ -48,33 +51,35 @@ include('modalFavorito.phtml');
     <div class="row">
         <?php foreach ($produtos as $produto) { ?>
             <div class="col-sm-4 col-lg-4 col-md-4 p-5">
-                <div class="caption  mb-3 d-flex justify-content-end mr-5">
-                    <?php
-                    $produtoId = $produto['id'];
-                    $isInAllArrays = false;
-                    foreach ($this->view->getFavorito as $array) {
-                        if (in_array($produtoId, $array)) {
-                            $isInAllArrays = true;
-                            break;
+                <?php if (isset($usuario['id'])) { ?>
+                    <div class="caption  mb-3 d-flex justify-content-end mr-5">
+                        <?php
+                        $produtoId = $produto['id'];
+                        $isInAllArrays = false;
+                        foreach ($this->view->getFavorito as $array) {
+                            if (in_array($produtoId, $array)) {
+                                $isInAllArrays = true;
+                                break;
+                            }
                         }
-                    }
-                    if ($isInAllArrays) { ?>
-                        <form action="/removerFavorito" method="post">
-                            <input type="hidden" value="<?= $produtoId ?>" name="produtoId">
-                            <button type="submit" class="btn btn-light">
-                                <i class="fa fa-solid fa-heart fa-2x" style="color: #df2020;"></i>
-                            </button>
-                        </form>
-                    <?php } else {
-                    ?>
-                        <form action="/adicionarFavorito" method="post">
-                            <input type="hidden" value="<?= $produto['id'] ?>" name="produtoId">
-                            <button type="submit" class="btn">
-                                <i class="fa fa-regular fa-heart fa-2x" style="color: black;"></i>
-                            </button>
-                        </form>
-                    <?php } ?>
-                </div>
+                        if ($isInAllArrays) { ?>
+                            <form action="/removerFavorito" method="post">
+                                <input type="hidden" value="<?= $produtoId ?>" name="produtoId">
+                                <button type="submit" class="btn btn-light">
+                                    <i class="fa fa-solid fa-heart fa-2x" style="color: #df2020;"></i>
+                                </button>
+                            </form>
+                        <?php } else {
+                        ?>
+                            <form action="/adicionarFavorito" method="post">
+                                <input type="hidden" value="<?= $produto['id'] ?>" name="produtoId">
+                                <button type="submit" class="btn">
+                                    <i class="fa fa-regular fa-heart fa-2x" style="color: black;"></i>
+                                </button>
+                            </form>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
                 <div class="caption">
                     <a href="/produto/<?= $produto['id'] ?>">
                         <img style="height: 40%;" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>">

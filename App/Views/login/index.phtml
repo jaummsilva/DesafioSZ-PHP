@@ -17,17 +17,17 @@ $errosLogin =  $this->view->errosLogin;
     ?>
 <?php } 
 ?>
-
+<br>
 <section id="login" class="mt-5">
     <div class="container">
     	<div class="row ">
     	    <div class="col-xs-12 produto-container">
-        	    <div class="form-wrap">
-                <h1 class="text-primary">Logue com seu email e senha</h1>
+        	    <div class="form-wrap text-center">
+                <img src="/img/download.png" alt="" class="ml-5 text-center">
                     <form role="form" action="/autenticar" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <input type="text" name="email" id="email" class="form-control border border-dark" placeholder="somebody@example.com">
                         </div>
                         <div class="form-group">
                             <label for="key" class="sr-only">Senha</label>
@@ -35,7 +35,7 @@ $errosLogin =  $this->view->errosLogin;
                         </div>
                         <input type="submit" id="btn-login" class="btn btn-info btn-custom btn-block" value="Logar">
                     </form>
-                    <a href="/loginAdmin" class="forget">Logue com o admin</a>
+                    <a href="/loginAdmin">Logue com o admin</a>
 					<hr>
         	    </div>
     		</div>

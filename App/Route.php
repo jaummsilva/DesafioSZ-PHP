@@ -172,6 +172,11 @@ class Route extends Bootstrap {
 			'controller' => 'AdminController',
 			'action' => 'exportarXlsProduto'
 		);
+		$routes['importarProduto'] = array(
+			'route' => '/importarProduto',
+			'controller' => 'AdminController',
+			'action' => 'importarProduto'
+		);
 		// Admin Controller - Produto Recomendado
 		$routes['editarProdutoRecomendadoAdmin'] = array(
 			'route' => '/editarProdutoRecomendadoAdmin/{id}',

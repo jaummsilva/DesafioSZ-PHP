@@ -19,13 +19,13 @@ $errosLogin =  $this->view->errosLogin;
     ?>
 <?php } 
 ?>
-
+<br>
 <section id="login" class="mt-5">
     <div class="container">
         <div class="row produto-container">
             <div class="col-xs-12 mb-4">
-                <div class="form-wrap">
-                    <h1 class="text-primary">Logue com seu email e senha da conta Admin</h1>
+                <div class="form-wrap text-center">
+                <img src="/img/download.png" alt="" class="ml-5 text-center">
                     <form role="form" action="/autenticarAdmin" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
@@ -37,7 +37,7 @@ $errosLogin =  $this->view->errosLogin;
                         </div>
                         <input type="submit" id="btn-login" class="btn btn-info btn-custom btn-block" value="Logar">
                     </form>
-                    <a href="/login" class="forget">Logue no e-commerce</a>
+                    <a href="/login">Logue no e-commerce</a>
                 </div>
             </div>
         </div>

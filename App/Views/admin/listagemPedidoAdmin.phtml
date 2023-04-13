@@ -1,51 +1,59 @@
-<script>
-  $(document).ready(function() {
-    getDataTable('#listagem-pedidos');
-  })
-
-  function getDataTable(id) {
-    $(id).DataTable({
-      "ordering": true,
-      "paging": true,
-      "searching": true,
-      "oLanguage": {
-        "sEmptyTable": "Nenhum registro encontrado na tabela",
-        "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
-        "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
-        "sInfoPostFix": "",
-        "sInfoThousands": ".",
-        "sLengthMenu": "Mostrar _MENU_ registros por pagina",
-        "sLoadingRecords": "Carregando...",
-        "sProcessing": "Processando...",
-        "sZeroRecords": "Nenhum registro encontrado",
-        "sSearch": "Pesquisar",
-        "oPaginate": {
-          "sNext": "Proximo",
-          "sPrevious": "Anterior",
-          "sFirst": "Primeiro",
-          "sLast": "Ultimo"
-        },
-        "oAria": {
-          "sSortAscending": ": Ordenar colunas de forma ascendente",
-          "sSortDescending": ": Ordenar colunas de forma descendente"
-        }
-      }
-    });
-  }
-</script>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/login.css">
+
+  <script>
+    $(document).ready(function() {
+      getDataTable('#listagem-pedidos');
+      getDataTable('#listagem-pedido-produto');
+    })
+    function abrirPedido(pedidoId) {
+      $('#modal-body-produtos').load(
+        "/listagemPedidoProdutoAdmin", 
+        {
+          pedidoId: pedidoId
+        });
+        $('#modal-produtos').modal('show');
+    }
+    function getDataTable(id) {
+      $(id).DataTable({
+        "ordering": true,
+        "paging": true,
+        "searching": true,
+        "oLanguage": {
+          "sEmptyTable": "Nenhum registro encontrado na tabela",
+          "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
+          "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
+          "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
+          "sInfoPostFix": "",
+          "sInfoThousands": ".",
+          "sLengthMenu": "Mostrar _MENU_ registros por pagina",
+          "sLoadingRecords": "Carregando...",
+          "sProcessing": "Processando...",
+          "sZeroRecords": "Nenhum registro encontrado",
+          "sSearch": "Pesquisar",
+          "oPaginate": {
+            "sNext": "Proximo",
+            "sPrevious": "Anterior",
+            "sFirst": "Primeiro",
+            "sLast": "Ultimo"
+          },
+          "oAria": {
+            "sSortAscending": ": Ordenar colunas de forma ascendente",
+            "sSortDescending": ": Ordenar colunas de forma descendente"
+          }
+        }
+      });
+    }
+  </script>
 </head>
 
 <body>
-<div class="dropdown d-flex justify-content-end mr-5">
+  <div class="dropdown d-flex justify-content-end mr-5">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Exportar
     </button>
@@ -77,7 +85,8 @@
           <td><?= $pedido['email']  ?></td>
           <td><?= (number_format($pedido['preco_total'], 2, ',', '')) ?></td>
           <td>
-            <button onclick="abrirPedido(<?= $pedido['id'] ?>)" data-toggle="modal" data-target="#exampleModal2" style="color: white;" class="btn btn-info btn-sm modal-button">Produtos</button>
+            <button onclick="abrirPedido(<?= $pedido['id'] ?>)" 
+                style="color: white;" class="btn btn-info btn-sm">Produtos</button>
           </td>
         <?php }
         ?>
@@ -86,7 +95,7 @@
   </table>
 
 
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modal-produtos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -94,10 +103,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body-produtos">
-        </div>
+        <div id="modal-body-produtos"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
@@ -105,13 +113,3 @@
 </body>
 
 </html>
-
-<script>
-  function abrirPedido(pedidoId) {
-    $('.modal-body-produtos').load(
-      "/listagemPedidoProdutoAdmin", 
-      {
-        pedidoId: pedidoId
-      });
-  }
-</script>

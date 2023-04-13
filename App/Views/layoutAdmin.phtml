@@ -1,4 +1,5 @@
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<title>Miniframework</title>
@@ -13,16 +14,16 @@
 
 <body>
 	<header class="fixed-top">
-		<nav class="navbar navbar-expand-lg bg-light">
+		<nav class="navbar navbar-expand-lg bg-light header-container">
 			<div class="container-fluid">
 				<div class="navbar-nav d-flex justify-content-start mr-auto">
-					<a class="navbar-brand" href="/">
-						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-					</a>
+					<div class="navbar-nav d-flex justify-content-start mr-auto text-center">
+						<img style="height:60px;width:60px" src="/img/download.png" alt="">
+					</div>
 				</div>
 				<div class="navbar-nav mt-1 ml-auto">
-					<div class="dropdown show">
-						<a class="btn btn-light text-primary dropdown-toggle font-weight-bold-md" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div style="font-family: Impact, fantasy;" class="dropdown show">
+						<a class="btn btn-light dropdown-toggle font-weight-bold-md rounded bg-light text-primary border border-primary text-center border-top-0 border-left-0 border-right-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Favoritos
 						</a>
 						<div style="position:absolute" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -30,9 +31,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="navbar-nav mt-1 ml-1">
-					<div class="dropdown show">
-						<a class="btn btn-light text-primary dropdown-toggle font-weight-bold-md" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div  class="navbar-nav mt-1 ml-1 text-primary">
+					<div style="font-family: Impact, fantasy;" class="dropdown show">
+						<a class="btn btn-light dropdown-toggle font-weight-bold-md rounded bg-light text-primary border border-primary text-center border-top-0 border-left-0 border-right-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Pedidos
 						</a>
 						<div style="position:absolute" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -40,9 +41,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="navbar-nav mt-1 ml-1">
+				<div style="font-family: Impact, fantasy;" class="navbar-nav mt-1 ml-1">
 					<div class="dropdown show">
-						<a class="btn btn-light text-primary dropdown-toggle font-weight-bold-md" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a  class="btn btn-light dropdown-toggle font-weight-bold-md rounded bg-light text-primary border border-primary text-center border-top-0 border-left-0 border-right-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Produtos
 						</a>
 						<div style="position:absolute" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -57,8 +58,8 @@
 					</div>
 				</div>
 				<div class="navbar-nav mt-1 ml-1 mr-5 d-flex flex-row">
-					<div class="dropdown show">
-						<a class="btn btn-light text-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div style="font-family: Impact, fantasy;" class="dropdown show">
+						<a class="btn btn-light dropdown-toggle font-weight-bold-md rounded bg-light text-primary border border-primary text-center border-top-0 border-left-0 border-right-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Usuarios
 						</a>
 						<div style="position:absolute" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -67,8 +68,8 @@
 							<a class="dropdown-item" href="/listagemUsuarioAdmin">Lista de Usuarios</a>
 						</div>
 					</div>
-					<div class="navbar-nav ml-2">
-						<a class="btn btn-danger btn-md" href="/sair">Sair</a>
+					<div class="navbar-nav ml-3">
+						<a style="font-family: Impact, fantasy;width:80px;font-weight:400" class="btn btn-danger btn-md" href="/sair">Sair</a>
 					</div>
 				</div>
 			</div>
@@ -79,20 +80,18 @@
 	<br>
 
 	<?= $this->content() ?>
-	<footer class="bg-light fixed-bottom mb-2">
+	<footer class="bg-light fixed-bottom" style="height:100px">
 		<hr style="background-color: black;">
-		<div class="container">
-			<div class="row text-center">
-				<div class="col-md-4 box">
-					<span class="copyright quick-links">Copyright &copy; Your Website <script>
-							document.write(new Date().getFullYear())
-						</script>
+		<div class="container ">
+			<div class="row">
+				<div class="col-md-4 box mt-4">
+					<span class="copyright quick-links">Copyright &copy; Your Website
 					</span>
 				</div>
-				<div class="col-md-4 box">
-					<i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+				<div class="col-md-4 box text-center">
+				<img style="height:80px;width:80px" src="/img/download.png" alt="">
 				</div>
-				<div class="col-md-4 box">
+				<div class="col-md-4 box mt-4">
 					<ul class="list-inline quick-links">
 						<li class="list-inline-item">
 							<span href="#">Endereço:</span>
@@ -104,4 +103,5 @@
 		</div>
 	</footer>
 </body>
+
 </html>

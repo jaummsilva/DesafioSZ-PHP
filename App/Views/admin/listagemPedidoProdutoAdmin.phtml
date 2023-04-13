@@ -1,67 +1,21 @@
-<script>
-  $(document).ready(function() {
-    getDataTable('#listagem-pedido-produto');
-  })
 
-  function getDataTable(id) {
-    $(id).DataTable({
-      "ordering": true,
-      "paging": true,
-      "searching": true,
-      "oLanguage": {
-        "sEmptyTable": "Nenhum registro encontrado na tabela",
-        "sInfo": "Mostrar _START_ até _END_ de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrar 0 até 0 de 0 Registros",
-        "sInfoFiltered": "(Filtrar de _MAX_ total registros)",
-        "sInfoPostFix": "",
-        "sInfoThousands": ".",
-        "sLengthMenu": "Mostrar _MENU_ registros por pagina",
-        "sLoadingRecords": "Carregando...",
-        "sProcessing": "Processando...",
-        "sZeroRecords": "Nenhum registro encontrado",
-        "sSearch": "Pesquisar",
-        "oPaginate": {
-          "sNext": "Proximo",
-          "sPrevious": "Anterior",
-          "sFirst": "Primeiro",
-          "sLast": "Ultimo"
-        },
-        "oAria": {
-          "sSortAscending": ": Ordenar colunas de forma ascendente",
-          "sSortDescending": ": Ordenar colunas de forma descendente"
-        }
-      }
-    });
-  }
-</script>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/login.css">
-</head>
-
-<body>
-  <table class="table mb-5" id="listagem-pedido-produto">
-    <thead class="thead-dark">
-      <th scope="col">Nome</th>
-      <th scope="col">Quantidade</th>
-      <th scope="col">Preço</th>
+<table class="table mb-5" id="listagem-pedido-produto">
+  <thead class="thead-dark">
+    <th scope="col">Nome</th>
+    <th scope="col">Quantidade</th>
+    <th scope="col">Preço</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($this->view->getPedidoProduto as $produto) { ?>
+      <tr>
+        <td><?= $produto['nome']  ?></td>
+        </td>
+        <td><?= $produto['quantidade_produto']  ?></td>
+        <td><?= (number_format($produto['preco_total'], 2, ',', '')) ?></td>
+      <?php }
+      ?>
       </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($this->view->getPedidoProduto as $produto) { ?>
-        <tr>
-          <td><?= $produto['nome']  ?></td>
-          </td>
-          <td><?= $produto['quantidade_produto']  ?></td>
-          <td><?= (number_format($produto['preco_total'], 2, ',', '')) ?></td>
-        <?php }
-        ?>
-        </tr>
-    </tbody>
-</body>
-</html>
+  </tbody>
+</table>

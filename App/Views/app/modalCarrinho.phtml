@@ -22,10 +22,10 @@ $total = $this->view->getTotalCarrinho;
                                 <?php foreach ($carrinhoUsuario as $carrinho) { ?>
                                     <?php if ($carrinho['status'] = 'ABERTO') { ?>
                                         <div class="cartItem row align-items-start">
-                                            <div class="col-4 mt-5">
-                                                <img class="img-fluid"  src="data:image/png;base64,<?= $carrinho['produto_img'] ?>">
+                                            <div class="col-6 mt-5">
+                                                <img class="img-fluid" src="data:image/png;base64,<?= $carrinho['produto_img'] ?>">
                                             </div>
-                                            <div class="col-5">
+                                            <div class="col-6">
                                                 <h3 class=""><?= $carrinho['nome'] ?> </h3>
                                                 <p style="font-family: Stencil Std, fantasy;font-size:15pt" id="cartItem1Price">R$ <?= (number_format($carrinho['preco'], 2, ',', '')) ?></p>
                                                 <button onclick="remover(<?= $carrinho['produto_id'] ?>,<?= $carrinho['usuario_id'] ?>)" id="id-button-carrinho-<?= $usuario['id'] ?>" class="btn btn-light btn-carrinho-usuario">
@@ -34,20 +34,16 @@ $total = $this->view->getTotalCarrinho;
                                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                                                     </svg>
                                                 </button>
-                                            </div>
-                                            <div class="col-3">
-                                                <div class="ml-5" style="width: 40px;">
-                                                    <span class="input-group-btn">
-                                                        <button onclick="incrementQtdCarrinho(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number" data-type="plus" data-field="">
+                                                <div class="caption">
+                                                    <div class="input-group mb-3">
+                                                        <button onclick="incrementQtdCarrinho(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number btn-sm ml-2" data-type="plus" data-field="">
                                                             <span class="glyphicon glyphicon-plus"></span>
                                                         </button>
-                                                    </span>
-                                                    <input type="text" id="quantityCarrinho-<?= $carrinho['produto_id'] ?>" name="quantity" class="form-control input-number" value="<?= $carrinho['quantidade_produto'] ?>" min="1" max="100">
-                                                    <span class="input-group-btn">
-                                                        <button onclick="decrementQtdCarrinho(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                                        <input style="width:34px;height:25px" type="text" id="quantityCarrinho-<?= $carrinho['produto_id'] ?>" name="quantity" class="form-control font-weight-bold" value="<?= $carrinho['quantidade_produto'] ?>" min="1" max="100">
+                                                        <button onclick="decrementQtdCarrinho(<?= $carrinho['produto_id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number btn-sm ml-2" data-type="minus" data-field="">
                                                             <span class="glyphicon glyphicon-minus"></span>
                                                         </button>
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,7 +57,7 @@ $total = $this->view->getTotalCarrinho;
                 </main>
                 <div class="fixed-bottom bg-light ">
                     <div class="d-flex justify-content-center flex-row">
-                        <h3 id="total">Total: R$ <?= $total['total_produto'] ?></h3>
+                        <h3 style="font-family: Stencil Std, fantasy" id="total">Total: R$ <?= $total['total_produto'] ?></h3>
                         <form action="/criarPedido" method="post">
                             <input type="hidden" name="produtoId" value="">
                             <button onclick="mandarRequest()" style="height: 40px;" type="submit" class="btn btn-success btn-finalizar-carrinho mt-3 ml-4">Finalizar compra</button>

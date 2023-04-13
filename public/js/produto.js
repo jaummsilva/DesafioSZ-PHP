@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  
   $('.btn-carrinho').click(function () {
     $('#exampleModal').modal('show');
   })
@@ -88,11 +87,6 @@ function incrementQtdCarrinho(id) {
     },
     success: function (response) {
       window.location.href = "/"
-      alert("Carrinho alterado");
-    },
-    error: function (e) {
-      alert("Carrinho alterado");
-      $('')
     },
   });
 }
@@ -113,12 +107,26 @@ function decrementQtdCarrinho(id) {
     },
     success: function (response) {
       window.location.href = "/"
-      alert("Carrinho alterado");
     },
     error: function (e) {
       alert("Ocorreu um erro");
     },
   });
+}
+function importarProduto() {
+  let formData = new FormData();
+  let arquivo = $('#inputImportacaoProduto')[0].files[0];
+  formData.append('arquivoProdutoImportacao', arquivo);
+  $.ajax({
+    url: '/importarProduto',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      window.location.href = "/listagemProdutoAdmin"
+    },
+  })
 }
 function adicionar(id) {
   let qtdProduto = $(`#quantity-${id}`).val();
@@ -131,7 +139,6 @@ function adicionar(id) {
       qtd_Produto: qtdProduto,
     },
     success: function (response) {
-      alert("Carrinho alterado");
       window.location.href = "/";
     },
     error: function (e) {
@@ -149,7 +156,6 @@ function remover(id, idUsuario) {
       idUsuario: idUsuario
     },
     success: function (response) {
-      alert('Item removido do carrinho');
       window.location.href = "/";
     },
     error: function (e) {
@@ -159,6 +165,7 @@ function remover(id, idUsuario) {
   });
   $('.input-number').attr("onchange", `remover(${id, idUsuario})`)
 }
+
 
 function criarProdutoRecomendado() {
 

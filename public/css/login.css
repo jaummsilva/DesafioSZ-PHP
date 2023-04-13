@@ -101,7 +101,7 @@
         box-shadow: 0px 0px 10px 0px rgb(27, 26, 26);
     }
 
-    #listagem-usuarios_wrapper, #listagem-produtos_wrapper,#listagem-produtos-recomendados_wrapper, #listagem-pedidos_wrapper,#listagem-favoritos_wrapper {
+    #listagem-usuarios_wrapper, #listagem-produtos_wrapper,#listagem-produtos-recomendados_wrapper, #listagem-pedidos_wrapper,#listagem-favoritos_wrapper,#listagem-pedido-produto_wrapper {
         margin: 25px;
         margin-bottom: 20px;
     }
@@ -110,3 +110,36 @@
         background-color: #1b5a99;
         border-color: #1b5a99;
     }
+    .carousel-inner > .item {
+        -webkit-transition: 1.5s ease-in-out ;
+        -o-transition: 1.5s ease-in-out ;
+        transition: 1.5s ease-in-out ;
+        }
+        .carousel-inner > .item {
+        -webkit-transition: -webkit-transform 1.5s ease-in-out;
+        -o-transition: -o-transform 1.5s ease-in-out;
+        transition: transform 1.5s ease-in-out;
+        
+        }
+.btn-finalizar-carrinho {
+    display: inline-block;
+    padding: 13px;
+    border: 0;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    color: #fff;
+    background: #ff691e;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: 0;
+    box-sizing: border-box;
+    transition-property: all;
+    transition-duration: .3s;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 1.125rem;
+    height: inherit;
+}
