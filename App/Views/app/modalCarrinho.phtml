@@ -23,7 +23,7 @@ $total = $this->view->getTotalCarrinho;
                                     <?php if ($carrinho['status'] = 'ABERTO') { ?>
                                         <div class="cartItem row align-items-start">
                                             <div class="col-6 mt-5">
-                                                <img class="img-fluid" src="data:image/png;base64,<?= $carrinho['produto_img'] ?>">
+                                                <img class="img-fluid" src="/img/<?= $carrinho['produto_img_nome'] ?>" >
                                             </div>
                                             <div class="col-6">
                                                 <h3 class=""><?= $carrinho['nome'] ?> </h3>

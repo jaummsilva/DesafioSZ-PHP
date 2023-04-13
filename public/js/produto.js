@@ -215,22 +215,21 @@ function editarProdutoRecomendado() {
 }
 
 async function criarProduto() {
-  let img = $('#img').val();
-  let imgNome = $('#inputImgAlterado').val()
-  let imgNome2 = $('#inputImgAlterado2').val()
-  let imgNome3 = $('#inputImgAlterado3').val()
-  let imgNome4 = $('#inputImgAlterado4').val()
-  let img2 = $('#img2').val();
-  let img3 = $('#img3').val();
-  let img4 = $('#img4').val();
   let nome = $('#nome').val();
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
-
-  if ((!img.endsWith('.png') == true && !img.endsWith('.jpg') == true) || img == '') {
-    alert('Somente imagens em png e jpg aceitas');
-    return;
-  }
+  let formData = new FormData();
+  let img = $('#img')[0].files[0];
+  let img2 = $('#img')[0].files[0];
+  let img3 = $('#img')[0].files[0];
+  let img4 = $('#img')[0].files[0];
+  formData.append('img', img);
+  formData.append('img2', img2);
+  formData.append('img3', img3);
+  formData.append('img4', img4);
+  formData.append('descricao', descricao);
+  formData.append('preco', preco);
+  formData.append('nome', nome);
   if (nome == '') {
     alert('Digite o nome');
     return;
@@ -244,107 +243,36 @@ async function criarProduto() {
     return;
   }
 
-  // img2
-  const fileInput2 = document.querySelector('#img2');
-  const reader2 = new FileReader();
-  if (fileInput2.files[0] instanceof Blob) {
-    reader2.readAsDataURL(fileInput2.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader2.onload = function () {
-            img2 = reader2.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
-  // img3
-  const fileInput3 = document.querySelector('#img3');
-  const reader3 = new FileReader();
-  if (fileInput3.files[0] instanceof Blob) {
-    reader3.readAsDataURL(fileInput3.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader3.onload = function () {
-            img3 = reader3.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
-  // img4
-  const fileInput4 = document.querySelector('#img4');
-  const reader4 = new FileReader();
-  if (fileInput4.files[0] instanceof Blob) {
-    reader4.readAsDataURL(fileInput4.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader4.onload = function () {
-            img4 = reader4.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
-  // img principal
-  const fileInput = document.querySelector('#img');
-  const reader = new FileReader();
-  if (fileInput.files[0] instanceof Blob) {
-    reader.readAsDataURL(fileInput.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader.onload = function () {
-            img = reader.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
   $.ajax({
     url: '/registrarProduto',
     type: 'POST',
-    data: {
-      img,
-      imgNome,
-      descricao,
-      preco,
-      nome,
-      img2,
-      imgNome2,
-      img3,
-      imgNome3,
-      img4,
-      imgNome4
-    },
+    data: formData,
+    processData: false,
+    contentType: false,
     success: function (response) {
       alert("Produto criado com sucesso");
       window.location.href = "/listagemProdutoAdmin"
     },
   })
 }
-
 async function editarProduto() {
   let id = $('#id').val();
-  let img = $('#img').val();
-  let imgNome = $('#inputImgAlterado').val()
-  let imgNome2 = $('#inputImgAlterado2').val()
-  let imgNome3 = $('#inputImgAlterado3').val()
-  let imgNome4 = $('#inputImgAlterado4').val()
-  let img2 = $('#img2').val();
-  let img3 = $('#img3').val();
-  let img4 = $('#img4').val();
   let nome = $('#nome').val();
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
-
-  if (!img.endsWith('.png') && img != '' && !img.endsWith('.jpg')) {
-    alert('Somente imagens em png aceitas');
-    return;
-  }
+  let formData = new FormData();
+  let img = $('#img')[0].files[0];
+  let img2 = $('#img')[0].files[0];
+  let img3 = $('#img')[0].files[0];
+  let img4 = $('#img')[0].files[0];
+  formData.append('img', img);
+  formData.append('img2', img2);
+  formData.append('img3', img3);
+  formData.append('img4', img4);
+  formData.append('descricao', descricao);
+  formData.append('preco', preco);
+  formData.append('nome', nome);
+  formData.append('id',id);
 
   if (nome == '') {
     alert('Digite o nome');
@@ -358,84 +286,12 @@ async function editarProduto() {
     alert('Digite a descrição');
     return;
   }
-
-  // img2
-  const fileInput2 = document.querySelector('#img2');
-  const reader2 = new FileReader();
-  if (fileInput2.files[0] instanceof Blob) {
-    reader2.readAsDataURL(fileInput2.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader2.onload = function () {
-            img2 = reader2.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
-  // img3
-  const fileInput3 = document.querySelector('#img3');
-  const reader3 = new FileReader();
-  if (fileInput3.files[0] instanceof Blob) {
-    reader3.readAsDataURL(fileInput3.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader3.onload = function () {
-            img3 = reader3.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
-  // img4
-  const fileInput4 = document.querySelector('#img4');
-  const reader4 = new FileReader();
-  if (fileInput4.files[0] instanceof Blob) {
-    reader4.readAsDataURL(fileInput4.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader4.onload = function () {
-            img4 = reader4.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
-  // img principal
-  const fileInput = document.querySelector('#img');
-  const reader = new FileReader();
-  if (fileInput.files[0] instanceof Blob) {
-    reader.readAsDataURL(fileInput.files[0]);
-    await (
-      new Promise(
-        (resolve, reject) => {
-          reader.onload = function () {
-            img = reader.result.split(',')[1];
-            resolve();
-          }
-        }
-      ));
-  }
   $.ajax({
     url: '/editarProduto',
     type: 'POST',
-    data: {
-      id,
-      img,
-      imgNome,
-      descricao,
-      preco,
-      nome,
-      img2,
-      imgNome2,
-      img3,
-      imgNome3,
-      img4,
-      imgNome4
-    },
+    data: formData,
+    processData: false,
+    contentType: false,
     success: function (response) {
       alert("Produto editado com sucesso");
       window.location.href = "/listagemProdutoAdmin"

@@ -18,7 +18,7 @@ $favoritoUsuario = $this->view->getFavorito;
                                 <?php foreach ($favoritoUsuario as $favorito) { ?>
                                     <div class="col-sm-4 col-lg-4 col-md-4 text-center ml-5">
                                         <div class="caption text-center">
-                                            <img  class="img-fluid" src="data:image/png;base64,<?= $favorito['produto_img'] ?>">
+                                            <img  class="img-fluid" src="/img/<?= $favorito['produto_img_nome'] ?>">
                                         </div>
                                         <div class="caption text-center">
                                             <h3 style="text-transform: capitalize;font-family: Stencil Std, fantasy" class="item-name text-center  responsive-font-example">

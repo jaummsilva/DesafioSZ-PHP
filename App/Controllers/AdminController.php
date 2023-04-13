@@ -223,6 +223,7 @@ class AdminController extends Action
 
     public function listagemProdutoAdmin()
     {
+        var_dump($_POST);
         $produto = Container::getModel('Produto');
         // View que retorna todos os produtos
         $this->view->getProdutos = $produto->getTodosProdutos();
@@ -249,25 +250,37 @@ class AdminController extends Action
         $produto->__set('preco', number_format($_POST['preco'], 2, '.', ''));
         $produto->__set('data_alteracao', date('Y-m-d H:i:s'));
         $produto->__set('descricao', $_POST['descricao']);
-        // se a imagem for alterada
-        if (!empty($_POST['img'])) {
-            $produto->__set('produto_img', $_POST['img']);
-            $produto->__set('produto_img_nome', $_POST['imgNome']);
+        if (!empty($_FILES['img'])) {
+            $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
+            $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
+            $produto->__set('produto_img', $caminho_relativo);
+            $produto->__set('produto_img_nome', $_FILES['img']['name']);
         }
-        // se a imagem 2 for alterada 
-        if (!empty($_POST['img2'])) {
-            $produto->__set('produto_img_2', $_POST['img_2']);
-            $produto->__set('produto_img_2_nome', $_POST['imgNome2']);
+        if (!empty($_FILES['img2'])) {
+            $destino2 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img2']['name'];
+            $caminho_relativo2 = '/public/img/' . $_FILES['img2']['name'];
+            $produto->__set('produto_img_2', $caminho_relativo2);
+            $produto->__set('produto_img_2_nome', $_FILES['img2']['name']);
         }
-        // se a imagem 3 for alterada 
-        if (!empty($_POST['img3'])) {
-            $produto->__set('produto_img_3', $_POST['img3']);
-            $produto->__set('produto_img_3_nome', $_POST['imgNome3']);
+        if (!empty($_FILES['img3'])) {
+            $destino3 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img3']['name'];
+            $caminho_relativo3 = '/public/img/' . $_FILES['img3']['name'];
+            $produto->__set('produto_img_3', $caminho_relativo3);
+            $produto->__set('produto_img_3_nome', $_FILES['img3']['name']);
         }
-        // se a imagem 4 for alterada 
-        if (!empty($_POST['img4'])) {
-            $produto->__set('produto_img_4', $_POST['img4']);
-            $produto->__set('produto_img_4_nome', $_POST['imgNome4']);
+        if (!empty($_FILES['img4'])) {
+            $destino4 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img4']['name'];
+            $caminho_relativo4 = '/public/img/' . $_FILES['img4']['name'];
+            $produto->__set('produto_img_4', $caminho_relativo4);
+            $produto->__set('produto_img_4_nome', $_FILES['img4']['name']);
+        }
+        if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
+        }
+        if (move_uploaded_file($_FILES['img2']['tmp_name'], $destino2)) {
+        }
+        if (move_uploaded_file($_FILES['img3']['tmp_name'], $destino3)) {
+        }
+        if (move_uploaded_file($_FILES['img4']['tmp_name'], $destino4)) {
         }
         // se o produto for validado
         if ($produto->validarProduto()) {
@@ -290,19 +303,35 @@ class AdminController extends Action
         $produto->__set('nome', $_POST['nome']);
         $produto->__set('preco', number_format($_POST['preco'], 2, '.', ''));
         $produto->__set('descricao', $_POST['descricao']);
-        $produto->__set('produto_img', $_POST['img']);
-        $produto->__set('produto_img_nome', $_POST['imgNome']);
-        if (!empty($_POST['img2'])) {
-            $produto->__set('produto_img_2', $_POST['img2']);
-            $produto->__set('produto_img_2_nome', $_POST['imgNome2']);
+        $produto->__set('produto_img_nome', $_FILES['img']['name']);
+        $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
+        $destino2 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img2']['name'];
+        $destino3 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img3']['name'];
+        $destino4 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img4']['name'];
+        if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
         }
-        if (!empty($_POST['img3'])) {
-            $produto->__set('produto_img_3', $_POST['img3']);
-            $produto->__set('produto_img_3_nome', $_POST['imgNome3']);
+        $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
+        $caminho_relativo2 = '/public/img/' . $_FILES['img2']['name'];
+        $caminho_relativo3 = '/public/img/' . $_FILES['img3']['name'];
+        $caminho_relativo4 = '/public/img/' . $_FILES['img4']['name'];
+        $produto->__set('produto_img', $caminho_relativo);
+        if (move_uploaded_file($_FILES['img2']['tmp_name'], $destino2)) {
         }
-        if (!empty($_POST['img4'])) {
-            $produto->__set('produto_img_4', $_POST['img4']);
-            $produto->__set('produto_img_4_nome', $_POST['imgNome4']);
+        if (move_uploaded_file($_FILES['img3']['tmp_name'], $destino3)) {
+        }
+        if (move_uploaded_file($_FILES['img4']['tmp_name'], $destino4)) {
+        }
+        if (!empty($_FILES['img2'])) {
+            $produto->__set('produto_img_2', $caminho_relativo2);
+            $produto->__set('produto_img_2_nome', $_FILES['img2']['name']);
+        }
+        if (!empty($_FILES['img3'])) {
+            $produto->__set('produto_img_3', $caminho_relativo3);
+            $produto->__set('produto_img_3_nome', $_FILES['img3']['name']);
+        }
+        if (!empty($_FILES['img4'])) {
+            $produto->__set('produto_img_4', $caminho_relativo4);
+            $produto->__set('produto_img_4_nome', $_FILES['img4']['name']);
         }
         // Se o cadastro for validado , registra o produto
         if ($produto->validarProduto()) {
@@ -612,7 +641,7 @@ class AdminController extends Action
         if ($fp === false) {
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
-        $header = array('Id Pedido','Usuario Email','Quantidade Produtos','Preco Total');
+        $header = array('Id Pedido', 'Usuario Email', 'Quantidade Produtos', 'Preco Total');
         fputcsv($fp, $header);
 
         foreach ($pedidos as $fields) {

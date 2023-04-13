@@ -19,21 +19,21 @@ $usuario = $this->view->getUsuario;
         <div id="carouselExampleControls" class="carousel slide col-6" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active text-center">
-                    <img class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img'] ?>" alt="First slide">
+                    <img height="200px"  src="/img/<?= $produto['produto_img_nome'] ?>" alt="First slide">
                 </div>
                 <?php if (!empty($produto['produto_img_2'])) { ?>
                     <div class="carousel-item text-center">
-                        <img height="200px" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img_2'] ?>">
+                        <img height="200px"  src="/img/<?= $produto['produto_img_2_nome'] ?>">
                     </div>
                 <?php } ?>
                 <?php if (!empty($produto['produto_img_3'])) { ?>
                     <div class="carousel-item text-center">
-                        <img height="200px" class="img-fluid" src="data:image/png;base64,<?= $produto['produto_img_3'] ?>">
+                        <img height="200px"  src="/img/<?= $produto['produto_img_3_nome'] ?>">
                     </div>
                 <?php } ?>
                 <?php if (!empty($produto['produto_img_4'])) { ?>
                     <div class="carousel-item text-center">
-                        <img height="200px" src="data:image/png;base64,<?= $produto['produto_img_4'] ?>">
+                        <img height="200px"  src="/img/<?= $produto['produto_img_4_nome'] ?>">
                     </div>
                 <?php } ?>
             </div>

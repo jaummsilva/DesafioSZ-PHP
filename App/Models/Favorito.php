@@ -50,7 +50,7 @@ class Favorito extends Model
   }
   public function getFavoritoUsuario()
   {
-    $query = "select p.id,p.preco,p.nome, p.produto_img from favorito as f inner join produto as p on(f.produto_Id = p.id) where f.usuario_id = :usuarioId;";
+    $query = "select p.id,p.preco,p.nome, p.produto_img,p.produto_img_nome from favorito as f inner join produto as p on(f.produto_Id = p.id) where f.usuario_id = :usuarioId;";
     $smtm = $this->db->prepare($query);
     $smtm->bindValue(':usuarioId', $this->__get('usuarioId'));
     $smtm->execute();

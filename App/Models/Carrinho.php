@@ -45,7 +45,7 @@ class Carrinho extends Model {
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function getCarrinhoUsuario() {
-        $query = "select c.id, c.usuario_id, c.produto_id, c.preco,c.quantidade_produto, p.nome, p.produto_img from carrinho as c inner join produto as p on(c.produto_Id = p.id) where c.usuario_id = :usuarioId and c.status = 'ABERTO';";
+        $query = "select c.id, c.usuario_id, c.produto_id, c.preco,c.quantidade_produto, p.nome, p.produto_img,p.produto_img_nome from carrinho as c inner join produto as p on(c.produto_Id = p.id) where c.usuario_id = :usuarioId and c.status = 'ABERTO';";
         $smtm = $this->db->prepare($query);
         $smtm->bindValue(':usuarioId',$this->__get('usuarioId'));
         $smtm->execute();
