@@ -30,7 +30,7 @@ class Favorito extends Model
   }
   public function getMaisFavoritos()
   {
-    $query = 'SELECT p.produto_img, p.nome,p.descricao,p.preco, produto_id, COUNT(*) AS total,
+    $query = 'SELECT p.produto_img_nome, p.produto_img, p.nome,p.descricao,p.preco, produto_id, COUNT(*) AS total,
     ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) AS enumeracao
     FROM favorito as f
     inner join produto as p on (f.produto_id = p.id)

@@ -24,12 +24,13 @@
     })
   }
 
-  function remover(id) {
+  function remover(id,nome) {
     $.ajax({
       url: 'deletarProduto',
       type: 'POST',
       data: {
-        idProduto: id
+        idProduto: id,
+        nome: nome
       },
       success: function(response) {
         window.location.href = "/listagemProdutoAdmin"
@@ -77,7 +78,7 @@
       let nome = idText[3];
       let id = idText[4];
 
-      $('.button-remover').attr("onclick", `remover(${id})`)
+      $('.button-remover').attr("onclick", `remover(${id},"${nome}")`)
       $('.modal-body').html("Deseja remover o produto " + nome + "?");
       $('#exampleModal').modal('show');
     })
@@ -94,6 +95,7 @@
 </head>
 
 <body>
+  <br>
   <div class="d-flex justify-content-end">
     <button class="btn btn-info mr-2 btn-importacao-produto" type="button" aria-haspopup="true" aria-expanded="false">
       Importar
@@ -115,6 +117,7 @@
   <table class="table mb-5" id="listagem-produtos">
     <thead class="thead-dark">
       <tr>
+      <th scope="col">Id</th>
         <th scope="col">Nome</th>
         <th scope="col">Preço</th>
         <th scope="col">Data de Criação</th>
@@ -125,7 +128,8 @@
     <tbody>
       <?php foreach ($this->view->getProdutos as $produto) { ?>
         <tr>
-          <td scope="row"><?= $produto['nome'] ?></td>
+        <td scope="row"><?= $produto['id'] ?></td>
+          <td><?= $produto['nome'] ?></td>
           <td><?= (number_format($produto['preco'], 2, ',', '')) ?></td>
           </td>
           <td><?= date('d/m/Y H:i:s', strtotime($produto['data_criacao'])) ?></td>
@@ -167,8 +171,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body text-center" id="">
-          <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
+        <div class="modal-body" id="">
+          <h4 class="text-center" style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
+          <div>
+            <p capitalize>Baixe o <a href="/template_importacao.csv" download="template_importacao.csv" >template</a></p>
+          </div>
           <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputImportacaoProduto">
         </div>
         <div class="modal-footer">

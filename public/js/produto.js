@@ -214,15 +214,15 @@ function editarProdutoRecomendado() {
   })
 }
 
-async function criarProduto() {
+function criarProduto() {
   let nome = $('#nome').val();
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
   let formData = new FormData();
   let img = $('#img')[0].files[0];
-  let img2 = $('#img')[0].files[0];
-  let img3 = $('#img')[0].files[0];
-  let img4 = $('#img')[0].files[0];
+  let img2 = $('#img2')[0].files[0];
+  let img3 = $('#img3')[0].files[0];
+  let img4 = $('#img4')[0].files[0];
   formData.append('img', img);
   formData.append('img2', img2);
   formData.append('img3', img3);
@@ -242,6 +242,17 @@ async function criarProduto() {
     alert('Digite a descrição');
     return;
   }
+  // Verifica se pelo menos uma imagem foi selecionada
+  if (img == undefined) {
+    alert('Selecione pelo menos uma imagem');
+    return;
+  }
+
+  // Verifica se a imagem principal é PNG ou JPG
+  if (img != undefined && !(img.type == 'image/png' || img.type == 'image/jpeg')) {
+    alert('Selecione uma imagem PNG ou JPG para a imagem principal');
+    return;
+  }
 
   $.ajax({
     url: '/registrarProduto',
@@ -255,16 +266,16 @@ async function criarProduto() {
     },
   })
 }
-async function editarProduto() {
+function editarProduto() {
   let id = $('#id').val();
   let nome = $('#nome').val();
   let preco = $('#preco').val();
   let descricao = $('#descricao').val();
   let formData = new FormData();
   let img = $('#img')[0].files[0];
-  let img2 = $('#img')[0].files[0];
-  let img3 = $('#img')[0].files[0];
-  let img4 = $('#img')[0].files[0];
+  let img2 = $('#img2')[0].files[0];
+  let img3 = $('#img3')[0].files[0];
+  let img4 = $('#img4')[0].files[0];
   formData.append('img', img);
   formData.append('img2', img2);
   formData.append('img3', img3);
@@ -284,6 +295,22 @@ async function editarProduto() {
   }
   if (descricao == '') {
     alert('Digite a descrição');
+    return;
+  }
+  if (img && !(img.type == 'image/png' || img.type == 'image/jpeg')) {
+    alert('A imagem deve ser PNG ou JPG');
+    return;
+  }
+  if (img2 && !(img2.type == 'image/png' || img2.type == 'image/jpeg')) {
+    alert('A imagem 2 deve ser PNG ou JPG');
+    return;
+  }
+  if (img3 && !(img3.type == 'image/png' || img3.type == 'image/jpeg')) {
+    alert('A imagem 3 deve ser PNG ou JPG');
+    return;
+  }
+  if (img4 && !(img4.type == 'image/png' || img4.type == 'image/jpeg')) {
+    alert('A imagem 4 deve ser PNG ou JPG');
     return;
   }
   $.ajax({

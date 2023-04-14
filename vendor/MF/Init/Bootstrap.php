@@ -10,6 +10,7 @@ abstract class Bootstrap {
 	public function __construct() {
 		$this->initRoutes();
 		$this->run($this->getUrl());
+
 	}
 
 	public function getRoutes() {

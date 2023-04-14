@@ -47,7 +47,7 @@ include('modalFavorito.phtml');
 </div>
 <br>
 <br>
-<div class="container section-bg produto-container mt-5">
+<div class="container section-bg produto-container mt-5 mb-5">
     <div class="row">
         <?php foreach ($produtos as $produto) { ?>
             <div class="col-sm-4 col-lg-4 col-md-4 p-5">
@@ -82,7 +82,7 @@ include('modalFavorito.phtml');
                 <?php } ?>
                 <div class="caption">
                     <a href="/produto/<?= $produto['id'] ?>">
-                        <img style="height: 40%;" class="img-fluid" src="/img/<?= $produto['produto_img_nome'] ?>">
+                        <img style="height: 20%;" class="img-fluid" src="/img/<?= $produto['produto_img_nome'] ?>">
                     </a>
                 </div>
                 <div class="caption">

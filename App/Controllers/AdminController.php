@@ -202,7 +202,7 @@ class AdminController extends Action
         }
 
         foreach ($usuarios as $fields) {
-            fputcsv($fp, $fields);
+            fputcsv($fp, $fields,";");
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -344,6 +344,17 @@ class AdminController extends Action
         // Deletação do produto
         $produto = Container::getModel('Produto');
         $produto->__set('id', $_REQUEST['idProduto']);
+        $produtoNome = $this->view->getProdutoId = $produto->getProduto();
+        unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_nome']);
+        if($produtoNome['produto_img_2_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_2_nome']);
+        }
+        if($produtoNome['produto_img_3_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_3_nome']);
+        }
+        if($produtoNome['produto_img_4_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_4_nome']);
+        }
         $produto->deletarProduto();
         header("Location: /listagemProdutoAdmin");
     }
@@ -367,7 +378,7 @@ class AdminController extends Action
         $isPrintHeader = false;
         $produto = Container::getModel('Produto');
         // View que retorna todos os produtos
-        $produtos =  $this->view->getProdutos = $produto->getTodosProdutos();
+        $produtos =  $this->view->getProdutos = $produto->getTodosProdutosExportacao();
 
         // Adicionar tabela
         echo '<body>';
@@ -395,7 +406,7 @@ class AdminController extends Action
         // Usuario
         $produto = Container::getModel('Produto');
         // View que retorna todos os produtos
-        $produtos =  $this->view->getProdutos = $produto->getTodosProdutos();
+        $produtos =  $this->view->getProdutos = $produto->getTodosProdutosExportacao();
         if ($produtos === false) {
             throw new Exception('Não foi possível obter os produtos.');
         }
@@ -405,12 +416,11 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
         $header = array(
-            'id', 'nome', 'preco', 'descricao', 'data_criacao', 'data_alteracao', 'produto_img', 'produto_img_2', 'produto_img_3', 'produto_img_4',
-            'produto_img_nome', 'produto_img_2_nome', 'produto_img_3_nome', 'produto_img_4_nome'
+            'id', 'nome', 'preco', 'descricao','produto_img','produto_img_2','produto_img_3','produto_img_4'
         );
-        fputcsv($fp, $header);
+        fputcsv($fp, $header,";");
         foreach ($produtos as $fields) {
-            fputcsv($fp, $fields);
+            fputcsv($fp, $fields,";");
         }
 
         header('Content-Type: text/csv');
@@ -553,7 +563,7 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
         $header = array('ID', 'Data Criação', 'Data Alteração', 'Imagem', 'Nome do Produto');
-        fputcsv($fp, $header);
+        fputcsv($fp, $header,";");
 
         foreach ($produtos as $fields) {
             $formatted_row = array();
@@ -563,7 +573,7 @@ class AdminController extends Action
                 $formatted_value = str_replace(array("\t"), ' ', $formatted_value); // Substituir tabulações por espaços
                 $formatted_row[] = $formatted_value; // Adicionar o valor formatado à linha formatada
             }
-            fputcsv($fp, $formatted_row); // Escrever a linha formatada no arquivo CSV
+            fputcsv($fp, $formatted_row,";"); // Escrever a linha formatada no arquivo CSV
         }
 
         header('Content-Type: text/csv');
@@ -642,10 +652,10 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
         $header = array('Id Pedido', 'Usuario Email', 'Quantidade Produtos', 'Preco Total');
-        fputcsv($fp, $header);
+        fputcsv($fp, $header,";");
 
         foreach ($pedidos as $fields) {
-            fputcsv($fp, $fields);
+            fputcsv($fp, $fields,";");
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -718,7 +728,7 @@ class AdminController extends Action
         }
 
         foreach ($favoritos as $fields) {
-            fputcsv($fp, $fields);
+            fputcsv($fp, $fields,";");
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
