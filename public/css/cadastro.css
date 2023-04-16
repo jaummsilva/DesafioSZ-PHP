@@ -1,0 +1,10 @@
+.produto-container p  {
+  color: rgb(186, 7, 7);
+  margin: 2px;
+  display:none
+}
+.usuario-container p {
+  color: rgb(186, 7, 7);
+  margin: 2px;
+  display:none
+}

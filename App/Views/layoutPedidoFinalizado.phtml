@@ -25,10 +25,9 @@ $contador = $this->view->getContador;
 						<img style="height:60px;width:60px" src="/img/download.png" alt="">
 					</div>
 				</div>
-				<div class="navbar-nav mr-auto d-flex flex-nowrap">
-					<form class="mt-2 d-flex flex-nowrap" action="/pesquisarProdutos">
-						<span>Pesquise:</span>
-						<input style="font-size:13pt" placeholder="Pesquise pelo nome ou descrição" style="width: 100%;" type="text" name="pesquisa" id="">
+				<div class="navbar-nav mr-auto d-flex flex-nowrap mt-4">
+				<form class="d-flex flex-nowrap" action="/pesquisarProdutos">
+						<input class="rounded text-dark border border-dark text-center border-top-0 border-left-0 border-right-0" style="width:350px;height:30px"  placeholder="Pesquise pelo nome ou descrição" type="text" name="pesquisa" id="pesquisar">
 					</form>
 				</div>
 				<div class="navbar-nav">
@@ -51,20 +50,18 @@ $contador = $this->view->getContador;
 	</header>
 	<br>
 	<?= $this->content() ?>
-	<footer class="bg-light fixed-bottom">
+	<footer class="bg-light fixed-bottom" style="height:120px">
 		<hr style="background-color: black;">
-		<div class="container">
-			<div class="row text-center">
-				<div class="col-md-4 box">
-					<span class="copyright quick-links">Copyright &copy; Your Website <script>
-							document.write(new Date().getFullYear())
-						</script>
+		<div class="container ">
+			<div class="row">
+				<div class="col-md-4 box mt-4">
+					<span class="copyright quick-links">Copyright &copy; Your Website
 					</span>
 				</div>
-				<div class="col-md-4 box">
-					<i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+				<div class="col-md-4 box text-center">
+				<img style="height:80px;width:80px" src="/img/download.png" alt="">
 				</div>
-				<div class="col-md-4 box">
+				<div class="col-md-4 box mt-4">
 					<ul class="list-inline quick-links">
 						<li class="list-inline-item">
 							<span href="#">Endereço:</span>

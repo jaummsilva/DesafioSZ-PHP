@@ -1,7 +1,8 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/cadastro.css">
 <script src="/js/usuario.js"></script>
 
 <div class="container mt-4 usuario-container">
@@ -12,28 +13,34 @@
                 <br>
                 <div class="form-group col-xs-6">
                     <label for="nome" class="sr-only">Nome</label>
-                    <input value="<?= $this->view->getUsuario['id'] ?>" id="id" type="hidden" name="id">
+                    <input style="display: none;" value="<?= $this->view->getUsuario['id'] ?>" id="id" type="hidden" name="id">
                     <input value="<?= $this->view->getUsuario['nome'] ?>" id="nome" type="text" name="nome" id="nome" class="form-control " placeholder="name">
+                    <p id="p-usuario-edit-nome">Digite o nome</p>
                 </div>
                 <div class="form-group col-xs-6">
                     <label for="email" class="sr-only">Email</label>
                     <input value="<?= $this->view->getUsuario['email'] ?>" id="email" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                    <p id="p-usuario-edit-email">Digite o email</p>
                 </div>
                 <div class="form-group col-xs-6">
                     <label for="key" class="sr-only">Data de Nascimento</label>
                     <input value="<?= $this->view->getUsuario['data_nascimento'] ?>" id="nascimento" type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
+                    <p id="p-usuario-edit-nascimento">Escolha a data de nascimento</p>
                 </div>
                 <div class="form-group col-xs-6">
                     <label for="key" class="sr-only">Telefone</label>
                     <input value="<?= $this->view->getUsuario['telefone'] ?>" maxlength="11" id="tel" type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
+                    <p id="p-usuario-edit-tel">Digite seu numero de telefone</p>
                 </div>
                 <div class="form-group col-xs-4">
                     <label for="key" class="sr-only">Senha</label>
                     <input  type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
+                    <p id="p-usuario-edit-senhas">Senhas devem ser iguais</p>
                 </div>
                 <div class="form-group col-xs-4">
                     <label for="key" class="sr-only">Repetir Senha</label>
                     <input type="password" name="repetirSenha" class="form-control" id="repetirSenha" placeholder="Repetir Senha">
+                    <p id="p-usuario-edit-senhas">Senhas devem ser iguais</p>
                 </div>
                 <div class="form-group col-xs-4 d-flex flex-row">
                     <input style="display: none;" id="img" type="file" name="img">

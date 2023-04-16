@@ -18,30 +18,29 @@ async function criarUsuario() {
     let senha = $('#senha').val();
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
-
+    
     if (senha != repetirSenha) {
-        alert('Senhas devem ser iguais')
+        document.getElementById('al-usuario-cad-senhas').style.display = "flex;"
         return;
     }
-
     if (nome == '') {
-        alert('Digite o nome');
+        document.getElementById('p-usuario-cad-nome').style.display = "flex";
         return;
     }
     if (telefone == '') {
-        alert('Digite o telefone');
+        document.getElementById('p-usuario-cad-tel').style.display = "flex";
         return;
     }
     if (nascimento == '') {
-        alert('Informe sua data de nascimento');
+        document.getElementById('p-usuario-cad-nascimento').style.display = "flex";
         return;
     }
     if (email == '') {
-        alert('Digite o seu email');
+        document.getElementById('p-usuario-cad-email').style.display = "flex";
         return;
     }
     if (!img.endsWith('.png') || img == '' || img.endsWith('.jpg')) {
-        alert('Somente imagens em png e jpg aceitas');
+        alert("Imagem devem ser em PNG ou em JPG")
         return;
     }
     // img principal
@@ -101,28 +100,32 @@ async function editarUsuario() {
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
 
+    if (img == "") {
+        alert('Imagem obrigatoria');
+        return;
+    }
     if (!img.endsWith('.png') && img != '' && !img.endsWith('.jpg')) {
         alert('Somente imagens em png e jpg aceitas');
         return;
     }
     if (senha != repetirSenha) {
-        alert('Senhas devem ser iguais')
+        document.getElementById('p-usuario-edit-senhas').style.display = "flex;"
         return;
     }
     if (nome == '') {
-        alert('Digite o nome');
+        document.getElementById('p-usuario-edit-nome').style.display = "flex";
         return;
     }
     if (telefone == '') {
-        alert('Digite o telefone');
+        document.getElementById('p-usuario-edit-tel').style.display = "flex";
         return;
     }
     if (nascimento == '') {
-        alert('Informe sua data de nascimento');
+        document.getElementById('p-usuario-edit-nascimento').style.display = "flex";
         return;
     }
     if (email == '') {
-        alert('Digite o seu email');
+        document.getElementById('p-usuario-edit-email').style.display = "flex";
         return;
     }
     // img principal

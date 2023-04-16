@@ -5,6 +5,7 @@ $usuario = $this->view->getUsuario;
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/produto.js"></script>
+<link rel="stylesheet" href="/css/all.css">
 <script>
     $('.btn-carrinho').click(function() {
         $('#exampleModal').modal('show');
@@ -53,7 +54,7 @@ $usuario = $this->view->getUsuario;
                 </h1>
             </div>
             <div class="caption">
-                <h4 class="item-name text-left responsive-font-example ">
+                <h4 style="opacity: 50%;" class="item-name text-left responsive-font-example">
                     <?= $produto['descricao'] ?>
                 </h4>
             </div>
@@ -62,12 +63,12 @@ $usuario = $this->view->getUsuario;
             <?php if (isset($usuario['id'])) { ?>
                 <div class="caption">
                     <div class="input-group mb-3">
-                        <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number btn-sm ml-2" data-type="plus" data-field="">
-                            <span class="glyphicon glyphicon-plus"></span>
+                        <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-light text-dark btn-number btn-sm ml-2" data-type="plus" data-field="">
+                        <i class="fas fa-plus"></i>
                         </button>
-                        <input style="width:34px;height:25px" type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control font-weight-bold" value="1" min="1" max="100">
-                        <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number btn-sm ml-2" data-type="minus" data-field="">
-                            <span class="glyphicon glyphicon-minus"></span>
+                        <input style="width:40px;height:25px" type="number" id="quantity-<?= $produto['id'] ?>" name="quantity" class="font-weight-bold" value="1" min="1" max="100">
+                        <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-light text-dark btn-number btn-sm ml-2" data-type="minus" data-field="">
+                        <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>

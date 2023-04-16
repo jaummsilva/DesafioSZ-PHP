@@ -1,54 +1,82 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/cadastro.css">
 <script src="/js/produto.js"></script>
 
-<div class="container mt-4 produto-container">
+<div style="display: none;" class="alert alert-danger m-5 text-center" id="al-produto-img" role="alert">
+    Selecione uma imagem PNG ou JPG para a imagem principal
+</div>
+
+<div class="container mt-5 produto-container">
     <div class="row">
         <div class="col-xs-12 mb-1">
             <div class="form-wrap">
-                <h1 class="text-primary text-center">Editar o produto <?= $this->view->getProduto['nome'] ?> ? </h1>
+                <h1 class="text-primary text-center">Edite <?= $this->view->getProduto['nome'] ?></h1>
                 <br>
                 <div class="form-group col-xs-6">
-                    <label for="nome" class="sr-only">Nome</label>
-                    <input value="<?= $this->view->getProduto['id'] ?>" id="id" type="hidden" name="id">
+                    <label>Nome</label>
+                    <input style="display: none;" value="<?= $this->view->getProduto['id'] ?>" id="id" type="hidden" name="id">
                     <input value="<?= $this->view->getProduto['nome'] ?>" id="nome" type="text" name="nome" class="form-control" placeholder="name">
+                    <p id="p-produto-nome">Digite o nome</p>
                 </div>
                 <div class="form-group col-xs-6">
-                    <label for="preco" class="sr-only">Preço</label>
+                    <label>Preço</label>
                     <input value="<?= $this->view->getProduto['preco'] ?>" id="preco" name="preco" class="form-control" placeholder="Preço">
+                    <p id="p-produto-preco">Digite o preco</p>
                 </div>
                 <div class="form-group col-xs-6">
-                    <label class="sr-only">Descricao</label>
+                    <label>Descricao</label>
                     <input value="<?= $this->view->getProduto['descricao'] ?>" id="descricao" type="text" name="descricao" class="form-control" placeholder="Descricao">
+                    <p id="p-produto-descricao">Digite a descricao</p>
                 </div>
-                <div class="form-group col-xs-6 d-flex flex-row">
-                    <input style="display: none;" id="img" type="file" name="img">
-                    <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
+                <div class="form-group col-xs-6 d-flex flex-column">
+                    <div>
+                        <label>Imagem Principal:</label>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <input style="display: none;" id="img" type="file" name="img">
+                        <button id="imgAlterado" class="btn btn-primary"> Escolher Arquivo</button>
+                        <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
+                    </div>
                 </div>
                 <div class="form-group col-xs-12 text-center">
-                    <h4>Imagem Opcionais:</h4>
+                    <h3>Imagem Opcionais:</h3>
                 </div>
-                <div class="form-group col-xs-4 d-flex flex-row">
-                    <input style="display: none;" id="img2" type="file" name="img2">
-                    <button id="imgAlterado2" class="btn btn-primary"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado2">
+                <div class="form-group col-xs-4 d-flex flex-column">
+                    <div>
+                        <label>Imagem 2:</label>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <input style="display: none;" id="img2" type="file" name="img2">
+                        <button id="imgAlterado2" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
+                        <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado2">
+                    </div>
                 </div>
-                <div class="form-group col-xs-4 d-flex flex-row">
-                    <input style="display: none;" id="img3" type="file" name="img3">
-                    <button id="imgAlterado3" class="btn btn-primary"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado3">
+                <div class="form-group col-xs-4 d-flex flex-column">
+                    <div>
+                        <label>Imagem 3:</label>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <input style="display: none;" id="img3" type="file" name="img3">
+                        <button id="imgAlterado3" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
+                        <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado3">
+                    </div>
                 </div>
-                <div class="form-group col-xs-4 d-flex flex-row">
-                    <input style="display: none;" id="img4" type="file" name="img4">
-                    <button id="imgAlterado4" class="btn btn-primary"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado4">
+                <div class="form-group col-xs-4 d-flex flex-column">
+                    <div>
+                        <label>Imagem 4:</label>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <input style="display: none;" id="img4" type="file" name="img4">
+                        <button id="imgAlterado4" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
+                        <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado4">
+                    </div>
                 </div>
                 <div class="form-group col-xs-12  text-center mt-2">
-                    <button onclick="editarProduto()" type="button" id="btn-login" class="btn btn-custom btn-success btn-lg">Editar</button>
-                    <a class="btn btn-custom btn-primary btn-lg" href="/listagemProdutoAdmin">Voltar</a>
+                    <button onclick="editarProduto()" type="button" id="btn-login" class="btn btn-custom btn-success btn-lg">Salvar</button>
+                    <a class="btn btn-custom btn-info btn-lg" href="/listagemProdutoAdmin">Voltar</a>
                 </div>
             </div>
         </div>

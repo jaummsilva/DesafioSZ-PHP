@@ -20,7 +20,7 @@ include('modalFavorito.phtml');
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/produto.js"></script>
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/all.css">
 <link rel="stylesheet" href="/css/carousel.css">
 
 <br>
@@ -65,16 +65,16 @@ include('modalFavorito.phtml');
                         if ($isInAllArrays) { ?>
                             <form action="/removerFavorito" method="post">
                                 <input type="hidden" value="<?= $produtoId ?>" name="produtoId">
-                                <button type="submit" class="btn btn-light">
-                                    <i class="fa fa-solid fa-heart fa-2x" style="color: #df2020;"></i>
+                                <button type="submit" style="background-color:white;border:none">
+                                    <i class="fa fa-solid fa-heart fa-2x" style="color:red;"></i>
                                 </button>
                             </form>
                         <?php } else {
                         ?>
                             <form action="/adicionarFavorito" method="post">
                                 <input type="hidden" value="<?= $produto['id'] ?>" name="produtoId">
-                                <button type="submit" class="btn">
-                                    <i class="fa fa-regular fa-heart fa-2x" style="color: black;"></i>
+                                <button type="submit" style="background-color:white;border:none">
+                                    <i class="fa fa-heart-o fa-2x" style="color:red"></i>
                                 </button>
                             </form>
                         <?php } ?>
@@ -91,19 +91,19 @@ include('modalFavorito.phtml');
                     </h2>
                 </div>
                 <div class="caption">
-                    <h4 class="item-name text-left responsive-font-example ">
+                    <h4 style="opacity: 50%;" class="item-name text-left responsive-font-example ">
                         <?= $produto['descricao'] ?>
                     </h4>
                 </div>
                 <?php if (isset($usuario['id'])) { ?>
                     <div class="caption">
                         <div class="input-group mb-3">
-                            <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-info btn-number btn-sm ml-2" data-type="plus" data-field="">
-                                <span class="glyphicon glyphicon-plus"></span>
+                            <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-light text-dark btn-number btn-sm ml-2" data-type="plus" data-field="">
+                                <i class="fas fa-plus"></i>
                             </button>
-                            <input style="width:34px;height:25px" type="text" id="quantity-<?= $produto['id'] ?>" name="quantity" class="form-control font-weight-bold" value="1" min="1" max="100">
-                            <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-danger btn-number btn-sm ml-2" data-type="minus" data-field="">
-                                <span class="glyphicon glyphicon-minus"></span>
+                            <input style="width:37px;height:25px" type="number" id="quantity-<?= $produto['id'] ?>" name="quantity" class="font-weight-bold" value="1" min="1" max="100">
+                            <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-light text-dark  btn-number btn-sm ml-2" id="botao-decremento-index" data-type="minus" data-field="">
+                                <i class="fas fa-minus"></i>
                             </button>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ include('modalFavorito.phtml');
                         R$ <?= (number_format($produto['preco'], 2, ',', '')) ?>
                     </h4>
                     <?php if (isset($usuario['id'])) { ?>
-                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary responsive-content btn-carrinho-home btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>
+                        <button onclick="adicionar(<?= $produto['id'] ?>)" class="btn btn-primary  btn-carrinho-home btn-sm btn-md ml-5 mt-3">Adicionar no carrinho</button>
                     <?php } ?>
                 </div>
             </div>

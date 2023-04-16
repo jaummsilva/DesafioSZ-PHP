@@ -89,16 +89,11 @@
     }
 
     .produto-container,
-    .usuario-container {
-        -webkit-box-shadow: 0px 0px 10px 0px rgb(74, 74, 74);
-        -moz-box-shadow: 0px 0px 10px 0px rgb(86, 85, 85);
-        box-shadow: 0px 0px 10px 0px rgb(76, 76, 76);
-    }
-
+    .usuario-container,
     .header-container {
-        -webkit-box-shadow: 0px 0px 10px 0px rgb(20, 19, 19);
-        -moz-box-shadow: 0px 0px 10px 0px rgb(24, 23, 23);
-        box-shadow: 0px 0px 10px 0px rgb(27, 26, 26);
+        -webkit-box-shadow: 0px 0px 10px 0px rgb(228, 228, 228);
+        -moz-box-shadow: 0px 0px 10px 0px rgb(228, 228, 228);;
+        box-shadow: 0px 0px 10px 0px rgb(228, 228, 228);;
     }
 
     #listagem-usuarios_wrapper, #listagem-produtos_wrapper,#listagem-produtos-recomendados_wrapper, #listagem-pedidos_wrapper,#listagem-favoritos_wrapper,#listagem-pedido-produto_wrapper {
@@ -126,7 +121,7 @@
     padding: 13px;
     border: 0;
     border-radius: 0.25rem;
-    font-weight: 500;
+    font-weight: 600;
     font-style: normal;
     font-family: "Trebuchet MS",Arial,sans-serif;
     color: #fff;
@@ -142,4 +137,73 @@
     width: 100%;
     font-size: 1.125rem;
     height: inherit;
+}
+.btn-finalizar-carrinho:hover {
+    color: #ff691e;
+    background: #ffffff;
+    border: 1px solid #ff691e;
+}
+.btn-carrinho-home {
+    display: inline-block;
+    padding: 13px;
+    border: 0;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: 0;
+    box-sizing: border-box;
+    transition-property: all;
+    transition-duration: .3s;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.btn-carrinho-home:hover {
+    color: #1d4fe4;
+    background: #ffffff;
+    border: 1px solid #1d4fe4;
+}
+.quantity-left-minus , .quantity-right-plus {
+    display: inline-block;
+    border: 0;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: 0;
+    box-sizing: border-box;
+    transition-property: all;
+    transition-duration: .3s;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.quantity-left-minus:hover , .quantity-right-plus:hover{
+    color: #ffffff;
+    background: #000000;
+    border: 1px solid #ffffff;
+}
+.fas:hover {
+    color: #ffffff;
+}
+.btn-favorito{
+    display: inline-block;
+    border: 0;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: 0;
+    box-sizing: border-box;
+    transition-property: all;
+    transition-duration: .3s;
+    text-decoration: none;
+    vertical-align: middle;
+    background: #ffffff;
 }

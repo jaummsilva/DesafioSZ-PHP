@@ -57,20 +57,12 @@ $(document).ready(function () {
 
 function incrementQtd(id) {
   var quantity = parseInt($(`#quantity-${id}`).val());
-  var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
   $(`#quantity-${id}`).val(quantity + 1);
-  $(`#quantityCarrinho-${id}`).val(quantityCarrinho + 1);
 }
 
 function decrementQtd(id) {
   var quantity = parseInt($(`#quantity-${id}`).val());
-  var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
-  if (quantity > 0) {
-    $(`#quantity-${id}`).val(quantity - 1);
-  }
-  if (quantityCarrinho > 0) {
-    $(`#quantityCarrinho-${id}`).val(quantityCarrinho - 1);
-  }
+  $(`#quantity-${id}`).val(quantity - 1);
 }
 
 function incrementQtdCarrinho(id) {
@@ -129,7 +121,7 @@ function importarProduto() {
   })
 }
 function adicionar(id) {
-  let qtdProduto = $(`#quantity-${id}`).val();
+  let qtdProduto = parseInt($(`#quantity-${id}`).val());
 
   $.ajax({
     url: "/inserirProdutoCarrinho",
@@ -223,6 +215,7 @@ function criarProduto() {
   let img2 = $('#img2')[0].files[0];
   let img3 = $('#img3')[0].files[0];
   let img4 = $('#img4')[0].files[0];
+  
   formData.append('img', img);
   formData.append('img2', img2);
   formData.append('img3', img3);
@@ -230,16 +223,17 @@ function criarProduto() {
   formData.append('descricao', descricao);
   formData.append('preco', preco);
   formData.append('nome', nome);
+  
   if (nome == '') {
-    alert('Digite o nome');
+    document.getElementById('p-produto-nome').style.display = "flex";
     return;
   }
   if (preco == '') {
-    alert('Digite o preço');
+    document.getElementById('p-produto-preco').style.display = "flex";
     return;
   }
   if (descricao == '') {
-    alert('Digite a descrição');
+    document.getElementById('p-produto-descricao').style.display = "flex";
     return;
   }
   // Verifica se pelo menos uma imagem foi selecionada
@@ -250,7 +244,7 @@ function criarProduto() {
 
   // Verifica se a imagem principal é PNG ou JPG
   if (img != undefined && !(img.type == 'image/png' || img.type == 'image/jpeg')) {
-    alert('Selecione uma imagem PNG ou JPG para a imagem principal');
+    document.getElementById('al-produto-img').style.display = "flex;"
     return;
   }
 
@@ -286,31 +280,31 @@ function editarProduto() {
   formData.append('id',id);
 
   if (nome == '') {
-    alert('Digite o nome');
+    document.getElementById('p-produto-nome').style.display = "flex";
     return;
   }
   if (preco == '') {
-    alert('Digite o preço');
+    document.getElementById('p-produto-preco').style.display = "flex";
     return;
   }
   if (descricao == '') {
-    alert('Digite a descrição');
+    document.getElementById('p-produto-descricao').style.display = "flex";
     return;
   }
   if (img && !(img.type == 'image/png' || img.type == 'image/jpeg')) {
-    alert('A imagem deve ser PNG ou JPG');
+    document.getElementById('al-produto-img').style.display = "flex;"
     return;
   }
   if (img2 && !(img2.type == 'image/png' || img2.type == 'image/jpeg')) {
-    alert('A imagem 2 deve ser PNG ou JPG');
+    document.getElementById('al-produto-img').style.display = "flex;"
     return;
   }
   if (img3 && !(img3.type == 'image/png' || img3.type == 'image/jpeg')) {
-    alert('A imagem 3 deve ser PNG ou JPG');
+    document.getElementById('al-produto-img').style.display = "flex;"
     return;
   }
   if (img4 && !(img4.type == 'image/png' || img4.type == 'image/jpeg')) {
-    alert('A imagem 4 deve ser PNG ou JPG');
+    document.getElementById('al-produto-img').style.display = "flex;"
     return;
   }
   $.ajax({
