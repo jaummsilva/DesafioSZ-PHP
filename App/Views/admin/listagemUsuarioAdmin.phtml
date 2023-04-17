@@ -1,8 +1,12 @@
+<?php
+$sucessoCadastro =  $this->view->getSucesso;
+?>
+
 <script>
   $(document).ready(function() {
     getDataTable('#listagem-usuarios');
-    
-    $('.btn-importacao-usuario').click(function(){
+
+    $('.btn-importacao-usuario').click(function() {
       $('#modal-importacao-usuario').modal('show');
     })
   })
@@ -66,22 +70,26 @@
     })
   }
 </script>
+<link rel="stylesheet" href="/css/all.css">
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/all.css">
-</head>
-<br>
+<?php if(!empty($sucessoCadastro)) { ?>
+    <?php foreach($sucessoCadastro as $sucesso ) { ?>
+        <div style="font-size: 15pt;" class="alert alert-success text-center m-5" role="alert">
+            <?= $sucesso?>
+         </div>
+    <?php }
+    ?>
+<?php } 
+?>
+
+</div>
+<a style="height:40px;padding:8px" href="/cadastroUsuarioAdmin" class="btn btn-primary btn-usuario-cadastrar btn-sm  ml-5 mt-5">Cadastrar</a>
 <div class="d-flex justify-content-end">
-<button class="btn btn-info mr-2 btn-importacao-usuario" type="button" aria-haspopup="true" aria-expanded="false">
-      Importar
-    </button>
-<div class="dropdown d-flex justify-content-end mr-5">
+  <button class="btn btn-info mr-2 btn-importacao-usuario" type="button" aria-haspopup="true" aria-expanded="false">
+    Importar
+  </button>
+  <div class="dropdown d-flex justify-content-end mr-5">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Exportar
     </button>
@@ -89,75 +97,74 @@
       <form method="post" action="/exportarCsvUsuario" class="text-center">
         <button type="submit" class="btn btn-info btn-block">CSV</button>
       </form>
-      <form method="post" action="/exportarXlsUsuario"  class="text-center">
+      <form method="post" action="/exportarXlsUsuario" class="text-center">
         <button type="submit" class="btn btn-info btn-block">XLS</button>
       </form>
     </div>
   </div>
 </div>
-  <table class="table mt-3" id="listagem-usuarios">
-    <thead class="thead-dark">
+<table class="table mt-3" id="listagem-usuarios">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Data de Criação</th>
+      <th scope="col">Data de Alteração</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($this->view->getUsuarios as $usuario) { ?>
       <tr>
-        <th scope="col">Email</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Data de Criação</th>
-        <th scope="col">Data de Alteração</th>
-        <th scope="col">Ações</th>
+        <td scope="row"><?= $usuario['email'] ?></td>
+        <td><?= $usuario['nome'] ?></td>
+        </td>
+        <td><?= date('d/m/Y H:i:s', strtotime($usuario['data_criacao'])) ?></td>
+        <td><?= date('d/m/Y H:i:s', strtotime($usuario['data_alteracao'])) ?></td>
+        <td>
+          <a href="/editarUsuarioAdmin/<?= $usuario['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
+          <button id="id-button-modal-<?= $usuario['nome'] ?>-<?= $usuario['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
+        </td>
+      <?php }
+      ?>
       </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($this->view->getUsuarios as $usuario) { ?>
-        <tr>
-          <td scope="row"><?= $usuario['email'] ?></td>
-          <td><?= $usuario['nome'] ?></td>
-          </td>
-          <td><?= date('d/m/Y H:i:s', strtotime($usuario['data_criacao'])) ?></td>
-          <td><?= date('d/m/Y H:i:s', strtotime($usuario['data_alteracao'])) ?></td>
-          <td>
-            <a href="/editarUsuarioAdmin/<?= $usuario['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
-            <button id="id-button-modal-<?= $usuario['nome'] ?>-<?= $usuario['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
-          </td>
-        <?php }
-        ?>
-        </tr>
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
-          <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
-        </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+        <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="modal fade" id="modal-importacao-usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body text-center" id="">
-          <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
+<div class="modal fade" id="modal-importacao-usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center" id="">
+        <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
         <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacao">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-          <button onclick type="button" class="btn btn-success button-inportar">Importar</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+        <button onclick type="button" class="btn btn-success button-inportar">Importar</button>
       </div>
     </div>
   </div>
-</html>
+</div>

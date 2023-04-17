@@ -24,32 +24,33 @@ $contador = $this->view->getContador;
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/all.css">
 </head>
 
 <body>
 	<header class="fixed-top bg-light" style="height: 10%;">
 		<nav class="navbar navbar-expand-lg header-container">
-			<div class="container-fluid ">
-				<div class="navbar-nav d-flex justify-content-start mr-auto text-center">
+			<div class="container-fluid">
+				<div class="navbar-nav d-flex justify-content-start mr-auto">
 					<a href="/">
 					<img style="height:60px;width:60px"src="/img/download.png" alt="">
 					</a>
 				</div>
-				<div class="navbar-nav mr-auto d-flex flex-nowrap mt-3 ml-5">
-					<form class="d-flex flex-nowrap" action="/pesquisarProdutos">
+				<div class="navbar-nav mr-auto d-flex flex-nowrap ml-5">
+					<form class="d-flex flex-nowrap mt-4" action="/pesquisarProdutos">
 						<input class="rounded text-dark border border-dark text-center border-top-0 border-left-0 border-right-0" style="width:350px;height:30px"  placeholder="Pesquise pelo nome ou descrição" type="text" name="pesquisa" id="pesquisar">
 					</form>
 				</div>
 				<?php if (isset($usuario['id'])) { ?>
 				<div class="navbar-nav mr-2">
-					<button class="btn btn-light btn-favorito" style="background-color: white;">
-						<i class="fa fa-solid fa-heart fa-2x fa-favorito"></i>
+					<button style="border:none" class="btn-favorito">
+					<i class="fa fa-solid fa-heart fa-2x" style="color:red;"></i>
 					</button>
 				</div>
 				<?php } ?>
 				<div class="navbar-nav d-flex flex-row ">
 					<?php if (isset($usuario['id'])) { ?>
-						<button style="font-size:2rem;font-family: Impact, fantasy;" type="button" class="btn btn-light text-primary btn-carrinho">
+						<button style="font-size: 15pt;" type="button" class="btn btn-light text-primary btn-carrinho">
 							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							Carrinho
 							<span class="badge badge-light"><?= $contador ?></span>
@@ -58,15 +59,15 @@ $contador = $this->view->getContador;
 
 					<?php if (isset($usuario['id'])) { ?>
 						<div class="dropdown show ml-2">
-							<a style="font-size:2rem;font-family: Impact, fantasy;" class="btn btn-light text-primary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
+							<a style="font-size: 15pt;" class="btn btn-light text-primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $usuario['nome'] ?></a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a style="font-size:1.75rem;font-family: Impact, fantasy;" class="dropdown-item" href="/sair">Sair</a>
+								<a style="font-size: 15pt;" class="dropdown-item" href="/sair">Sair</a>
 							</div>
 						</div>
 					<?php }
 					?>
 					<?php if (!isset($usuario['id'])) { ?>
-						<a style="font-size:1.75rem;font-family: Impact, fantasy;" class="btn btn-info" href="/login">Entrar</a>
+						<a style="font-size: 15pt;" href="/login">Entrar</a>
 					<?php }
 					?>
 				</div>

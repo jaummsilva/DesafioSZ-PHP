@@ -116,7 +116,6 @@ function importarProduto() {
     processData: false,
     contentType: false,
     success: function (response) {
-      window.location.href = "/listagemProdutoAdmin"
     },
   })
 }

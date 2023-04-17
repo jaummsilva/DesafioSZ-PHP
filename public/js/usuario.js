@@ -78,12 +78,8 @@ async function criarUsuario() {
                 let p = document.createElement('p');
                 p.innerText = response.mensagem;
                 div.appendChild(p);
-                var divLogin = document.getElementById("login");
+                var divLogin = document.getElementById("cadastro-usuario-error");
                 document.body.insertBefore(div, divLogin);
-            }
-            else {
-                alert('Criado com sucesso');
-                window.location.href = '/listagemUsuarioAdmin'
             }
         }
     })

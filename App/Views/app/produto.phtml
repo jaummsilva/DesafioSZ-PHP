@@ -66,7 +66,7 @@ $usuario = $this->view->getUsuario;
                         <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-light text-dark btn-number btn-sm ml-2" data-type="plus" data-field="">
                         <i class="fas fa-plus"></i>
                         </button>
-                        <input style="width:40px;height:25px" type="number" id="quantity-<?= $produto['id'] ?>" name="quantity" class="font-weight-bold" value="1" min="1" max="100">
+                        <input style="width:40px;height:25px" type="number" id="quantity-<?= $produto['id'] ?>" name="quantity" class="font-weight-bold text-center" value="1" min="1" max="100">
                         <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-light text-dark btn-number btn-sm ml-2" data-type="minus" data-field="">
                         <i class="fas fa-minus"></i>
                         </button>

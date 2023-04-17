@@ -63,77 +63,66 @@
     })
   }
 </script>
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="/css/all.css">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/all.css">
-</head>
-
-<body>
-  <div class="dropdown d-flex justify-content-end mr-5">
-    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Exportar
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <form method="post" action="/exportarCsvProdutoRecomendado" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">CSV</button>
-      </form>
-      <form method="post" action="/exportarXlsProdutoRecomendado" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">XLS</button>
-      </form>
-    </div>
+<a style="height:40px;padding:8px" href="/cadastroProdutoRecomendadoAdmin" class="btn btn-primary btn-produto-recomendado-cadastrar btn-sm  ml-5 mt-5">Cadastrar</a>
+<div class="dropdown d-flex justify-content-end mr-5">
+  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Exportar
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <form method="post" action="/exportarCsvProdutoRecomendado" class="text-center">
+      <button type="submit" class="btn btn-info btn-block">CSV</button>
+    </form>
+    <form method="post" action="/exportarXlsProdutoRecomendado" class="text-center">
+      <button type="submit" class="btn btn-info btn-block">XLS</button>
+    </form>
   </div>
-  <table class="table mb-5" id="listagem-produtos-recomendados">
-    <thead class="thead-dark">
+</div>
+<table class="table mb-5" id="listagem-produtos-recomendados">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nome Imagem</th>
+      <th scope="col">Caminho Arquivo</th>
+      <th scope="col">Numero de Sequencia</th>
+      <th scope="col">Data de Criação</th>
+      <th scope="col">Data de Alteração</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($this->view->getProdutosRecomendados as $produto) { ?>
       <tr>
-        <th scope="col">Nome Imagem</th>
-        <th scope="col">Caminho Arquivo</th>
-        <th scope="col">Numero de Sequencia</th>
-        <th scope="col">Data de Criação</th>
-        <th scope="col">Data de Alteração</th>
-        <th scope="col">Ações</th>
+        <td scope="row"><?= $produto['nome_imagem'] ?></td>
+        <td><?= $produto['arquivo']  ?></td>
+        <td><?= $produto['numero_sequencia']  ?></td>
+        <td><?= date('d/m/Y H:i:s', strtotime($produto['data_criacao'])) ?></td>
+        <td><?= date('d/m/Y H:i:s', strtotime($produto['data_alteracao'])) ?></td>
+        <td>
+          <a href="/editarProdutoRecomendadoAdmin/<?= $produto['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
+          <button id="id-button-modal-<?= $produto['nome_imagem'] ?>-<?= $produto['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
+        </td>
+      <?php }
+      ?>
       </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($this->view->getProdutosRecomendados as $produto) { ?>
-        <tr>
-          <td scope="row"><?= $produto['nome_imagem'] ?></td>
-          <td><?= $produto['arquivo']  ?></td>
-          <td><?= $produto['numero_sequencia']  ?></td>
-          <td><?= date('d/m/Y H:i:s', strtotime($produto['data_criacao'])) ?></td>
-          <td><?= date('d/m/Y H:i:s', strtotime($produto['data_alteracao'])) ?></td>
-          <td>
-            <a href="/editarProdutoRecomendadoAdmin/<?= $produto['id'] ?>" style="color: white;" class="btn btn-info btn-sm">Editar</a>
-            <button id="id-button-modal-<?= $produto['nome_imagem'] ?>-<?= $produto['id'] ?>" style="color: white;" class="btn btn-danger btn-sm modal-button">Remover</button>
-          </td>
-        <?php }
-        ?>
-        </tr>
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
 
-  <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
-          <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
-        </div>
+<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+        <button onclick type="button" class="btn btn-danger button-remover">Remover</button>
       </div>
     </div>
   </div>
-</body>
-
-</html>
+</div>

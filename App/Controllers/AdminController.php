@@ -63,6 +63,7 @@ class AdminController extends Action
     {
         // Views de Erro e Pegar o Usuario
         $this->view->getUsuario = [];
+        $this->view->getSucesso = [];
         // Usuario
         $usuario = Container::getModel('Usuario');
         // View que busca o email informado da global POST no banco de dados 
@@ -86,7 +87,8 @@ class AdminController extends Action
         // Se o cadastro for validado
         if ($usuario->validarCadastro()) {
             $usuario->cadastrarUsuario();
-            header('Location: /listagemUsuarioAdmin?sucesso=Usuario cadastrado com sucesso');
+            $this->view->getSucesso[] = "Usuario cadastrado com sucesso";
+            $this->renderAdmin('listagemUsuarioAdmin');
         } else {
             header('Location: /cadastroUsuarioAdmin');
         }
@@ -94,12 +96,12 @@ class AdminController extends Action
     public function listagemUsuarioAdmin()
     {
         session_start();
+        $this->view->getSucesso = [];
         // Usuario
         $usuario = Container::getModel('Usuario');
         $usuario->__set('id', $_SESSION['id']);
         // View que retorna todos os usuarios
         $this->view->getUsuarios = $usuario->getTodosUsuarios();
-
         $this->renderAdmin('listagemUsuarioAdmin');
     }
     public function editarUsuarioAdmin($id)
@@ -223,7 +225,7 @@ class AdminController extends Action
 
     public function listagemProdutoAdmin()
     {
-        var_dump($_POST);
+        $this->view->getErrosImportacao = [];
         $produto = Container::getModel('Produto');
         // View que retorna todos os produtos
         $this->view->getProdutos = $produto->getTodosProdutos();
@@ -432,8 +434,19 @@ class AdminController extends Action
     }
     public function importarProduto()
     {
+        $csv = $_FILES['arquivoProdutoImportacao'];
+        $data = fopen($csv['tmp_name'], 'r');
+        $line = fgetcsv($data, 0, ";");
+        $this->view->getErrosImportacao = [];
+
+        if(empty($line[4])) {
+            $this->view->getErrosImportacao[] = "Imagem do produto vazia";
+            $this->renderAdmin('listagemProdutoAdmin');
+            return;
+        }
         $produto = Container::getModel('Produto');
         $produto->importarProduto();
+        $this->renderAdmin('listagemProdutoAdmin');
     }
     // Produto Recomendado
     public function listagemProdutoRecomendadoAdmin()

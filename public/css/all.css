@@ -143,7 +143,7 @@
     background: #ffffff;
     border: 1px solid #ff691e;
 }
-.btn-carrinho-home {
+.btn-carrinho-home, .btn-produto-cadastrar,.btn-usuario-cadastrar,.btn-produto-recomendado-cadastrar {
     display: inline-block;
     padding: 13px;
     border: 0;
@@ -161,7 +161,7 @@
     text-decoration: none;
     vertical-align: middle;
 }
-.btn-carrinho-home:hover {
+.btn-carrinho-home:hover, .btn-produto-cadastrar:hover,.btn-usuario-cadastrar:hover,.btn-produto-recomendado-cadastrar:hover {
     color: #1d4fe4;
     background: #ffffff;
     border: 1px solid #1d4fe4;
@@ -206,4 +206,33 @@
     text-decoration: none;
     vertical-align: middle;
     background: #ffffff;
+}
+.item-name{
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 2rem;
+}
+.header-container a {
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 1.35rem;
+    text-decoration: none;
+}
+.header-container button {
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 1.55rem;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
 }

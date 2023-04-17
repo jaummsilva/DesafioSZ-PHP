@@ -50,7 +50,7 @@ include('modalFavorito.phtml');
 <div class="container section-bg produto-container mt-5 mb-5">
     <div class="row">
         <?php foreach ($produtos as $produto) { ?>
-            <div class="col-sm-4 col-lg-4 col-md-4 p-5">
+            <div class="col-sm-4 col-lg-4 col-md-4 p-5 mb-5">
                 <?php if (isset($usuario['id'])) { ?>
                     <div class="caption  mb-3 d-flex justify-content-end mr-5">
                         <?php
@@ -86,29 +86,30 @@ include('modalFavorito.phtml');
                     </a>
                 </div>
                 <div class="caption">
-                    <h2 style="text-transform: capitalize" class="item-name text-left responsive-font-example">
+                    <h2 style="text-transform: capitalize;font-size:17pt" class="item-name text-left ml-5">
                         <?= $produto['nome'] ?>
                     </h2>
                 </div>
+                <br>
                 <div class="caption">
-                    <h4 style="opacity: 50%;" class="item-name text-left responsive-font-example ">
+                    <h5 style="opacity: 50%;" class="item-name text-left responsive-font-example ">
                         <?= $produto['descricao'] ?>
-                    </h4>
+                    </h5>
                 </div>
                 <?php if (isset($usuario['id'])) { ?>
-                    <div class="caption">
+                    <div class="caption mt-5 mr-5">
                         <div class="input-group mb-3">
                             <button onclick="incrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-right-plus btn btn-light text-dark btn-number btn-sm ml-2" data-type="plus" data-field="">
                                 <i class="fas fa-plus"></i>
                             </button>
-                            <input style="width:37px;height:25px" type="number" id="quantity-<?= $produto['id'] ?>" name="quantity" class="font-weight-bold" value="1" min="1" max="100">
+                            <input style="width:37px;height:25px" type="number" id="quantity-<?= $produto['id'] ?>" name="quantity" class="font-weight-bold text-center" value="1" min="1" max="100">
                             <button onclick="decrementQtd(<?= $produto['id'] ?>)" type="button" class="quantity-left-minus btn btn-light text-dark  btn-number btn-sm ml-2" id="botao-decremento-index" data-type="minus" data-field="">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
                     </div>
                 <?php } ?>
-                <div class="caption d-flex justify-content-start mr-3">
+                <div class="caption d-flex justify-content-start mr-5">
                     <h4 style="font-family: Stencil Std, fantasy;font-size:17pt" class="item-price text-left mt-4 responsive-font-example font-weight-bold">
                         R$ <?= (number_format($produto['preco'], 2, ',', '')) ?>
                     </h4>

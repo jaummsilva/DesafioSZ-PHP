@@ -4,6 +4,8 @@ namespace App\Models;
 
 use MF\Model\Model;
 use App\Connection;
+use MF\Controller\Action;
+use MF\Model\Container;
 
 class Produto extends Model
 {
@@ -33,7 +35,6 @@ class Produto extends Model
 
     public function importarProduto()
     {
-
         $csv = $_FILES['arquivoProdutoImportacao'];
         $data = fopen($csv['tmp_name'], 'r');
         $row = 0;
@@ -48,6 +49,9 @@ class Produto extends Model
                     die();
                 }
                 continue;
+            }
+            if(empty($line[4])) {
+                die();
             }
             $id = $line[0];
             $nome = $line[1];
