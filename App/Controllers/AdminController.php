@@ -66,6 +66,7 @@ class AdminController extends Action
         $this->view->getSucesso = [];
         // Usuario
         $usuario = Container::getModel('Usuario');
+        $this->view->getUsuarios = $usuario->getTodosUsuarios();
         // View que busca o email informado da global POST no banco de dados 
         $this->view->getUsuariosEmail = $usuario->getTodosUsuariosEmail($_POST['email']);
         // Se email ja existir , retorna com erro
@@ -82,8 +83,12 @@ class AdminController extends Action
         $usuario->__set('senha', sha1($_POST['senha']));
         $usuario->__set('data_nascimento', $_POST['nascimento']);
         $usuario->__set('telefone', $_POST['telefone']);
-        $usuario->__set('usuario_img', $_POST['img']);
-        $usuario->__set('usuario_img_nome', $_POST['imgNome']);
+        $usuario->__set('usuario_img_nome', $_FILES['img']['name']);
+        $destino = $_SERVER['DOCUMENT_ROOT'] . '\usuarios/' . $_FILES['img']['name'];
+        $caminho_relativo = '/public/usuarios/' . $_FILES['img']['name'];
+        if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
+        }
+        $usuario->__set('usuario_img', $caminho_relativo);
         // Se o cadastro for validado
         if ($usuario->validarCadastro()) {
             $usuario->cadastrarUsuario();
@@ -132,10 +137,15 @@ class AdminController extends Action
         $usuario->__set('data_alteracao', date('Y-m-d H:i:s'));
         $usuario->__set('telefone', $_POST['telefone']);
         // se a imagem for alterada
-        if (!empty($_POST['img'])) {
-            $usuario->__set('usuario_img', $_POST['img']);
-            $usuario->__set('usuario_img_nome', $_POST['imgNome']);
+        if (!empty($_FILES['img'])) {
+            $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
+            $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
+            $usuario->__set('usuario_img', $caminho_relativo);
+            $usuario->__set('usuario_img_nome', $_FILES['img']['name']);
+            if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
+            }
         }
+        
         // Se a edição for validada
         if ($usuario->validarCadastro()) {
             $usuario->editarUsuario();
@@ -193,7 +203,7 @@ class AdminController extends Action
         $usuario = Container::getModel('Usuario');
         $usuario->__set('id', $_SESSION['id']);
         // View que retorna todos os usuarios
-        $usuarios = $this->view->getUsuarios = $usuario->getTodosUsuarios();
+        $usuarios = $this->view->getUsuarios = $usuario->getTodosUsuariosExportacao();
         if ($usuarios === false) {
             throw new Exception('Não foi possível obter os usuários.');
         }
@@ -203,6 +213,10 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
 
+        $header = array(
+            'id', 'nome', 'email', 'telefone','data_nascimento','usuario_img','senha'
+        );
+        fputcsv($fp, $header,";");
         foreach ($usuarios as $fields) {
             fputcsv($fp, $fields,";");
         }
@@ -218,11 +232,19 @@ class AdminController extends Action
         // Deletação de usuario
         $usuario = Container::getModel('Usuario');
         $usuario->__set('id', $_REQUEST['idUsuario']);
+        $usuarioNome = $this->view->getUsuarioId = $usuario->getUsuario();
+        unlink($_SERVER['DOCUMENT_ROOT'] . '\usuarios/' . $usuarioNome['usuario_img_nome']);
         $usuario->deletarUsuario();
         header("Location: /listagemUsuarioAdmin");
     }
+    public function importarUsuario()
+    {
+        $usuario = Container::getModel('Usuario');
+        $usuario->importarUsuario();
+        $this->renderAdmin('listagemUsuarioAdmin');
+    }
+    
     // Produto
-
     public function listagemProdutoAdmin()
     {
         $this->view->getErrosImportacao = [];
@@ -434,16 +456,6 @@ class AdminController extends Action
     }
     public function importarProduto()
     {
-        $csv = $_FILES['arquivoProdutoImportacao'];
-        $data = fopen($csv['tmp_name'], 'r');
-        $line = fgetcsv($data, 0, ";");
-        $this->view->getErrosImportacao = [];
-
-        if(empty($line[4])) {
-            $this->view->getErrosImportacao[] = "Imagem do produto vazia";
-            $this->renderAdmin('listagemProdutoAdmin');
-            return;
-        }
         $produto = Container::getModel('Produto');
         $produto->importarProduto();
         $this->renderAdmin('listagemProdutoAdmin');

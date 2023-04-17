@@ -10,15 +10,21 @@ $(document).ready(function () {
 })
 
 async function criarUsuario() {
-    let img = $('#img').val();
-    let imgNome = $('#inputImgAlterado').val()
+    let formData = new FormData();
+    let img = $('#img')[0].files[0];
     let nome = $('#nome').val();
     let telefone = $('#tel').val();
     let nascimento = $('#nascimento').val();
     let senha = $('#senha').val();
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
-    
+    formData.append('img', img);
+    formData.append('nome', nome);
+    formData.append('nascimento', nascimento);
+    formData.append('senha', senha);
+    formData.append('email', email);
+    formData.append('telefone', telefone);
+
     if (senha != repetirSenha) {
         document.getElementById('al-usuario-cad-senhas').style.display = "flex;"
         return;
@@ -39,38 +45,12 @@ async function criarUsuario() {
         document.getElementById('p-usuario-cad-email').style.display = "flex";
         return;
     }
-    if (!img.endsWith('.png') || img == '' || img.endsWith('.jpg')) {
-        alert("Imagem devem ser em PNG ou em JPG")
-        return;
-    }
-    // img principal
-    const fileInput = document.querySelector('#img');
-    const reader = new FileReader();
-    if (fileInput.files[0] instanceof Blob) {
-        reader.readAsDataURL(fileInput.files[0]);
-        await (
-            new Promise(
-                (resolve, reject) => {
-                    reader.onload = function () {
-                        img = reader.result.split(',')[1];
-                        resolve();
-                    }
-                }
-            ));
-    }
     $.ajax({
         url: '/registrarUsuario',
         type: 'POST',
-        data: {
-            img,
-            imgNome,
-            email,
-            nascimento,
-            senha,
-            repetirSenha,
-            telefone,
-            nome,
-        },
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function (response) {
             if (response.mensagem) {
                 let div = document.createElement('div');
@@ -84,26 +64,24 @@ async function criarUsuario() {
         }
     })
 };
-
-async function editarUsuario() {
-    let img = $('#img').val();
+function editarUsuario() {
+    let formData = new FormData();
+    let img = $('#img')[0].files[0];
     let id = $('#id').val();
-    let imgNome = $('#inputImgAlterado').val()
     let nome = $('#nome').val();
     let telefone = $('#tel').val();
     let nascimento = $('#nascimento').val();
     let senha = $('#senha').val();
     let repetirSenha = $('#repetirSenha').val();
     let email = $('#email').val();
+    formData.append('img', img);
+    formData.append('id', id);
+    formData.append('nome', nome);
+    formData.append('nascimento', nascimento);
+    formData.append('senha', senha);
+    formData.append('email', email);
+    formData.append('telefone', telefone);
 
-    if (img == "") {
-        alert('Imagem obrigatoria');
-        return;
-    }
-    if (!img.endsWith('.png') && img != '' && !img.endsWith('.jpg')) {
-        alert('Somente imagens em png e jpg aceitas');
-        return;
-    }
     if (senha != repetirSenha) {
         document.getElementById('p-usuario-edit-senhas').style.display = "flex;"
         return;
@@ -124,36 +102,12 @@ async function editarUsuario() {
         document.getElementById('p-usuario-edit-email').style.display = "flex";
         return;
     }
-    // img principal
-    const fileInput = document.querySelector('#img');
-    const reader = new FileReader();
-    if (fileInput.files[0] instanceof Blob) {
-        reader.readAsDataURL(fileInput.files[0]);
-        await (
-            new Promise(
-                (resolve, reject) => {
-                    reader.onload = function () {
-                        img = reader.result.split(',')[1];
-                        resolve();
-                    }
-                }
-            ));
-    }
-
     $.ajax({
         url: '/editarUsuario',
         type: 'POST',
-        data: {
-            img,
-            imgNome,
-            email,
-            nascimento,
-            senha,
-            repetirSenha,
-            telefone,
-            nome,
-            id
-        },
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function (response) {
             if (response.mensagem) {
                 let div = document.createElement('div');

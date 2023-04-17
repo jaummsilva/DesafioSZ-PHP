@@ -61,8 +61,11 @@ function incrementQtd(id) {
 }
 
 function decrementQtd(id) {
+  
   var quantity = parseInt($(`#quantity-${id}`).val());
-  $(`#quantity-${id}`).val(quantity - 1);
+  if (quantity > 1) {
+    $(`#quantity-${id}`).val(quantity - 1);
+  }
 }
 
 function incrementQtdCarrinho(id) {
@@ -85,10 +88,13 @@ function incrementQtdCarrinho(id) {
 
 function decrementQtdCarrinho(id) {
   var quantityCarrinho = parseInt($(`#quantityCarrinho-${id}`).val());
-  if (quantityCarrinho > 0) {
-    $(`#quantityCarrinho-${id}`).val(quantityCarrinho - 1);
+  if (quantityCarrinho > 1) {
+    $(`#quantityCarrinho-${id}`).val(quantityCarrinho + -1);
   }
-  quantityCarrinho = quantityCarrinho + -1;
+  if(quantityCarrinho > 1) {
+    quantityCarrinho = quantityCarrinho + -1;
+  }
+
 
   $.ajax({
     url: "/alterarQuantidadeCarrinho",
@@ -104,20 +110,6 @@ function decrementQtdCarrinho(id) {
       alert("Ocorreu um erro");
     },
   });
-}
-function importarProduto() {
-  let formData = new FormData();
-  let arquivo = $('#inputImportacaoProduto')[0].files[0];
-  formData.append('arquivoProdutoImportacao', arquivo);
-  $.ajax({
-    url: '/importarProduto',
-    type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function (response) {
-    },
-  })
 }
 function adicionar(id) {
   let qtdProduto = parseInt($(`#quantity-${id}`).val());
@@ -174,7 +166,6 @@ function criarProdutoRecomendado() {
     processData: false,
     contentType: false,
     success: function (response) {
-      alert("Produto recomendado criado com sucesso");
       window.location.href = "/listagemProdutoRecomendadoAdmin"
     },
   })
@@ -199,7 +190,6 @@ function editarProdutoRecomendado() {
     processData: false,
     contentType: false,
     success: function (response) {
-      alert("Produto recomendado editado com sucesso");
       window.location.href = "/listagemProdutoRecomendadoAdmin"
     },
   })
@@ -254,7 +244,6 @@ function criarProduto() {
     processData: false,
     contentType: false,
     success: function (response) {
-      alert("Produto criado com sucesso");
       window.location.href = "/listagemProdutoAdmin"
     },
   })
@@ -313,7 +302,6 @@ function editarProduto() {
     processData: false,
     contentType: false,
     success: function (response) {
-      alert("Produto editado com sucesso");
       window.location.href = "/listagemProdutoAdmin"
     },
   })

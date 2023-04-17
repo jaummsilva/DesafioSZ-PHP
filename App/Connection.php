@@ -10,7 +10,7 @@ class Connection {
 			$conn = new \PDO(
 				"mysql:host=localhost;dbname=e_commerce;charset=utf8",
 				"root",
-				"" 
+				"Jaumm#99" 
 			);
 
 			return $conn;

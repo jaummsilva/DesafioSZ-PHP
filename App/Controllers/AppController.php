@@ -291,7 +291,7 @@ class AppController extends Action
 		
 		$pedido->__set('id', $pedidoId[0]['id']);
 		$pedidoSlack = $pedido->getPedidoSlack();
-		$slack_url = "https://hooks.slack.com/services/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";
+		$slack_url = "https://hooks.slack.com/services/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";
 		$this->enviarPedidoSlack($slack_url,$pedidoSlack);
 		///////////////////////////
 		$this->renderPedidoFinalizado('pedidoFinalizado');

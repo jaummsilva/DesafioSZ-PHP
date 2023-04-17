@@ -1,7 +1,3 @@
-<?php
-$sucessoCadastro =  $this->view->getSucesso;
-?>
-
 <script>
   $(document).ready(function() {
     getDataTable('#listagem-usuarios');
@@ -26,6 +22,22 @@ $sucessoCadastro =  $this->view->getSucesso;
         window.location.href = "/listagemUsuarioAdmin"
         alert("Ocorreu um erro")
       }
+    })
+  }
+
+  function importarUsuario() {
+    let formData = new FormData();
+    let arquivo = $('#inputInportacaoUsuario')[0].files[0];
+    formData.append('arquivoUsuarioImportacao', arquivo);
+    $.ajax({
+      url: '/importarUsuario',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        window.location.href = "/listagemUsuarioAdmin"
+      },
     })
   }
 
@@ -73,15 +85,13 @@ $sucessoCadastro =  $this->view->getSucesso;
 <link rel="stylesheet" href="/css/all.css">
 
 
-<?php if(!empty($sucessoCadastro)) { ?>
-    <?php foreach($sucessoCadastro as $sucesso ) { ?>
-        <div style="font-size: 15pt;" class="alert alert-success text-center m-5" role="alert">
-            <?= $sucesso?>
-         </div>
-    <?php }
-    ?>
-<?php } 
-?>
+<?php if (!empty($this->view->getSucesso)) : ?>
+  <div class="alert alert-success">
+    <?php foreach ($this->view->getSucesso as $mensagem) : ?>
+      <p><?= $mensagem ?></p>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>
 
 </div>
 <a style="height:40px;padding:8px" href="/cadastroUsuarioAdmin" class="btn btn-primary btn-usuario-cadastrar btn-sm  ml-5 mt-5">Cadastrar</a>
@@ -159,11 +169,14 @@ $sucessoCadastro =  $this->view->getSucesso;
       </div>
       <div class="modal-body text-center" id="">
         <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
-        <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacao">
+        <div>
+          <p capitalize>Baixe o <a href="/template_importacao_usuario.csv" download="template_importacao_usuario.csv">template</a></p>
+        </div>
+        <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacaoUsuario">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-        <button onclick type="button" class="btn btn-success button-inportar">Importar</button>
+        <button onclick="importarUsuario()" type="button" class="btn btn-success button-inportar">Importar</button>
       </div>
     </div>
   </div>

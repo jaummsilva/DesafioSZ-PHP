@@ -50,11 +50,9 @@ class Produto extends Model
                 }
                 continue;
             }
-            if(empty($line[4])) {
-                die();
-            }
             $id = $line[0];
             $nome = $line[1];
+            $img = $line[4];
             for ($i = 4; $i <= 7; $i++) {
                 $curl = curl_init();
 
@@ -97,7 +95,10 @@ class Produto extends Model
                 $select_stmt_2->execute();
                 $id = $select_stmt_2->fetch(\PDO::FETCH_ASSOC)['id'];
 
-                if ($count > 0 || $id) {
+                if(!$count > 0 && empty($img)) {
+                    continue; 
+                }
+                if (($count > 0 || $id)) {
                     $nome = "";
                     if ($line[1] != null) {
                         $nome = "nome = :nome,";

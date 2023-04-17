@@ -131,6 +131,11 @@ class Route extends Bootstrap {
 			'controller' => 'AdminController',
 			'action' => 'exportarCsvUsuario'
 		);
+		$routes['importarUsuario'] = array(
+			'route' => '/importarUsuario',
+			'controller' => 'AdminController',
+			'action' => 'importarUsuario'
+		);
 		// Admin Controller - Produto
 		$routes['editarProdutoAdmin'] = array(
 			'route' => '/editarProdutoAdmin/{id}',
