@@ -72,7 +72,7 @@ class Produto extends Model
                 $response = curl_exec($curl);
                 curl_close($curl);
                 $picname[$i] = "picture" . $i . date('YmdHis') . '.png';
-                $filePath[$i] = './img/' . $picname[$i];
+                $filePath[$i] = './produtos/' . $picname[$i];
                 $fp = fopen($filePath[$i], 'x');
                 if (!$fp) {
                     echo "Failed to open file $filePath[$i]";

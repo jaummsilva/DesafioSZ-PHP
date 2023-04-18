@@ -35,7 +35,7 @@ include('modalFavorito.phtml');
                     <?php foreach ($this->view->getProdutosRecomendados as $produtoRecomendado) { ?>
                         <div class="image-one">
                             <a href="/produto/<?= $produtoRecomendado['produto_id'] ?>">
-                                <img height="200px" class="text-left" src="/img/<?= $produtoRecomendado['nome_imagem'] ?>">
+                                <img height="200px" class="text-left" src="/produtos/<?= $produtoRecomendado['nome_imagem'] ?>">
                             </a>
                             <h3 style="font-style:italic">Por apenas R$ <?= (number_format($produtoRecomendado['produto_preco'], 2, ',', '')) ?></h3>
                         </div>

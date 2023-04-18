@@ -98,6 +98,20 @@ class ProdutoRecomendado extends Model {
         $smtm->execute();
         return $smtm->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function deletarProdutoRecomendadoPorProduto() {
+        $query = "delete from produto_recomendado where produto_id = :produto_id ";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':produto_id', $this->__get('produto_id'));
+        $smtm->execute();
+        return $smtm->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function getProdutoRecomendadoPorProduto() {
+        $query = "select id from produto_recomendado where produto_id = :produto_id  ";
+        $smtm = $this->db->prepare($query);
+        $smtm->bindValue(':produto_id', $this->__get('produto_id'));
+        $smtm->execute();
+        return $smtm->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

@@ -1,6 +1,25 @@
 <?php
 $produtos = $this->view->getProdutos;
 
+$valorUmEncontrado = false;
+$valorDoisEncontrado = false;
+$valorTresEncontrado = false;
+
+// Percorre cada sub-array
+foreach ($this->view->getProdutosRecomendados as $subArray) {
+    // Verifica se o valor "1" está presente no sub-array atual
+    if (in_array('1', $subArray)) {
+        $valorUmEncontrado = true;
+    }
+    // Verifica se o valor "2" está presente no sub-array atual
+    if (in_array('2', $subArray)) {
+        $valorDoisEncontrado = true;
+    }
+    // Verifica se o valor "3" está presente no sub-array atual
+    if (in_array('3', $subArray)) {
+        $valorTresEncontrado = true;
+    }
+}
 ?>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -8,6 +27,7 @@ $produtos = $this->view->getProdutos;
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/all.css">
 <script src="/js/produto.js"></script>
+<?php if (count($this->view->getProdutosRecomendados) < 3) { ?>
 <div id="cadastrar-produto-recomendado-sucesso" class="mt-5"></div>
 <div class="container mt-4 mb-4 produto-container">
     <div class="row">
@@ -27,9 +47,15 @@ $produtos = $this->view->getProdutos;
                 <div class="form-group col-xs-6">
                     <label for="preco">Numero Sequencia</label>
                     <select id="numero_sequencia" name="numero_sequencia" class="form-control" id="exampleFormControlSelect1">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                    <?php if (!$valorUmEncontrado) { ?>
+                                <option value="1">1</option>
+                            <?php } ?>
+                            <?php if (!$valorDoisEncontrado) { ?>
+                                <option value="2">2</option>
+                            <?php } ?>
+                            <?php if (!$valorTresEncontrado) { ?>
+                                <option value="3">3</option>
+                            <?php } ?>
                     </select>
                 </div>
                 <div class="form-group col-xs-6 mt-4 d-flex flex-row">
@@ -46,3 +72,10 @@ $produtos = $this->view->getProdutos;
         </div>
     </div>
 </div>
+<?php } ?>
+<?php if (count($this->view->getProdutosRecomendados) == 3) { ?>
+
+<div class="m-5 text-center">
+    <h1>Ja tem 3 produtos recomendados cadastrados!</h1>
+</div>
+<?php } ?>

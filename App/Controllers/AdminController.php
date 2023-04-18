@@ -365,6 +365,8 @@ class AdminController extends Action
     {
         // Deletação do produto
         $produto = Container::getModel('Produto');
+        $produto_recomendado = Container::getModel('ProdutoRecomendado');
+        $produto_recomendado->__set('produto_id', $_REQUEST['idProduto']);
         $produto->__set('id', $_REQUEST['idProduto']);
         $produtoNome = $this->view->getProdutoId = $produto->getProduto();
         if ($produtoNome['produto_img_nome']) {
@@ -380,6 +382,9 @@ class AdminController extends Action
             unlink($_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $produtoNome['produto_img_4_nome']);
         }
         $produto->deletarProduto();
+        if(!empty($produto_recomendado->getProdutoRecomendadoPorProduto())) {
+            $produto_recomendado->deletarProdutoRecomendadoPorProduto();
+        };
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode(['sucesso' => true]);
         return;
@@ -473,6 +478,8 @@ class AdminController extends Action
     {
         $this->view->getProduto = [];
         $produto = Container::getModel('Produto');
+        $produto_recomendado = Container::getModel('ProdutoRecomendado');
+        $this->view->getProdutosRecomendados = $produto_recomendado->getTodosProdutosRecomendados();
         $this->view->getProdutos = $produto->getTodosProdutos();
         $this->renderAdmin('cadastroProdutoRecomendadoAdmin');
     }
