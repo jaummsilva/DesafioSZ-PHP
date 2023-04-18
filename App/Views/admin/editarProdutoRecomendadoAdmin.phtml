@@ -6,9 +6,9 @@ $produtos = $this->view->getProdutos;
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="/css/all.css">
-<script src="/js/login.js"></script>
 <script src="/js/produto.js"></script>
 
+<div id="editar-produto-recomendado-sucesso" class="mt-5"></div>
 <div class="container mt-4 produto-container">
     <div class="row">
         <div class="col-xs-12 mb-1">
@@ -18,26 +18,25 @@ $produtos = $this->view->getProdutos;
                 <div class="form-group col-xs-6">
                     <label for="preco">Produto</label>
                     <select id="produto_id_editar" name="produto_id_editar" class="form-control" id="exampleFormControlSelect1">
-                        <option value="">Selecione</option>
                         <?php foreach ($produtos as $produto) { ?>
-                            <option value="<?=$produto['id']?>"><?=$produto['nome']?></option>
+                            <option <?= $this->view->getProdutoRecomendado['produto_id'] == $produto['id'] ? "selected" : "" ?> value="<?= $produto['id'] ?>"><?= $produto['nome'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="form-group col-xs-6">
-                <label for="preco" >Numero Sequencia</label>
+                    <label for="preco">Numero Sequencia</label>
                     <select id="numero_sequencia" name="numero_sequencia" class="form-control" id="exampleFormControlSelect1">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option <?= $this->view->getProdutoRecomendado['numero_sequencia'] == 1 ? "selected" : "" ?> value="1">1</option>
+                        <option <?= $this->view->getProdutoRecomendado['numero_sequencia'] == 2 ? "selected" : "" ?> value="2">2</option>
+                        <option <?= $this->view->getProdutoRecomendado['numero_sequencia'] == 3 ? "selected" : "" ?> value="3">3</option>
                     </select>
                 </div>
                 <div class="form-group col-xs-6 mt-4 d-flex flex-row">
-                <input value="<?= $this->view->getProdutoRecomendado['id'] ?>" id="idRecomendado" type="hidden" name="id">
+                    <input value="<?= $this->view->getProdutoRecomendado['id'] ?>" id="idRecomendado" type="hidden" name="id">
                     <input style="display: none;" id="imgRecomendado2" type="file" name="imgRecomendado2">
-                    <label for="preco" >Imagem</label>
+                    <label for="preco">Imagem</label>
                     <button id="imgAlteradoRecomendado2" class="btn btn-primary ml-2"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlteradoRecomendado2">
+                    <input value="<?= $this->view->getProdutoRecomendado['nome_imagem'] ?>" type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlteradoRecomendado2">
                 </div>
                 <div class="form-group col-xs-12  text-center mt-2">
                     <button onclick="editarProdutoRecomendado()" type="button" id="btn-login" class="btn btn-custom btn-success btn-lg">Editar</button>

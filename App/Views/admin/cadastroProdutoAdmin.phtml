@@ -9,10 +9,12 @@ $produto = $this->view->getProduto;
 <link rel="stylesheet" href="/css/cadastro.css">
 <script src="/js/produto.js"></script>
 
+<br>
 <div style="display: none;" class="alert alert-danger m-5 text-center" id="al-produto-img" role="alert">
     Selecione uma imagem PNG ou JPG para a imagem principal
 </div>
-<div class="container mt-5 mb-4 produto-container">
+<div id="cadastrar-produto-sucesso" class=""></div>
+<div class="container produto-container">
     <div class="row">
         <div class="col-xs-12 mb-4">
             <div class="form-wrap">
@@ -61,22 +63,22 @@ $produto = $this->view->getProduto;
                         <label>Imagem 3:</label>
                     </div>
                     <div class="d-flex flex-row">
-                    <input style="display: none;" id="img3" type="file" name="img3">
-                    <button id="imgAlterado3" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado3">
+                        <input style="display: none;" id="img3" type="file" name="img3">
+                        <button id="imgAlterado3" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
+                        <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado3">
                     </div>
                 </div>
                 <div class="form-group col-xs-4 d-flex flex-column">
-                <div>
+                    <div>
                         <label>Imagem 4:</label>
                     </div>
                     <div class="d-flex flex-row">
-                    <input style="display: none;" id="img4" type="file" name="img4">
-                    <button id="imgAlterado4" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
-                    <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado4">
+                        <input style="display: none;" id="img4" type="file" name="img4">
+                        <button id="imgAlterado4" class="btn btn-primary btn-sm ml-1"> Escolher Arquivo</button>
+                        <input type="text" class="form-control ml-2 mt-2" placeholder="Imagem" id="inputImgAlterado4">
                     </div>
                 </div>
-                <div class="form-group col-xs-12  text-center mt-3">
+                <div class="form-group col-xs-12  text-center">
                     <button style="width: 150px;" onclick="criarProduto()" type="button" class="btn btn-custom btn-success btn-lg">Criar</button>
                     <a style="width: 150px;" class="btn btn-custom btn-info btn-lg" href="/listagemProdutoAdmin">Voltar</a>
                 </div>

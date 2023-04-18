@@ -36,12 +36,17 @@ $erroImportacao =  $this->view->getErrosImportacao;
         nome: nome
       },
       success: function(response) {
-        window.location.href = "/listagemProdutoAdmin"
-        alert("Deletado com sucesso")
-      },
-      error: function(e) {
-        window.location.href = "/listagemProdutoAdmin"
-        alert("Ocorreu um erro")
+        $('#exampleModal').modal('toggle');
+        if (response.sucesso) {
+          var divSucesso = document.getElementById("remover-produto-sucesso");
+          divSucesso.className = 'alert alert-success m-5 text-center'
+          let p = document.createElement('p');
+          p.innerText = "Produto removido com sucesso";
+          divSucesso.appendChild(p);
+          setTimeout(() => {
+            window.location.href = "/listagemProdutoAdmin"
+          }, 1000)
+        }
       }
     })
   }
@@ -88,16 +93,9 @@ $erroImportacao =  $this->view->getErrosImportacao;
   }
 </script>
 <link rel="stylesheet" href="/css/all.css">
-
-<?php if(!empty($erroImportacao)) { ?>
-    <?php foreach($erroImportacao as $erro ) { ?>
-        <div style="font-size: 15pt;" class="alert alert-danger text-center m-5" role="alert">
-            <?= $erro?>
-         </div>
-    <?php }
-    ?>
-<?php } 
-?>
+<br>
+<div id="remover-produto-sucesso" class="mt-5"></div>
+<h1 class="text-center mt-2">Produtos</h1>
 
 <a style="height:40px;padding:8px" href="/cadastroProdutoAdmin" class="btn btn-primary btn-produto-cadastrar btn-sm  ml-5 mt-5">Cadastrar</a>
 <br>
@@ -111,10 +109,11 @@ $erroImportacao =  $this->view->getErrosImportacao;
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <form method="post" action="/exportarCsvProduto" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">CSV</button>
+        <button type="submit" class="btn btn-light btn-block">CSV</button>
       </form>
+      <hr class="border border-dark">
       <form method="post" action="/exportarXlsProduto" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">XLS</button>
+        <button type="submit" class="btn btn-light btn-block">XLS</button>
       </form>
     </div>
   </div>

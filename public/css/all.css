@@ -213,7 +213,7 @@
     font-family: "Trebuchet MS",Arial,sans-serif;
     font-size: 2rem;
 }
-.header-container a {
+.header-container a, .header-admin a {
     font-weight: 600;
     font-style: normal;
     font-family: "Trebuchet MS",Arial,sans-serif;
@@ -234,5 +234,11 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] { 
    -moz-appearance: textfield;
    appearance: textfield;
-
+}
+.produto-container label, .usuario-container label {
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 1.5rem;
+    opacity: 75%;
 }

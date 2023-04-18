@@ -84,7 +84,7 @@ class Usuario extends Model {
                 $select_stmt_2->execute();
                 $id = $select_stmt_2->fetch(\PDO::FETCH_ASSOC)['id'];
  
-                if(!$count > 0 && empty($img)) {
+                if((!$count > 0 || $id ) && empty($img)) {
                     continue; 
                 }
                 if(empty($senha) && empty($img) && !$count > 0) {

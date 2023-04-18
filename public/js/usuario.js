@@ -9,7 +9,7 @@ $(document).ready(function () {
     })
 })
 
-async function criarUsuario() {
+function criarUsuario() {
     let formData = new FormData();
     let img = $('#img')[0].files[0];
     let nome = $('#nome').val();
@@ -26,7 +26,7 @@ async function criarUsuario() {
     formData.append('telefone', telefone);
 
     if (senha != repetirSenha) {
-        document.getElementById('al-usuario-cad-senhas').style.display = "flex;"
+        document.getElementById('p-usuario-cad-senhas').style.display = "flex";
         return;
     }
     if (nome == '') {
@@ -53,13 +53,21 @@ async function criarUsuario() {
         contentType: false,
         success: function (response) {
             if (response.mensagem) {
-                let div = document.createElement('div');
-                div.className = 'alert alert-danger d-flex justify-content-center'
+                var divLogin = document.getElementById("cadastro-usuario-error");
+                divLogin.className = "alert alert-danger m-5 text-center"
                 let p = document.createElement('p');
                 p.innerText = response.mensagem;
-                div.appendChild(p);
-                var divLogin = document.getElementById("cadastro-usuario-error");
-                document.body.insertBefore(div, divLogin);
+                divLogin.appendChild(p);
+            }
+            if(response.sucesso != false) {
+                var divSucesso = document.getElementById("cadastro-usuario-error");
+                divSucesso.className = 'alert alert-success m-5 text-center'
+                let p = document.createElement('p');
+                p.innerText = "Usuario cadastrado com sucesso";
+                divSucesso.appendChild(p);
+                setTimeout(() => {
+                    window.location.href = "/listagemUsuarioAdmin"
+                },3000)
             }
         }
     })
@@ -83,11 +91,11 @@ function editarUsuario() {
     formData.append('telefone', telefone);
 
     if (senha != repetirSenha) {
-        document.getElementById('p-usuario-edit-senhas').style.display = "flex;"
+        document.getElementById('p-usuario-edit-senhas').style.display = "flex";
         return;
     }
     if (nome == '') {
-        document.getElementById('p-usuario-edit-nome').style.display = "flex";
+        document.getElementById('p-usuario-edit-nome').style.visibility = "visible";
         return;
     }
     if (telefone == '') {
@@ -109,18 +117,15 @@ function editarUsuario() {
         processData: false,
         contentType: false,
         success: function (response) {
-            if (response.mensagem) {
-                let div = document.createElement('div');
-                div.className = 'alert alert-danger d-flex justify-content-center'
+            if (response.sucesso) {
+                var divSucesso = document.getElementById("editar-usuario-sucesso");
+                divSucesso.className = 'alert alert-success m-5 text-center'
                 let p = document.createElement('p');
-                p.innerText = response.mensagem;
-                div.appendChild(p);
-                var divLogin = document.getElementById("login");
-                document.body.insertBefore(div, divLogin);
-            }
-            else {
-                alert('Usuario editado com sucesso');
-                window.location.href = '/listagemUsuarioAdmin'
+                p.innerText = "Usuario editado com sucesso";
+                divSucesso.appendChild(p);
+                setTimeout(() => {
+                    window.location.href = "/listagemUsuarioAdmin"
+                },3000)
             }
         },
     })

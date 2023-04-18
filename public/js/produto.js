@@ -166,8 +166,17 @@ function criarProdutoRecomendado() {
     processData: false,
     contentType: false,
     success: function (response) {
-      window.location.href = "/listagemProdutoRecomendadoAdmin"
-    },
+      if (response.sucesso) {
+        var divSucesso = document.getElementById("cadastrar-produto-recomendado-sucesso");
+        divSucesso.className = 'alert alert-success m-5 text-center'
+        let p = document.createElement('p');
+        p.innerText = "Produto recomendado cadastrado com sucesso";
+        divSucesso.appendChild(p);
+        setTimeout(() => {
+            window.location.href = "/listagemProdutoRecomendadoAdmin"
+        },3000)
+    }
+    }
   })
 }
 
@@ -190,8 +199,17 @@ function editarProdutoRecomendado() {
     processData: false,
     contentType: false,
     success: function (response) {
-      window.location.href = "/listagemProdutoRecomendadoAdmin"
-    },
+      if (response.sucesso) {
+        var divSucesso = document.getElementById("editar-produto-recomendado-sucesso");
+        divSucesso.className = 'alert alert-success m-5 text-center'
+        let p = document.createElement('p');
+        p.innerText = "Produto recomendado editado com sucesso";
+        divSucesso.appendChild(p);
+        setTimeout(() => {
+            window.location.href = "/listagemProdutoRecomendadoAdmin"
+        },3000)
+    }
+    }
   })
 }
 
@@ -244,8 +262,17 @@ function criarProduto() {
     processData: false,
     contentType: false,
     success: function (response) {
-      window.location.href = "/listagemProdutoAdmin"
-    },
+      if (response.sucesso) {
+        var divSucesso = document.getElementById("cadastrar-produto-sucesso");
+        divSucesso.className = 'alert alert-success m-5 text-center'
+        let p = document.createElement('p');
+        p.innerText = "Produto cadastrado com sucesso";
+        divSucesso.appendChild(p);
+        setTimeout(() => {
+            window.location.href = "/listagemProdutoAdmin"
+        },3000)
+    }
+    }
   })
 }
 function editarProduto() {
@@ -302,7 +329,16 @@ function editarProduto() {
     processData: false,
     contentType: false,
     success: function (response) {
-      window.location.href = "/listagemProdutoAdmin"
-    },
+      if (response.sucesso) {
+        var divSucesso = document.getElementById("editar-produto-sucesso");
+        divSucesso.className = 'alert alert-success m-5 text-center'
+        let p = document.createElement('p');
+        p.innerText = "Produto editado com sucesso";
+        divSucesso.appendChild(p);
+        setTimeout(() => {
+            window.location.href = "/listagemProdutoAdmin"
+        },3000)
+    }
+    }
   })
 }

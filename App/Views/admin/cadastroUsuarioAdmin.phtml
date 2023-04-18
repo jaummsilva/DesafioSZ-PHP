@@ -9,58 +9,62 @@ $usuario = $this->view->getUsuario;
 <link rel="stylesheet" href="/css/cadastro.css">
 <script src="/js/usuario.js"></script>
 <br>
-<div id="cadastro-usuario-error" class="m-5">
 
-</div>
-<div class="container mt-5 usuario-container">
-    <div class="row">
-        <div class="col-xs-12 mb-4">
-            <div class="form-wrap">
-                <h1 class="text-dark text-center">Cadastre um usuario</h1>
-                <form class="mt-5" role="form" action="/registrarUsuario" method="POST" id="login-form" autocomplete="off">
-                    <div class="form-group col-xs-6">
-                        <label for="nome">Nome</label>
-                        <input value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" id="nome" type="text" name="nome" id="nome" class="form-control " placeholder="name">
-                        <p id="p-usuario-cad-nome">Digite o nome</p>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <label for="email">Email</label>
-                        <input value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" id="email" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
-                        <p id="p-usuario-cad-email">Digite o email</p>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <label for="key">Data de Nascimento</label>
-                        <input value="<?= isset($usuario['data_nascimento']) ? $usuario['data_nascimento'] : '' ?>" id="nascimento" type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
-                        <p id="p-usuario-cad-nascimento">Escolha a data de nascimento</p>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <label for="key">Telefone</label>
-                        <input value="<?= isset($usuario['telefone']) ? $usuario['telefone'] : '' ?>" maxlength="11" id="tel" type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
-                        <p id="p-usuario-cad-tel">Digite o telefone</p>
-                    </div>
-                    <div class="form-group col-xs-4">
-                        <label for="key">Senha</label>
-                        <input value="<?= isset($usuario['senha']) ? $usuario['senha'] : '' ?>" type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
-                        <p id="p-usuario-cad-senha">Digite o senha</p>
-                    </div>
-                    <div class="form-group col-xs-4">
-                        <label for="key">Repetir Senha</label>
-                        <input type="password" name="repetirSenha" class="form-control" id="repetirSenha" placeholder="Repetir Senha">
-                        <p id="p-usuario-cad-repetir-senha">Repita a senha</p>
-                    </div>
-                    <div class="form-group col-xs-4 d-flex flex-row mt-4">
-                        <input style="display: none;" id="img" type="file" name="img">
-                        <label for="key">Imagem</label>
-                        <button id="imgAlterado" class="btn btn-primary ml-1"> Escolher Arquivo</button>
-                        <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
-                    </div>
-                    <hr>
-                    <div class="form-group col-xs-12 text-center">
-                        <button style="width: 150px;" onclick="criarUsuario()" type="button" id="btn-cadastro-usuario" class="btn btn-custom btn-success btn-lg">Criar</button>
-                        <a style="width: 150px;" class="btn btn-custom btn-info btn-lg" href="/listagemUsuarioAdmin">Voltar</a>
-                    </div>
-                </form>
+<body>
+    <div style="display: none;justify-content:center" class="alert alert-danger m-5 text-center" id="p-usuario-cad-senhas" role="alert">
+        Senhas devem ser iguais
+    </div>
+    <div id="cadastro-usuario-error" class="m-5"></div>
+    <div class="container mt-5 usuario-container">
+        <div class="row">
+            <div class="col-xs-12 mb-4">
+                <div class="form-wrap">
+                    <h1 class="text-dark text-center">Cadastre um usuario</h1>
+                    <form class="mt-5" role="form" action="/registrarUsuario" method="POST" id="login-form" autocomplete="off">
+                        <div class="form-group col-xs-6">
+                            <label for="nome">Nome</label>
+                            <input value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" id="nome" type="text" name="nome" id="nome" class="form-control " placeholder="name">
+                            <p id="p-usuario-cad-nome">Digite o nome</p>
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="email">Email</label>
+                            <input value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" id="email" type="text" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <p id="p-usuario-cad-email">Digite o email</p>
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="key">Data de Nascimento</label>
+                            <input value="<?= isset($usuario['data_nascimento']) ? $usuario['data_nascimento'] : '' ?>" id="nascimento" type="date" name="data_nascimento" id="key" class="form-control" placeholder="Password">
+                            <p id="p-usuario-cad-nascimento">Escolha a data de nascimento</p>
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="key">Telefone</label>
+                            <input value="<?= isset($usuario['telefone']) ? $usuario['telefone'] : '' ?>" maxlength="11" id="tel" type="text" name="telefone" id="key" class="form-control" placeholder="Telefone">
+                            <p id="p-usuario-cad-tel">Digite o telefone</p>
+                        </div>
+                        <div class="form-group col-xs-4">
+                            <label for="key">Senha</label>
+                            <input value="<?= isset($usuario['senha']) ? $usuario['senha'] : '' ?>" type="password" id="senha" name="senha" id="key" class="form-control" placeholder="Senha">
+                            <p id="p-usuario-cad-senha">Digite o senha</p>
+                        </div>
+                        <div class="form-group col-xs-4">
+                            <label for="key">Repetir Senha</label>
+                            <input type="password" name="repetirSenha" class="form-control" id="repetirSenha" placeholder="Repetir Senha">
+                            <p id="p-usuario-cad-repetir-senha">Repita a senha</p>
+                        </div>
+                        <div class="form-group col-xs-4 d-flex flex-row mt-4">
+                            <input style="display: none;" id="img" type="file" name="img">
+                            <label for="key">Imagem</label>
+                            <button id="imgAlterado" class="btn btn-primary ml-1"> Escolher Arquivo</button>
+                            <input type="text" class="form-control ml-2" placeholder="Imagem" id="inputImgAlterado">
+                        </div>
+                        <hr>
+                        <div class="form-group col-xs-12 text-center">
+                            <button style="width: 150px;" onclick="criarUsuario()" type="button" id="btn-cadastro-usuario" class="btn btn-custom btn-success btn-lg">Criar</button>
+                            <a style="width: 150px;" class="btn btn-custom btn-info btn-lg" href="/listagemUsuarioAdmin">Voltar</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>

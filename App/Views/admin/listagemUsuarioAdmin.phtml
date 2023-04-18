@@ -15,12 +15,17 @@
         idUsuario: id
       },
       success: function(response) {
-        window.location.href = "/listagemUsuarioAdmin"
-        alert("Deletado com sucesso")
-      },
-      error: function(e) {
-        window.location.href = "/listagemUsuarioAdmin"
-        alert("Ocorreu um erro")
+        $('#exampleModal').modal('toggle');
+        if (response.sucesso) {
+          var divSucesso = document.getElementById("remover-usuario-sucesso");
+          divSucesso.className = 'alert alert-success m-5 text-center'
+          let p = document.createElement('p');
+          p.innerText = "Usuario removido com sucesso";
+          divSucesso.appendChild(p);
+          setTimeout(() => {
+            window.location.href = "/listagemUsuarioAdmin"
+          }, 1000)
+        }
       }
     })
   }
@@ -84,16 +89,10 @@
 </script>
 <link rel="stylesheet" href="/css/all.css">
 
+<br>
+<div id="remover-usuario-sucesso" class="mt-5"></div>
 
-<?php if (!empty($this->view->getSucesso)) : ?>
-  <div class="alert alert-success">
-    <?php foreach ($this->view->getSucesso as $mensagem) : ?>
-      <p><?= $mensagem ?></p>
-    <?php endforeach; ?>
-  </div>
-<?php endif; ?>
-
-</div>
+<h1 class="text-center mt-2">Usuarios</h1>
 <a style="height:40px;padding:8px" href="/cadastroUsuarioAdmin" class="btn btn-primary btn-usuario-cadastrar btn-sm  ml-5 mt-5">Cadastrar</a>
 <div class="d-flex justify-content-end">
   <button class="btn btn-info mr-2 btn-importacao-usuario" type="button" aria-haspopup="true" aria-expanded="false">
@@ -105,10 +104,11 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <form method="post" action="/exportarCsvUsuario" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">CSV</button>
+        <button type="submit" class="btn btn-light btn-block">CSV</button>
       </form>
+      <hr class="border border-dark">
       <form method="post" action="/exportarXlsUsuario" class="text-center">
-        <button type="submit" class="btn btn-info btn-block">XLS</button>
+        <button type="submit" class="btn btn-light btn-block">XLS</button>
       </form>
     </div>
   </div>
@@ -169,8 +169,8 @@
       </div>
       <div class="modal-body text-center" id="">
         <h4 style="text-transform: capitalize;font-family: Stencil Std, fantasy">Importe</h4>
-        <div>
-          <p capitalize>Baixe o <a href="/template_importacao_usuario.csv" download="template_importacao_usuario.csv">template</a></p>
+        <div class="text-left">
+          <p>Baixe o <a href="/template_importacao_usuario.csv" download="template_importacao_usuario.csv">template</a></p>
         </div>
         <input type="file" class="form-control ml-2" placeholder="Imagem" id="inputInportacaoUsuario">
       </div>

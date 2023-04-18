@@ -12,12 +12,17 @@
         nomeProdutoRecomendado: nome
       },
       success: function(response) {
-        window.location.href = "/listagemProdutoRecomendadoAdmin"
-        alert("Deletado com sucesso")
-      },
-      error: function(e) {
-        window.location.href = "/listagemProdutoRecomendadoAdmin"
-        alert("Ocorreu um erro")
+        $('#exampleModal5').modal('toggle');
+        if (response.sucesso) {
+          var divSucesso = document.getElementById("remover-produto-recomendado-sucesso");
+          divSucesso.className = 'alert alert-success m-5 text-center'
+          let p = document.createElement('p');
+          p.innerText = "Produto recomendado removido com sucesso";
+          divSucesso.appendChild(p);
+          setTimeout(() => {
+            window.location.href = "/listagemProdutoRecomendadoAdmin"
+          }, 1000)
+        }
       }
     })
   }
@@ -64,7 +69,10 @@
   }
 </script>
 <link rel="stylesheet" href="/css/all.css">
+<br>
+<div id="remover-produto-recomendado-sucesso"></div>
 
+<h1 class="text-center mt-2">Produtos Recomendados</h1>
 <a style="height:40px;padding:8px" href="/cadastroProdutoRecomendadoAdmin" class="btn btn-primary btn-produto-recomendado-cadastrar btn-sm  ml-5 mt-5">Cadastrar</a>
 <div class="dropdown d-flex justify-content-end mr-5">
   <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,10 +80,11 @@
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <form method="post" action="/exportarCsvProdutoRecomendado" class="text-center">
-      <button type="submit" class="btn btn-info btn-block">CSV</button>
+      <button type="submit" class="btn btn-light btn-block">CSV</button>
     </form>
+    <hr class="border border-dark">
     <form method="post" action="/exportarXlsProdutoRecomendado" class="text-center">
-      <button type="submit" class="btn btn-info btn-block">XLS</button>
+      <button type="submit" class="btn btn-light btn-block">XLS</button>
     </form>
   </div>
 </div>

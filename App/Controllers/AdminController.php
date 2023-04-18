@@ -63,7 +63,6 @@ class AdminController extends Action
     {
         // Views de Erro e Pegar o Usuario
         $this->view->getUsuario = [];
-        $this->view->getSucesso = [];
         // Usuario
         $usuario = Container::getModel('Usuario');
         $this->view->getUsuarios = $usuario->getTodosUsuarios();
@@ -72,7 +71,7 @@ class AdminController extends Action
         // Se email ja existir , retorna com erro
         if (!empty($this->view->getUsuariosEmail[0])) {
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(['mensagem' => 'Email ja existe, tente novamente com outro']);
+            echo json_encode(['mensagem' => 'Email ja existe, tente novamente com outro', 'sucesso' => false]);
             return;
         }
         // Usuario
@@ -92,16 +91,11 @@ class AdminController extends Action
         // Se o cadastro for validado
         if ($usuario->validarCadastro()) {
             $usuario->cadastrarUsuario();
-            $this->view->getSucesso[] = "Usuario cadastrado com sucesso";
-            $this->renderAdmin('listagemUsuarioAdmin');
-        } else {
-            header('Location: /cadastroUsuarioAdmin');
         }
     }
     public function listagemUsuarioAdmin()
     {
         session_start();
-        $this->view->getSucesso = [];
         // Usuario
         $usuario = Container::getModel('Usuario');
         $usuario->__set('id', $_SESSION['id']);
@@ -138,19 +132,19 @@ class AdminController extends Action
         $usuario->__set('telefone', $_POST['telefone']);
         // se a imagem for alterada
         if (!empty($_FILES['img'])) {
-            $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
-            $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
+            $destino = $_SERVER['DOCUMENT_ROOT'] . '\usuarios/' . $_FILES['img']['name'];
+            $caminho_relativo = '/public/usuarios/' . $_FILES['img']['name'];
             $usuario->__set('usuario_img', $caminho_relativo);
             $usuario->__set('usuario_img_nome', $_FILES['img']['name']);
             if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
             }
         }
-        
+
         // Se a edição for validada
         if ($usuario->validarCadastro()) {
             $usuario->editarUsuario();
-            header("Location: /listagemUsuarioAdmin");
-        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['sucesso' => true]);
             return;
         }
     }
@@ -214,11 +208,11 @@ class AdminController extends Action
         }
 
         $header = array(
-            'id', 'nome', 'email', 'telefone','data_nascimento','usuario_img','senha'
+            'id', 'nome', 'email', 'telefone', 'data_nascimento', 'usuario_img', 'senha'
         );
-        fputcsv($fp, $header,";");
+        fputcsv($fp, $header, ";");
         foreach ($usuarios as $fields) {
-            fputcsv($fp, $fields,";");
+            fputcsv($fp, $fields, ";");
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -235,7 +229,9 @@ class AdminController extends Action
         $usuarioNome = $this->view->getUsuarioId = $usuario->getUsuario();
         unlink($_SERVER['DOCUMENT_ROOT'] . '\usuarios/' . $usuarioNome['usuario_img_nome']);
         $usuario->deletarUsuario();
-        header("Location: /listagemUsuarioAdmin");
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['sucesso' => true]);
+        return;
     }
     public function importarUsuario()
     {
@@ -243,7 +239,7 @@ class AdminController extends Action
         $usuario->importarUsuario();
         $this->renderAdmin('listagemUsuarioAdmin');
     }
-    
+
     // Produto
     public function listagemProdutoAdmin()
     {
@@ -275,42 +271,42 @@ class AdminController extends Action
         $produto->__set('data_alteracao', date('Y-m-d H:i:s'));
         $produto->__set('descricao', $_POST['descricao']);
         if (!empty($_FILES['img'])) {
-            $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
-            $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
+            $destino = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img']['name'];
+            $caminho_relativo = '/public/produtos/' . $_FILES['img']['name'];
             $produto->__set('produto_img', $caminho_relativo);
             $produto->__set('produto_img_nome', $_FILES['img']['name']);
+            if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
+            }
         }
         if (!empty($_FILES['img2'])) {
-            $destino2 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img2']['name'];
-            $caminho_relativo2 = '/public/img/' . $_FILES['img2']['name'];
+            $destino2 = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img2']['name'];
+            $caminho_relativo2 = '/public/produtos/' . $_FILES['img2']['name'];
             $produto->__set('produto_img_2', $caminho_relativo2);
             $produto->__set('produto_img_2_nome', $_FILES['img2']['name']);
+            if (move_uploaded_file($_FILES['img2']['tmp_name'], $destino2)) {
+            }
         }
         if (!empty($_FILES['img3'])) {
-            $destino3 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img3']['name'];
-            $caminho_relativo3 = '/public/img/' . $_FILES['img3']['name'];
+            $destino3 = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img3']['name'];
+            $caminho_relativo3 = '/public/produtos/' . $_FILES['img3']['name'];
             $produto->__set('produto_img_3', $caminho_relativo3);
             $produto->__set('produto_img_3_nome', $_FILES['img3']['name']);
+            if (move_uploaded_file($_FILES['img3']['tmp_name'], $destino3)) {
+            }
         }
         if (!empty($_FILES['img4'])) {
-            $destino4 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img4']['name'];
-            $caminho_relativo4 = '/public/img/' . $_FILES['img4']['name'];
+            $destino4 = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img4']['name'];
+            $caminho_relativo4 = '/public/produtos/' . $_FILES['img4']['name'];
             $produto->__set('produto_img_4', $caminho_relativo4);
             $produto->__set('produto_img_4_nome', $_FILES['img4']['name']);
-        }
-        if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
-        }
-        if (move_uploaded_file($_FILES['img2']['tmp_name'], $destino2)) {
-        }
-        if (move_uploaded_file($_FILES['img3']['tmp_name'], $destino3)) {
-        }
-        if (move_uploaded_file($_FILES['img4']['tmp_name'], $destino4)) {
+            if (move_uploaded_file($_FILES['img4']['tmp_name'], $destino4)) {
+            }
         }
         // se o produto for validado
         if ($produto->validarProduto()) {
             $produto->editarProduto();
-            header("Location: /listagemProdutoAdmin");
-        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['sucesso' => true]);
             return;
         }
     }
@@ -328,39 +324,41 @@ class AdminController extends Action
         $produto->__set('preco', number_format($_POST['preco'], 2, '.', ''));
         $produto->__set('descricao', $_POST['descricao']);
         $produto->__set('produto_img_nome', $_FILES['img']['name']);
-        $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
-        $destino2 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img2']['name'];
-        $destino3 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img3']['name'];
-        $destino4 = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img4']['name'];
+        $destino = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img']['name'];
+        $caminho_relativo = '/public/produtos/' . $_FILES['img']['name'];
+        $produto->__set('produto_img', $caminho_relativo);
         if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
         }
-        $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
-        $caminho_relativo2 = '/public/img/' . $_FILES['img2']['name'];
-        $caminho_relativo3 = '/public/img/' . $_FILES['img3']['name'];
-        $caminho_relativo4 = '/public/img/' . $_FILES['img4']['name'];
-        $produto->__set('produto_img', $caminho_relativo);
-        if (move_uploaded_file($_FILES['img2']['tmp_name'], $destino2)) {
-        }
-        if (move_uploaded_file($_FILES['img3']['tmp_name'], $destino3)) {
-        }
-        if (move_uploaded_file($_FILES['img4']['tmp_name'], $destino4)) {
-        }
         if (!empty($_FILES['img2'])) {
+            $destino2 = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img2']['name'];
+            $caminho_relativo2 = '/public/produtos/' . $_FILES['img2']['name'];
             $produto->__set('produto_img_2', $caminho_relativo2);
             $produto->__set('produto_img_2_nome', $_FILES['img2']['name']);
+            if (move_uploaded_file($_FILES['img2']['tmp_name'], $destino2)) {
+            }
         }
         if (!empty($_FILES['img3'])) {
+            $destino3 = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img3']['name'];
+            $caminho_relativo3 = '/public/produtos/' . $_FILES['img3']['name'];
             $produto->__set('produto_img_3', $caminho_relativo3);
             $produto->__set('produto_img_3_nome', $_FILES['img3']['name']);
+            if (move_uploaded_file($_FILES['img3']['tmp_name'], $destino3)) {
+            }
         }
         if (!empty($_FILES['img4'])) {
+            $destino4 = $_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $_FILES['img4']['name'];
+            $caminho_relativo4 = '/public/produtos/' . $_FILES['img4']['name'];
             $produto->__set('produto_img_4', $caminho_relativo4);
             $produto->__set('produto_img_4_nome', $_FILES['img4']['name']);
+            if (move_uploaded_file($_FILES['img4']['tmp_name'], $destino4)) {
+            }
         }
         // Se o cadastro for validado , registra o produto
         if ($produto->validarProduto()) {
             $produto->cadastrarProduto();
-            header('Location: /listagemProdutoAdmin');
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['sucesso' => true]);
+            return;
         }
     }
     public function deletarProduto()
@@ -369,18 +367,22 @@ class AdminController extends Action
         $produto = Container::getModel('Produto');
         $produto->__set('id', $_REQUEST['idProduto']);
         $produtoNome = $this->view->getProdutoId = $produto->getProduto();
-        unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_nome']);
-        if($produtoNome['produto_img_2_nome']) {
-            unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_2_nome']);
+        if ($produtoNome['produto_img_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $produtoNome['produto_img_nome']);
         }
-        if($produtoNome['produto_img_3_nome']) {
-            unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_3_nome']);
+        if ($produtoNome['produto_img_2_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $produtoNome['produto_img_2_nome']);
         }
-        if($produtoNome['produto_img_4_nome']) {
-            unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $produtoNome['produto_img_4_nome']);
+        if ($produtoNome['produto_img_3_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $produtoNome['produto_img_3_nome']);
+        }
+        if ($produtoNome['produto_img_4_nome']) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '\produtos/' . $produtoNome['produto_img_4_nome']);
         }
         $produto->deletarProduto();
-        header("Location: /listagemProdutoAdmin");
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['sucesso' => true]);
+        return;
     }
     public function exportarXlsProduto()
     {
@@ -440,11 +442,11 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
         $header = array(
-            'id', 'nome', 'preco', 'descricao','produto_img','produto_img_2','produto_img_3','produto_img_4'
+            'id', 'nome', 'preco', 'descricao', 'produto_img', 'produto_img_2', 'produto_img_3', 'produto_img_4'
         );
-        fputcsv($fp, $header,";");
+        fputcsv($fp, $header, ";");
         foreach ($produtos as $fields) {
-            fputcsv($fp, $fields,";");
+            fputcsv($fp, $fields, ";");
         }
 
         header('Content-Type: text/csv');
@@ -489,6 +491,9 @@ class AdminController extends Action
         $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
         $produto_recomendado->__set('arquivo', $caminho_relativo);
         $produto_recomendado->cadastrarProdutoRecomendado();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['sucesso' => true]);
+        return;
     }
     public function editarProdutoRecomendadoAdmin($id)
     {
@@ -508,20 +513,22 @@ class AdminController extends Action
         $produto_recomendado = Container::getModel('ProdutoRecomendado');
         // Setters
         $produto_recomendado->__set('id', $_POST['id']);
-        $produto_recomendado->__set('nome_imagem', $_FILES['img']['name']);
         $produto_recomendado->__set('numero_sequencia', $_POST['numero_sequencia']);
         $produto_recomendado->__set('data_alteracao', date('Y-m-d H:i:s'));
         $produto_recomendado->__set('produto_id', $_POST['idProduto']);
-
+        
         if (!empty($_FILES['img'])) {
             $destino = $_SERVER['DOCUMENT_ROOT'] . '\img/' . $_FILES['img']['name'];
             if (move_uploaded_file($_FILES['img']['tmp_name'], $destino)) {
             }
             $caminho_relativo = '/public/img/' . $_FILES['img']['name'];
+            $produto_recomendado->__set('nome_imagem', $_FILES['img']['name']);
             $produto_recomendado->__set('arquivo', $caminho_relativo);
         }
-
         $produto_recomendado->editarProdutoRecomendado();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['sucesso' => true]);
+        return;
     }
     public function deletarProdutoRecomendado()
     {
@@ -530,7 +537,9 @@ class AdminController extends Action
         $produto_recomendado->__set('id', $_REQUEST['idProdutoRecomendado']);
         unlink($_SERVER['DOCUMENT_ROOT'] . '\img/' . $_REQUEST['nomeProdutoRecomendado']);
         $produto_recomendado->deletarProdutoRecomendado();
-        header("Location: /listagemProdutoRecomendadoAdmin");
+        header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['sucesso' => true]);
+            return;
     }
     public function exportarXlsProdutoRecomendado()
     {
@@ -588,7 +597,7 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
         $header = array('ID', 'Data Criação', 'Data Alteração', 'Imagem', 'Nome do Produto');
-        fputcsv($fp, $header,";");
+        fputcsv($fp, $header, ";");
 
         foreach ($produtos as $fields) {
             $formatted_row = array();
@@ -598,7 +607,7 @@ class AdminController extends Action
                 $formatted_value = str_replace(array("\t"), ' ', $formatted_value); // Substituir tabulações por espaços
                 $formatted_row[] = $formatted_value; // Adicionar o valor formatado à linha formatada
             }
-            fputcsv($fp, $formatted_row,";"); // Escrever a linha formatada no arquivo CSV
+            fputcsv($fp, $formatted_row, ";"); // Escrever a linha formatada no arquivo CSV
         }
 
         header('Content-Type: text/csv');
@@ -677,10 +686,10 @@ class AdminController extends Action
             throw new Exception('Não foi possível criar o arquivo CSV.');
         }
         $header = array('Id Pedido', 'Usuario Email', 'Quantidade Produtos', 'Preco Total');
-        fputcsv($fp, $header,";");
+        fputcsv($fp, $header, ";");
 
         foreach ($pedidos as $fields) {
-            fputcsv($fp, $fields,";");
+            fputcsv($fp, $fields, ";");
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -753,7 +762,7 @@ class AdminController extends Action
         }
 
         foreach ($favoritos as $fields) {
-            fputcsv($fp, $fields,";");
+            fputcsv($fp, $fields, ";");
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');

@@ -82,15 +82,14 @@ include('modalFavorito.phtml');
                 <?php } ?>
                 <div class="caption">
                     <a href="/produto/<?= $produto['id'] ?>">
-                        <img style="height: 20%;width:70%" src="/img/<?= $produto['produto_img_nome'] ?>">
+                        <img style="height: 35%;width:250px" src="/img/<?= $produto['produto_img_nome'] ?>">
                     </a>
                 </div>
                 <div class="caption">
-                    <h2 style="text-transform: capitalize;font-size:17pt" class="item-name">
+                    <h2 style="text-transform: capitalize;font-size:19pt" class="item-name">
                         <?= $produto['nome'] ?>
                     </h2>
                 </div>
-                <br>
                 <div class="caption">
                     <h5 style="opacity: 50%;" class="item-name text-left responsive-font-example ">
                         <?= $produto['descricao'] ?>

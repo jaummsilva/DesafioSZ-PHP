@@ -2,7 +2,6 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Miniframework</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 						<a href="/homeAdmin">
 							<img style="height:60px;width:60px" src="/img/download.png" alt="">
 						</a>
+						<a class="mt-3 ml-3" href="/sair">Sair</a>
 					</div>
 				</div>
 				<div class="d-flex header-admin">
@@ -48,7 +48,14 @@
 	<br>
 	<br>
 	<br>
+	<main>
 	<?= $this->content() ?>
+	</main>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<footer class="bg-light fixed-bottom" style="height:100px">
 		<hr style="background-color: black;">
 		<div class="container ">
