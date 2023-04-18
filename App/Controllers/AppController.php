@@ -200,48 +200,81 @@ class AppController extends Action
 		$this->render('produtoPesquisado');
 	}
 
-	function enviarPedidoSlack($slack_url, $pedidoSlack) {
-    // Cria a tabela no formato Markdown
-    $table = "*Detalhes do Pedido #" . $pedidoSlack[0]['pedido_id'] . "*\n\n";
-    $table .= ":money_with_wings: *Valor total do pedido:* R$" . $pedidoSlack[0]['valor_total_pedido'] . "\n\n";
-    $table .= "| *Produto* | *Quantidade* | *Preço* |\n";
-    $table .= "| :-- | --: | --: |\n";
-    foreach ($pedidoSlack as $linha) {
-        $table .= "| " . $linha['nome'] . " | " . $linha['quantidade_produto'] . " | R$" . $linha['preco_total_produto'] . " |\n";
-    }
-    // Cria a mensagem com a tabela
-    $message = "Olá! :wave:\n\n";
-    $message .= "Aqui estão os detalhes do seu pedido:\n\n";
-    $message .= $table;
-    $message .= "\nSe tiver alguma dúvida, fique à vontade para entrar em contato conosco. :blush:";
+	function enviarPedidoSlack($slack_url, $pedidoSlack)
+	{
+		$info = Container::getModel('Info');
+		$infos = $info->getInfo();
+		// Cria a tabela no formato Markdown
+		$table = "*Detalhes do Pedido #" . $pedidoSlack[0]['pedido_id'] . "*\n\n";
+		$table .= "*Usuario*: " . $pedidoSlack[0]['usuario_nome'] . " | " . "*Email:* ". $pedidoSlack[0]['email'].  "\n\n";
+		$table .= "| *Produto* | *Quantidade* | *Preço* |\n";
+		$table .= "| :-- | --: | --: |\n";
+		foreach ($pedidoSlack as $linha) {
+			$table .= "| " . $linha['nome'] . " | " . $linha['quantidade_produto'] . " | R$" . $linha['preco_total_produto'] . " |\n";
+		}
+		$table .= "\n";
+		$table .= "*Valor total do pedido:* R$" . $pedidoSlack[0]['valor_total_pedido'] . "\n\n";
+		// Cria a mensagem com a tabela
+		$message = "";
+		$message .= $table;
 
-    $data = array(
-        "text" => $message
-    );
-    $payload = json_encode($data);
-    $ch = curl_init($slack_url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt(
-        $ch,
-        CURLOPT_HTTPHEADER,
-        array(
-            "Content-Type: application/json",
-            "Content-Length: " . strlen($payload)
-        )
-    );
-    // Armazene a resposta da requisição em uma variável
-    $result = curl_exec($ch);
-    // Verifique se houve algum erro na requisição
-    if (curl_errno($ch)) {
-        echo 'Erro na requisição cURL: ' . curl_error($ch);
-    }
-    // Feche a conexão cURL
-    curl_close($ch);
-    // Retorne a resposta da requisição
-    return $result;
-}
+		$data = array(
+			"text" => $message
+		);
+		$payload = json_encode($data);
+		$ch = curl_init($slack_url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt(
+			$ch,
+			CURLOPT_HTTPHEADER,
+			array(
+				"Content-Type: application/json",
+				"Content-Length: " . strlen($payload)
+			)
+		);
+		// Armazene a resposta da requisição em uma variável
+		$result = curl_exec($ch);
+		// Verifique se houve algum erro na requisição
+		if (curl_errno($ch)) {
+			echo 'Erro na requisição cURL: ' . curl_error($ch);
+		}
+		// Feche a conexão cURL
+		curl_close($ch);
+		// Retorne a resposta da requisição
+
+		$url = $infos[0]['url'];
+		$data = array(
+			'number' => '5547984803109',
+			'text' => $message
+		);
+
+		$data_json = json_encode($data);
+		$headers = array(
+			'Content-Type : application/json',
+			'SecretKey: ' . $infos[0]['secret_key'],
+			'PublicToken: ' . $infos[0]['public_key'],
+			'DeviceToken: ' . $infos[0]['device_token'],
+			'Authorization: ' . $infos[0]['authorization']
+		);
+		// Inicializa a biblioteca cURL
+		$ch = curl_init();
+
+		// Define as opções da requisição
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		// Executa a requisição
+		$response = curl_exec($ch);
+
+		// Fecha a conexão cURL
+		curl_close($ch);
+		return $result;
+	}
 	public function criarPedido()
 	{
 		session_start();
@@ -249,6 +282,8 @@ class AppController extends Action
 		// Usuario
 		$usuario = Container::getModel('Usuario');
 		$usuario->__set('id', $_SESSION['id']);
+		$info = Container::getModel('Info');
+		$infos = $info->getInfo();
 		//Carrinho
 		$carrinho = Container::getModel('Carrinho');
 		$carrinho->__set('usuarioId', $_SESSION['id']);
@@ -288,11 +323,11 @@ class AppController extends Action
 			$carrinho->updateCarrinhoFinalizado();
 		}
 		/////////////////////// SLACK ////////////////////////
-		
+
 		$pedido->__set('id', $pedidoId[0]['id']);
 		$pedidoSlack = $pedido->getPedidoSlack();
-		$slack_url = "https://hooks.slack.com/services/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";
-		$this->enviarPedidoSlack($slack_url,$pedidoSlack);
+		$slack_url = $infos[0]['slack_url'];
+		$this->enviarPedidoSlack($slack_url, $pedidoSlack);
 		///////////////////////////
 		$this->renderPedidoFinalizado('pedidoFinalizado');
 	}
