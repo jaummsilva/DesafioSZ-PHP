@@ -49,7 +49,7 @@ class ProdutoRecomendado extends Model {
         return $valide;
     }
     public function getTodosProdutosRecomendados() {
-        $query = "select pr.id, pr.data_alteracao, pr.data_criacao, pr.numero_sequencia, pr.produto_id,pr.arquivo, pr.nome_imagem,pt.nome as produto_nome from produto_recomendado pr left join  produto as pt on
+        $query = "select pr.id, pr.data_alteracao, pr.data_criacao, pr.numero_sequencia, pr.produto_id,pr.arquivo, pr.nome_imagem,pt.nome as produto_nome, pt.preco as produto_preco from produto_recomendado pr left join  produto as pt on
         pr.produto_id = pt.id  order by numero_sequencia asc;";
         $smtm = $this->db->prepare($query);
         $smtm->execute();

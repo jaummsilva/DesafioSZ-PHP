@@ -25,7 +25,7 @@ include('modalFavorito.phtml');
 
 <br>
 <div class="d-flex text-center justify-content-center">
-    <h1 style="font-family:ippo, fantasy">Produtos Recomendados</h1>
+    <h1 style="font-family:ippo, fantasy">Recomendados para você</h1>
 </div>
 <div class="container mb-5 text-center">
     <div class="row text-center">
@@ -37,7 +37,7 @@ include('modalFavorito.phtml');
                             <a href="/produto/<?= $produtoRecomendado['produto_id'] ?>">
                                 <img height="200px" class="text-left" src="/img/<?= $produtoRecomendado['nome_imagem'] ?>">
                             </a>
-                            <h3><?= $produtoRecomendado['produto_nome'] ?></h3>
+                            <h3 style="font-style:italic">Por apenas R$ <?= (number_format($produtoRecomendado['produto_preco'], 2, ',', '')) ?></h3>
                         </div>
                     <?php } ?>
                 </div>
@@ -82,7 +82,7 @@ include('modalFavorito.phtml');
                 <?php } ?>
                 <div class="caption">
                     <a href="/produto/<?= $produto['id'] ?>">
-                        <img style="height: 35%;width:250px" src="/img/<?= $produto['produto_img_nome'] ?>">
+                        <img height="200px" src="/img/<?= $produto['produto_img_nome'] ?>">
                     </a>
                 </div>
                 <div class="caption">

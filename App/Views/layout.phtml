@@ -38,7 +38,7 @@ $contador = $this->view->getContador;
 				</div>
 				<div class="navbar-nav mr-auto d-flex flex-nowrap ml-5">
 					<form class="d-flex flex-nowrap mt-4" action="/pesquisarProdutos">
-						<input class="rounded text-dark border border-dark text-center border-top-0 border-left-0 border-right-0" style="width:350px;height:30px"  placeholder="Pesquise pelo nome ou descrição" type="text" name="pesquisa" id="pesquisar">
+						<input class="rounded text-dark border border-dark border-top-0 border-left-0 border-right-0" style="width:350px;height:30px"  placeholder="Pesquise aqui" type="text" name="pesquisa" id="pesquisar">
 					</form>
 				</div>
 				<?php if (isset($usuario['id'])) { ?>
@@ -67,7 +67,7 @@ $contador = $this->view->getContador;
 					<?php }
 					?>
 					<?php if (!isset($usuario['id'])) { ?>
-						<a style="font-size: 15pt;" href="/login">Entrar</a>
+						<a class="mr-3" style="font-size: 13pt;" href="/login">Entrar</a>
 					<?php }
 					?>
 				</div>
@@ -79,7 +79,7 @@ $contador = $this->view->getContador;
 	</main>
 	<br>
 	<br>
-	<footer class="bg-light fixed-bottom" style="height:120px">
+	<footer class="bg-light fixed-bottom footer" style="height:120px">
 		<hr style="background-color: black;">
 		<div class="container ">
 			<div class="row">

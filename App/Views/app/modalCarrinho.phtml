@@ -53,7 +53,7 @@ $total = $this->view->getTotalCarrinho;
                 </main>
                 <div class="fixed-bottom bg-light ">
                     <div class="d-flex justify-content-center flex-row">
-                        <h3 style="font-family: Stencil Std, fantasy" id="total">Total: R$ <?= $total['total_produto'] ?></h3>
+                        <h3 style="font-family: Stencil Std, fantasy" id="total">Total: R$ <?= (number_format($total['total_produto'], 2, ',', '')) ?></h3>
                         <form action="/criarPedido" method="post">
                             <input type="hidden" name="produtoId" value="">
                             <button onclick="mandarRequest()" style="height: 40px;" type="submit" class="btn btn-success btn-finalizar-carrinho mt-3 ml-4">Finalizar compra</button>

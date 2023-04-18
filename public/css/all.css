@@ -226,6 +226,18 @@
     font-family: "Trebuchet MS",Arial,sans-serif;
     font-size: 1.55rem;
 }
+.footer span {
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 1.35rem;
+}
+.footer-admin span {
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 1rem;
+}
 
 input[type=number]::-webkit-inner-spin-button { 
     -webkit-appearance: none;
