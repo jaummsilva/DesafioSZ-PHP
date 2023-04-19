@@ -81,7 +81,7 @@ function incrementQtdCarrinho(id) {
       quantityCarrinho: quantityCarrinho,
     },
     success: function (response) {
-      window.location.href = "/"
+      document.getElementById('total').innerHTML = "Total: R$" +  response.valorTotal;
     },
   });
 }
@@ -95,7 +95,6 @@ function decrementQtdCarrinho(id) {
     quantityCarrinho = quantityCarrinho + -1;
   }
 
-
   $.ajax({
     url: "/alterarQuantidadeCarrinho",
     type: "POST",
@@ -104,7 +103,7 @@ function decrementQtdCarrinho(id) {
       quantityCarrinho: quantityCarrinho,
     },
     success: function (response) {
-      window.location.href = "/"
+      document.getElementById('total').innerHTML = "Total:  R$" +  response.valorTotal;
     },
     error: function (e) {
       alert("Ocorreu um erro");
@@ -122,7 +121,10 @@ function adicionar(id) {
       qtd_Produto: qtdProduto,
     },
     success: function (response) {
-      window.location.href = "/";
+      $('#exampleModal').load(
+        "/modalCarrinho",undefined,() => {
+          $('#exampleModal').modal('show');
+        });
     },
     error: function (e) {
       alert("Ocorreu um erro");
@@ -148,7 +150,38 @@ function remover(id, idUsuario) {
   });
   $('.input-number').attr("onchange", `remover(${id, idUsuario})`)
 }
-
+function removerFavorito(id) {
+  $.ajax({
+    url: "/removerFavorito",
+    type: "POST",
+    data: {
+      idProduto : id
+    },
+    success: function (response) {
+      window.location.href = "/"
+    },
+    error: function (e) {
+      window.location.href = "/"
+      alert("Ocorreu um erro");
+    },
+  });
+}
+function adicionarFavorito(id) {
+  $.ajax({
+    url: "/adicionarFavorito",
+    type: "POST",
+    data: {
+      idProduto : id
+    },
+    success: function (response) {
+      window.location.href = "/"
+    },
+    error: function (e) {
+      window.location.href = "/"
+      alert("Ocorreu um erro");
+    },
+  });
+}
 
 function criarProdutoRecomendado() {
 
@@ -245,13 +278,25 @@ function criarProduto() {
   }
   // Verifica se pelo menos uma imagem foi selecionada
   if (img == undefined) {
-    alert('Selecione pelo menos uma imagem');
+    document.getElementById('al-produto-img').style.display = "flex"
     return;
   }
 
   // Verifica se a imagem principal é PNG ou JPG
   if (img != undefined && !(img.type == 'image/png' || img.type == 'image/jpeg')) {
-    document.getElementById('al-produto-img').style.display = "flex;"
+    document.getElementById('p-produto-img').style.display = "flex"
+    return;
+  }
+  if (img2 && !(img2.type == 'image/png' || img2.type == 'image/jpeg')) {
+    document.getElementById('p-produto-img-2').style.display = "flex"
+    return;
+  }
+  if (img3 && !(img3.type == 'image/png' || img3.type == 'image/jpeg')) {
+    document.getElementById('p-produto-img-3').style.display = "flex"
+    return;
+  }
+  if (img4 && !(img4.type == 'image/png' || img4.type == 'image/jpeg')) {
+    document.getElementById('p-produto-img-4').style.display = "flex"
     return;
   }
 
@@ -307,19 +352,19 @@ function editarProduto() {
     return;
   }
   if (img && !(img.type == 'image/png' || img.type == 'image/jpeg')) {
-    document.getElementById('al-produto-img').style.display = "flex;"
+    document.getElementById('p-produto-img').style.display = "flex"
     return;
   }
   if (img2 && !(img2.type == 'image/png' || img2.type == 'image/jpeg')) {
-    document.getElementById('al-produto-img').style.display = "flex;"
+    document.getElementById('p-produto-img-2').style.display = "flex"
     return;
   }
   if (img3 && !(img3.type == 'image/png' || img3.type == 'image/jpeg')) {
-    document.getElementById('al-produto-img').style.display = "flex;"
+    document.getElementById('p-produto-img-3').style.display = "flex"
     return;
   }
   if (img4 && !(img4.type == 'image/png' || img4.type == 'image/jpeg')) {
-    document.getElementById('al-produto-img').style.display = "flex;"
+    document.getElementById('p-produto-img-4').style.display = "flex"
     return;
   }
   $.ajax({

@@ -28,6 +28,16 @@ class Route extends Bootstrap {
 			'controller' => 'appController',
 			'action' => 'index'
 		);
+		$routes['modalFavorito'] = array(
+			'route' => '/modalFavorito',
+			'controller' => 'appController',
+			'action' => 'modalFavorito'
+		);
+		$routes['modalCarrinho'] = array(
+			'route' => '/modalCarrinho',
+			'controller' => 'appController',
+			'action' => 'modalCarrinho'
+		);
 		$routes['produto'] = array(
 			'route' => '/produto/{id}',
 			'controller' => 'appController',

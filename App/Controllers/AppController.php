@@ -7,7 +7,42 @@ use MF\Model\Container;
 
 class AppController extends Action
 {
-
+	
+	public function modalFavorito() {
+		session_start();
+		$carrinho = Container::getModel('Carrinho');
+		$usuario = Container::getModel('Usuario');
+		$favorito = Container::getModel('Favorito');
+		$usuario->__set('id', $_SESSION['id']);
+		$carrinho->__set('usuarioId', $_SESSION['id']);
+		$favorito->__set('usuarioId', $_SESSION['id']);
+		$this->view->getFavorito = $favorito->getFavoritoUsuario();
+		$this->view->getUsuario = $usuario->getUsuario();
+		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
+		$contador = count($this->view->getCarrinho);
+		$this->view->getContador = $contador;
+		$this->view->getTotalCarrinho = $carrinho->getPreçoTotalCarrinho();
+		$this->view->isModalController = true;
+		$this->render('modalFavorito');
+	}
+	public function modalCarrinho() {
+		session_start();
+		$carrinho = Container::getModel('Carrinho');
+		$usuario = Container::getModel('Usuario');
+		$favorito = Container::getModel('Favorito');
+		
+		$usuario->__set('id', $_SESSION['id']);
+		$carrinho->__set('usuarioId', $_SESSION['id']);
+		$favorito->__set('usuarioId', $_SESSION['id']);
+	
+		$this->view->getUsuario = $usuario->getUsuario();
+		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
+		$contador = count($this->view->getCarrinho);
+		$this->view->getContador = $contador;
+		$this->view->getTotalCarrinho = $carrinho->getPreçoTotalCarrinho();
+		$this->view->isModalController = true;
+		$this->render('modalCarrinho');
+	}
 	public function index()
 	{
 		session_start();
@@ -32,8 +67,8 @@ class AppController extends Action
 		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
 		$this->view->getTotalCarrinho = $carrinho->getPreçoTotalCarrinho();
 		$this->view->getUsuario = $usuario->getUsuario();
-		$this->view->getProdutos = $produto->getTodosProdutos();
 		$this->view->getFavorito = $favorito->getFavoritoUsuario();
+		$this->view->getProdutos = $produto->getTodosProdutos();
 		$this->view->getProdutosRecomendados = $produto_recomendado->getTodosProdutosRecomendados();
 
 		// Condiçoes
@@ -147,11 +182,15 @@ class AppController extends Action
 		$carrinhoId = Container::getModel('Carrinho');
 		$carrinhoId->__set('produtoId', $produto['id']);
 		$carrinhoId->__set('usuarioId', $_SESSION['id']);
-		$carrinhoId->getCarrinho();
 		$carrinhoId->__set('quantidade_Produto', $_REQUEST['quantityCarrinho']);
 		$carrinhoId->__set('data_alteracao', date('Y-m-d H:i:s'));
 		if ($carrinhoId->validarCarrinho()) {
 			$carrinhoId->updateQuantidadeCarrinho();
+			$carrinhoId->getCarrinho();
+			$this->view->getTotalCarrinho = $carrinhoId->getPreçoTotalCarrinho();
+			header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['valorTotal' => (number_format($this->view->getTotalCarrinho["total_produto"], 2, ',', ''))]);
+            return;
 		}
 	}
 	public function removerProdutoCarrinho()
@@ -338,7 +377,7 @@ class AppController extends Action
 		session_start();
 		$favorito = Container::getModel('Favorito');
 		$favorito->__set('usuarioId', $_SESSION['id']);
-		$favorito->__set('produtoId', $_POST['produtoId']);
+		$favorito->__set('produtoId', $_POST['idProduto']);
 		$favorito->inserirFavorito();
 		header('Location: /');
 	}
@@ -347,7 +386,7 @@ class AppController extends Action
 		session_start();
 		$favorito = Container::getModel('Favorito');
 		$favorito->__set('usuarioId', $_SESSION['id']);
-		$favorito->__set('produtoId', $_POST['produtoId']);
+		$favorito->__set('produtoId', $_POST['idProduto']);
 		$favorito->deleteFavorito();
 		header('Location: /');
 	}

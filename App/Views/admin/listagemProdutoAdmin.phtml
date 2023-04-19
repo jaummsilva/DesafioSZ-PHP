@@ -43,6 +43,7 @@ $erroImportacao =  $this->view->getErrosImportacao;
           let p = document.createElement('p');
           p.innerText = "Produto removido com sucesso";
           divSucesso.appendChild(p);
+          window.scrollTo(0, 0);
           setTimeout(() => {
             window.location.href = "/listagemProdutoAdmin"
           }, 1000)

@@ -22,6 +22,7 @@
           let p = document.createElement('p');
           p.innerText = "Usuario removido com sucesso";
           divSucesso.appendChild(p);
+          window.scrollTo(0, 0);
           setTimeout(() => {
             window.location.href = "/listagemUsuarioAdmin"
           }, 1000)

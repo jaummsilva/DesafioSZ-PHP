@@ -13,7 +13,7 @@ abstract class Action {
 	protected function render($view, $layout = 'layout') {
 		$this->view->page = $view;
 
-		if(file_exists("../App/Views/".$layout.".phtml")) {
+		if(!isset($this->view->isModalController) && file_exists("../App/Views/".$layout.".phtml")) {
 			require_once "../App/Views/".$layout.".phtml";
 		} else {
 			$this->content();

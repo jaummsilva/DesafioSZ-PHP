@@ -1,11 +1,15 @@
 <?php
 $favoritoUsuario = $this->view->getFavorito;
 ?>
+<?php if (!isset($this->view->isModalController)) { ?>
 <script src="/js/produto.js"></script>
+<?php } ?>
 
+<?php if (!isset($this->view->isModalController)) { ?>
 <div class="modal right fade" id="exampleModal3" role="dialog">
+<?php } ?>
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="overflow-x: hidden;">
             <div class="modal-header bg-light fixed-top">
                 <button type="button" class="btn btn-danger ml-auto btn-sm" data-dismiss="modal">Fechar</button>
             </div>
@@ -18,7 +22,7 @@ $favoritoUsuario = $this->view->getFavorito;
                                 <?php foreach ($favoritoUsuario as $favorito) { ?>
                                     <div class="col-sm-4 col-lg-4 col-md-4 text-center ml-5">
                                         <div class="caption text-center">
-                                            <img  class="img-fluid" src="/img/<?= $favorito['produto_img_nome'] ?>">
+                                            <img  style="height:150px" src="/img/<?= $favorito['produto_img_nome'] ?>">
                                         </div>
                                         <div class="caption text-center">
                                             <h3 style="text-transform: capitalize;font-family: Stencil Std, fantasy" class="item-name text-center  responsive-font-example">
@@ -26,15 +30,16 @@ $favoritoUsuario = $this->view->getFavorito;
                                             </h3>
                                         </div>
                                     </div>
+                                    <br>
                                 <?php } ?>
                         </div>
                     </div>
             </div>
         </div>
     </div>
-
+    <?php if (!isset($this->view->isModalController)) { ?>
 </div>
-
+<?php } ?>
 
 <style>
     .modal.right.fade.in .modal-dialog {
