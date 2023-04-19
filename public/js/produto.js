@@ -112,23 +112,21 @@ function decrementQtdCarrinho(id) {
 }
 function adicionar(id) {
   let qtdProduto = parseInt($(`#quantity-${id}`).val());
-
   $.ajax({
     url: "/inserirProdutoCarrinho",
     type: "POST",
+    dataType: 'json',
     data: {
       idProduto: id,
       qtd_Produto: qtdProduto,
     },
     success: function (response) {
+      document.getElementById('numeroContador').innerHTML = response.contador;
       $('#exampleModal').load(
         "/modalCarrinho",undefined,() => {
           $('#exampleModal').modal('show');
         });
-    },
-    error: function (e) {
-      alert("Ocorreu um erro");
-    },
+      },
   });
 }
 

@@ -7,8 +7,9 @@ use MF\Model\Container;
 
 class AppController extends Action
 {
-	
-	public function modalFavorito() {
+
+	public function modalFavorito()
+	{
 		session_start();
 		$carrinho = Container::getModel('Carrinho');
 		$usuario = Container::getModel('Usuario');
@@ -25,16 +26,17 @@ class AppController extends Action
 		$this->view->isModalController = true;
 		$this->render('modalFavorito');
 	}
-	public function modalCarrinho() {
+	public function modalCarrinho()
+	{
 		session_start();
 		$carrinho = Container::getModel('Carrinho');
 		$usuario = Container::getModel('Usuario');
 		$favorito = Container::getModel('Favorito');
-		
+
 		$usuario->__set('id', $_SESSION['id']);
 		$carrinho->__set('usuarioId', $_SESSION['id']);
 		$favorito->__set('usuarioId', $_SESSION['id']);
-	
+
 		$this->view->getUsuario = $usuario->getUsuario();
 		$this->view->getCarrinho = $carrinho->getCarrinhoUsuario();
 		$contador = count($this->view->getCarrinho);
@@ -136,31 +138,42 @@ class AppController extends Action
 		$usuario->getUsuario();
 
 		$produtoId = Container::getModel('Produto');
-		$produtoId->__set('id', $_REQUEST['idProduto']);
+		$produtoId->__set('id', $_POST['idProduto']);
 		$produto =  $produtoId->getProduto();
 
 		$carrinhoId = Container::getModel('Carrinho');
 		$carrinhoId->__set('produtoId', $produto['id']);
 		$carrinhoId->__set('usuarioId', $_SESSION['id']);
 		$carrinho = $carrinhoId->getCarrinho();
-
-
 		// Se carrinho do usuario não existir - criação do carrinho
 		if (empty($carrinho)) {
 			$carrinho = Container::getModel('Carrinho');
 			$carrinho->__set('preco', $produto['preco']);
-			$carrinho->__set('quantidade_Produto', $_REQUEST['qtd_Produto']);
+			$carrinho->__set('quantidade_Produto', $_POST['qtd_Produto']);
 			$carrinho->__set('produtoId', $produto['id']);
 			$carrinho->__set('usuarioId', $_SESSION['id']);
 			if ($carrinho->validarCarrinho()) {
 				$carrinho->inserirCarrinho();
-			}
+				$carrinho = $carrinhoId->getCarrinho();
+				$this->view->getCarrinho = $carrinhoId->getCarrinhoUsuario();
+				$contador = count($this->view->getCarrinho);
+				$this->view->getContador = $contador;
+				header('Content-Type: application/json');
+				echo json_encode(['contador' => $this->view->getContador]);
+				return;
+				}
 		}
 		// se carrinho existir , update nele 
 		else {
-			$carrinhoId->__set('quantidade_Produto', $_REQUEST['qtd_Produto']);
+			$carrinhoId->__set('quantidade_Produto', $_POST['qtd_Produto']);
 			$carrinhoId->__set('data_alteracao', date('Y-m-d H:i:s'));
 			$carrinhoId->updateCarrinho();
+			$this->view->getCarrinho = $carrinhoId->getCarrinhoUsuario();
+			$contador = count($this->view->getCarrinho);
+			$this->view->getContador = $contador;
+			header('Content-Type: application/json');
+			echo json_encode(['contador' => $this->view->getContador]);
+			return;
 		}
 	}
 	public function  alterarQuantidadeCarrinho()
@@ -188,9 +201,12 @@ class AppController extends Action
 			$carrinhoId->updateQuantidadeCarrinho();
 			$carrinhoId->getCarrinho();
 			$this->view->getTotalCarrinho = $carrinhoId->getPreçoTotalCarrinho();
+			$this->view->getCarrinho = $carrinhoId->getCarrinhoUsuario();
+			$contador = count($this->view->getCarrinho);
+			$this->view->getContador = $contador;
 			header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(['valorTotal' => (number_format($this->view->getTotalCarrinho["total_produto"], 2, ',', ''))]);
-            return;
+			json_encode(['valorTotal' => (number_format($this->view->getTotalCarrinho["total_produto"], 2, ',', '')), 'contador' => $this->view->getContador]);
+			return;
 		}
 	}
 	public function removerProdutoCarrinho()
@@ -245,7 +261,7 @@ class AppController extends Action
 		$infos = $info->getInfo();
 		// Cria a tabela no formato Markdown
 		$table = "*Detalhes do Pedido #" . $pedidoSlack[0]['pedido_id'] . "*\n\n";
-		$table .= "*Usuario*: " . $pedidoSlack[0]['usuario_nome'] . " | " . "*Email:* ". $pedidoSlack[0]['email'].  "\n\n";
+		$table .= "*Usuario*: " . $pedidoSlack[0]['usuario_nome'] . " | " . "*Email:* " . $pedidoSlack[0]['email'] .  "\n\n";
 		$table .= "| *Produto* | *Quantidade* | *Preço* |\n";
 		$table .= "| :-- | --: | --: |\n";
 		foreach ($pedidoSlack as $linha) {
